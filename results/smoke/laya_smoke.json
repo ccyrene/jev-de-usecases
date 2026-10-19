@@ -1,0 +1,1396 @@
+{
+  "provider": "laya",
+  "device": "cuda",
+  "gpu": "NVIDIA GeForce RTX 3060 Laptop GPU",
+  "peak_gpu_allocated_mb": 3590.3173828125,
+  "host_rss_mb": 1550.50390625,
+  "versions": {
+    "laya": "0.4.11",
+    "torch": "2.14.1+cu130"
+  },
+  "warmup": {
+    "laya_routed": {
+      "load_ms": 93198.97213500008,
+      "cold": true,
+      "warmup_ms": 4419.226091999008,
+      "calls": 4
+    },
+    "laya_en_fixed": {
+      "load_ms": 0.0,
+      "cold": false,
+      "warmup_ms": 220.58501399988018,
+      "calls": 4
+    },
+    "laya_multi_fixed": {
+      "load_ms": 0.0,
+      "cold": false,
+      "warmup_ms": 165.2738450011384,
+      "calls": 4
+    }
+  },
+  "results": [
+    {
+      "scenario_id": "smoke_canonical",
+      "language": "en",
+      "track": "laya_routed",
+      "error": null,
+      "resolved_model": "laya:english@7b928d828b7b",
+      "wall_ms": 85.122,
+      "load_ms": 0.0,
+      "cold": false,
+      "routing": {
+        "model": "english",
+        "repo": "convaiinnovations/laya",
+        "reason": "English Latin text",
+        "detection": {
+          "script": "latin",
+          "script_profile": {
+            "latin": 1.0
+          },
+          "language": "en",
+          "is_english": true,
+          "language_undecided": false,
+          "diacritic_rate": 0.0,
+          "non_latin_fraction": 0.0,
+          "mixed_segment": null
+        },
+        "workflow": null
+      },
+      "truncated": false,
+      "state_tokens": 60,
+      "state_tokens_dropped": 0,
+      "truncated_questions": [],
+      "max_len": 512,
+      "head_max_len": 192,
+      "normalized": [
+        {
+          "question_id": "failure_family",
+          "primitive": "choice",
+          "valid": true,
+          "predicted_label": "data_error",
+          "max_probability": 0.6451,
+          "normalized_entropy": 0.5154827362273485,
+          "confidence_vendor": 0.4845,
+          "api_choice_matches_argmax": true,
+          "distribution": {
+            "schema_mismatch": 0.2668,
+            "connectivity": 0.0064,
+            "authentication": 0.0064,
+            "data_error": 0.6451,
+            "resource_exhaustion": 0.0097,
+            "other_unknown": 0.0656
+          }
+        },
+        {
+          "question_id": "severity",
+          "primitive": "score",
+          "valid": true,
+          "predicted_level": 1,
+          "score_value": 0.7370000000000001,
+          "max_probability": 0.4348,
+          "normalized_entropy": 0.7522459594490112,
+          "confidence_vendor": 0.2477,
+          "distribution": {
+            "0": 0.4188,
+            "1": 0.4348,
+            "2": 0.137,
+            "3": 0.0094
+          }
+        },
+        {
+          "question_id": "requires_human",
+          "primitive": "noul",
+          "valid": true,
+          "noul_probability": 0.1252,
+          "max_probability": 0.8748,
+          "normalized_entropy": 0.5441256504974136,
+          "confidence_vendor": 0.8748,
+          "distribution": {
+            "false": 0.8748,
+            "true": 0.1252
+          }
+        }
+      ]
+    },
+    {
+      "scenario_id": "smoke_e01",
+      "language": "en",
+      "track": "laya_routed",
+      "error": null,
+      "resolved_model": "laya:multilingual@7b928d828b7b",
+      "wall_ms": 43.802,
+      "load_ms": 0.0,
+      "cold": false,
+      "routing": {
+        "model": "multilingual",
+        "repo": "convaiinnovations/laya/multilingual",
+        "reason": "Latin script, language not identified and no non-English letters; using default (multilingual)",
+        "detection": {
+          "script": "latin",
+          "script_profile": {
+            "latin": 1.0
+          },
+          "language": null,
+          "is_english": true,
+          "language_undecided": true,
+          "diacritic_rate": 0.0,
+          "non_latin_fraction": 0.0,
+          "mixed_segment": null
+        },
+        "workflow": null
+      },
+      "truncated": false,
+      "state_tokens": 9,
+      "state_tokens_dropped": 0,
+      "truncated_questions": [],
+      "max_len": 1024,
+      "head_max_len": 256,
+      "normalized": [
+        {
+          "question_id": "failure_family",
+          "primitive": "choice",
+          "valid": true,
+          "predicted_label": "connectivity",
+          "max_probability": 0.5659,
+          "normalized_entropy": 0.7283663884433939,
+          "confidence_vendor": 0.2717,
+          "api_choice_matches_argmax": true,
+          "distribution": {
+            "schema_mismatch": 0.1511,
+            "connectivity": 0.5659,
+            "authentication": 0.0208,
+            "data_error": 0.1398,
+            "resource_exhaustion": 0.065,
+            "other_unknown": 0.0574
+          }
+        },
+        {
+          "question_id": "severity",
+          "primitive": "score",
+          "valid": true,
+          "predicted_level": 1,
+          "score_value": 1.781121887811219,
+          "max_probability": 0.43215678432156784,
+          "normalized_entropy": 0.8043187069392447,
+          "confidence_vendor": 0.1957,
+          "distribution": {
+            "0": 0.0103989601039896,
+            "1": 0.43215678432156784,
+            "2": 0.32336766323367666,
+            "3": 0.23407659234076592
+          }
+        },
+        {
+          "question_id": "requires_human",
+          "primitive": "noul",
+          "valid": true,
+          "noul_probability": 0.3684,
+          "max_probability": 0.6315999999999999,
+          "normalized_entropy": 0.9494356433280758,
+          "confidence_vendor": 0.6316,
+          "distribution": {
+            "false": 0.6315999999999999,
+            "true": 0.3684
+          }
+        }
+      ]
+    },
+    {
+      "scenario_id": "smoke_e02",
+      "language": "en",
+      "track": "laya_routed",
+      "error": null,
+      "resolved_model": "laya:english@7b928d828b7b",
+      "wall_ms": 46.328,
+      "load_ms": 0.0,
+      "cold": false,
+      "routing": {
+        "model": "english",
+        "repo": "convaiinnovations/laya",
+        "reason": "English Latin text",
+        "detection": {
+          "script": "latin",
+          "script_profile": {
+            "latin": 1.0
+          },
+          "language": "en",
+          "is_english": true,
+          "language_undecided": false,
+          "diacritic_rate": 0.0,
+          "non_latin_fraction": 0.0,
+          "mixed_segment": null
+        },
+        "workflow": null
+      },
+      "truncated": false,
+      "state_tokens": 12,
+      "state_tokens_dropped": 0,
+      "truncated_questions": [],
+      "max_len": 512,
+      "head_max_len": 192,
+      "normalized": [
+        {
+          "question_id": "failure_family",
+          "primitive": "choice",
+          "valid": true,
+          "predicted_label": "other_unknown",
+          "max_probability": 0.41855814418558146,
+          "normalized_entropy": 0.7569526451977536,
+          "confidence_vendor": 0.2431,
+          "api_choice_matches_argmax": true,
+          "distribution": {
+            "schema_mismatch": 0.18648135186481352,
+            "connectivity": 0.022897710228977103,
+            "authentication": 0.015498450154984501,
+            "data_error": 0.29767023297670236,
+            "resource_exhaustion": 0.05889411058894111,
+            "other_unknown": 0.41855814418558146
+          }
+        },
+        {
+          "question_id": "severity",
+          "primitive": "score",
+          "valid": true,
+          "predicted_level": 0,
+          "score_value": 0.526047395260474,
+          "max_probability": 0.5031496850314968,
+          "normalized_entropy": 0.5786497431949386,
+          "confidence_vendor": 0.4216,
+          "distribution": {
+            "0": 0.5031496850314968,
+            "1": 0.47265273472652736,
+            "2": 0.019198080191980802,
+            "3": 0.004999500049995001
+          }
+        },
+        {
+          "question_id": "requires_human",
+          "primitive": "noul",
+          "valid": true,
+          "noul_probability": 0.1257,
+          "max_probability": 0.8743,
+          "normalized_entropy": 0.5455263651639912,
+          "confidence_vendor": 0.8743,
+          "distribution": {
+            "false": 0.8743,
+            "true": 0.1257
+          }
+        }
+      ]
+    },
+    {
+      "scenario_id": "smoke_canonical",
+      "language": "th",
+      "track": "laya_routed",
+      "error": null,
+      "resolved_model": "laya:multilingual@7b928d828b7b",
+      "wall_ms": 40.621,
+      "load_ms": 0.0,
+      "cold": false,
+      "routing": {
+        "model": "multilingual",
+        "repo": "convaiinnovations/laya/multilingual",
+        "reason": "non-Latin script (thai, 26% of letters); the English checkpoint cannot read it",
+        "detection": {
+          "script": "thai",
+          "script_profile": {
+            "latin": 0.744,
+            "thai": 0.256
+          },
+          "language": null,
+          "is_english": false,
+          "language_undecided": true,
+          "diacritic_rate": 0.0,
+          "non_latin_fraction": 0.256,
+          "mixed_segment": null
+        },
+        "workflow": null
+      },
+      "truncated": false,
+      "state_tokens": 62,
+      "state_tokens_dropped": 0,
+      "truncated_questions": [],
+      "max_len": 1024,
+      "head_max_len": 256,
+      "normalized": [
+        {
+          "question_id": "failure_family",
+          "primitive": "choice",
+          "valid": true,
+          "predicted_label": "connectivity",
+          "max_probability": 0.6353,
+          "normalized_entropy": 0.6809155196035029,
+          "confidence_vendor": 0.3191,
+          "api_choice_matches_argmax": true,
+          "distribution": {
+            "schema_mismatch": 0.0517,
+            "connectivity": 0.6353,
+            "authentication": 0.0827,
+            "data_error": 0.0596,
+            "resource_exhaustion": 0.0494,
+            "other_unknown": 0.1213
+          }
+        },
+        {
+          "question_id": "severity",
+          "primitive": "score",
+          "valid": true,
+          "predicted_level": 1,
+          "score_value": 1.4424442444244425,
+          "max_probability": 0.5953595359535954,
+          "normalized_entropy": 0.7175347948384676,
+          "confidence_vendor": 0.2824,
+          "distribution": {
+            "0": 0.0295029502950295,
+            "1": 0.5953595359535954,
+            "2": 0.27832783278327833,
+            "3": 0.0968096809680968
+          }
+        },
+        {
+          "question_id": "requires_human",
+          "primitive": "noul",
+          "valid": true,
+          "noul_probability": 0.587,
+          "max_probability": 0.587,
+          "normalized_entropy": 0.9780489236102556,
+          "confidence_vendor": 0.587,
+          "distribution": {
+            "false": 0.41300000000000003,
+            "true": 0.587
+          }
+        }
+      ]
+    },
+    {
+      "scenario_id": "smoke_e01",
+      "language": "th",
+      "track": "laya_routed",
+      "error": null,
+      "resolved_model": "laya:multilingual@7b928d828b7b",
+      "wall_ms": 37.821,
+      "load_ms": 0.0,
+      "cold": false,
+      "routing": {
+        "model": "multilingual",
+        "repo": "convaiinnovations/laya/multilingual",
+        "reason": "non-Latin script (thai, 100% of letters); the English checkpoint cannot read it",
+        "detection": {
+          "script": "thai",
+          "script_profile": {
+            "thai": 1.0
+          },
+          "language": null,
+          "is_english": false,
+          "language_undecided": true,
+          "diacritic_rate": 0.0,
+          "non_latin_fraction": 1.0,
+          "mixed_segment": null
+        },
+        "workflow": null
+      },
+      "truncated": false,
+      "state_tokens": 23,
+      "state_tokens_dropped": 0,
+      "truncated_questions": [],
+      "max_len": 1024,
+      "head_max_len": 256,
+      "normalized": [
+        {
+          "question_id": "failure_family",
+          "primitive": "choice",
+          "valid": true,
+          "predicted_label": "schema_mismatch",
+          "max_probability": 0.8497300539892022,
+          "normalized_entropy": 0.34540752812690734,
+          "confidence_vendor": 0.6549,
+          "api_choice_matches_argmax": true,
+          "distribution": {
+            "schema_mismatch": 0.8497300539892022,
+            "connectivity": 0.07458508298340331,
+            "authentication": 0.010597880423915218,
+            "data_error": 0.012797440511897622,
+            "resource_exhaustion": 0.012397520495900819,
+            "other_unknown": 0.039892021595680865
+          }
+        },
+        {
+          "question_id": "severity",
+          "primitive": "score",
+          "valid": true,
+          "predicted_level": 2,
+          "score_value": 2.2696,
+          "max_probability": 0.4832,
+          "normalized_entropy": 0.736824884593782,
+          "confidence_vendor": 0.2632,
+          "distribution": {
+            "0": 0.0266,
+            "1": 0.0837,
+            "2": 0.4832,
+            "3": 0.4065
+          }
+        },
+        {
+          "question_id": "requires_human",
+          "primitive": "noul",
+          "valid": true,
+          "noul_probability": 0.7134,
+          "max_probability": 0.7134,
+          "normalized_entropy": 0.8642886480208948,
+          "confidence_vendor": 0.7134,
+          "distribution": {
+            "false": 0.28659999999999997,
+            "true": 0.7134
+          }
+        }
+      ]
+    },
+    {
+      "scenario_id": "smoke_e02",
+      "language": "th",
+      "track": "laya_routed",
+      "error": null,
+      "resolved_model": "laya:multilingual@7b928d828b7b",
+      "wall_ms": 35.635,
+      "load_ms": 0.0,
+      "cold": false,
+      "routing": {
+        "model": "multilingual",
+        "repo": "convaiinnovations/laya/multilingual",
+        "reason": "non-Latin script (thai, 100% of letters); the English checkpoint cannot read it",
+        "detection": {
+          "script": "thai",
+          "script_profile": {
+            "thai": 1.0
+          },
+          "language": null,
+          "is_english": false,
+          "language_undecided": true,
+          "diacritic_rate": 0.0,
+          "non_latin_fraction": 1.0,
+          "mixed_segment": null
+        },
+        "workflow": null
+      },
+      "truncated": false,
+      "state_tokens": 20,
+      "state_tokens_dropped": 0,
+      "truncated_questions": [],
+      "max_len": 1024,
+      "head_max_len": 256,
+      "normalized": [
+        {
+          "question_id": "failure_family",
+          "primitive": "choice",
+          "valid": true,
+          "predicted_label": "connectivity",
+          "max_probability": 0.9399,
+          "normalized_entropy": 0.17369374671284837,
+          "confidence_vendor": 0.8264,
+          "api_choice_matches_argmax": true,
+          "distribution": {
+            "schema_mismatch": 0.0084,
+            "connectivity": 0.9399,
+            "authentication": 0.0052,
+            "data_error": 0.0045,
+            "resource_exhaustion": 0.0162,
+            "other_unknown": 0.0258
+          }
+        },
+        {
+          "question_id": "severity",
+          "primitive": "score",
+          "valid": true,
+          "predicted_level": 3,
+          "score_value": 2.4511999999999996,
+          "max_probability": 0.6202,
+          "normalized_entropy": 0.7114700836977256,
+          "confidence_vendor": 0.2885,
+          "distribution": {
+            "0": 0.0427,
+            "1": 0.0836,
+            "2": 0.2535,
+            "3": 0.6202
+          }
+        },
+        {
+          "question_id": "requires_human",
+          "primitive": "noul",
+          "valid": true,
+          "noul_probability": 0.3992,
+          "max_probability": 0.6008,
+          "normalized_entropy": 0.9704807004322407,
+          "confidence_vendor": 0.6008,
+          "distribution": {
+            "false": 0.6008,
+            "true": 0.3992
+          }
+        }
+      ]
+    },
+    {
+      "scenario_id": "smoke_canonical",
+      "language": "en",
+      "track": "laya_en_fixed",
+      "error": null,
+      "resolved_model": "laya:english@7b928d828b7b",
+      "wall_ms": 54.088,
+      "load_ms": 0.0,
+      "cold": false,
+      "routing": {
+        "model": "english",
+        "repo": "convaiinnovations/laya",
+        "reason": "explicit model='english'",
+        "detection": null,
+        "workflow": null
+      },
+      "truncated": false,
+      "state_tokens": 60,
+      "state_tokens_dropped": 0,
+      "truncated_questions": [],
+      "max_len": 512,
+      "head_max_len": 192,
+      "normalized": [
+        {
+          "question_id": "failure_family",
+          "primitive": "choice",
+          "valid": true,
+          "predicted_label": "data_error",
+          "max_probability": 0.6451,
+          "normalized_entropy": 0.5154827362273485,
+          "confidence_vendor": 0.4845,
+          "api_choice_matches_argmax": true,
+          "distribution": {
+            "schema_mismatch": 0.2668,
+            "connectivity": 0.0064,
+            "authentication": 0.0064,
+            "data_error": 0.6451,
+            "resource_exhaustion": 0.0097,
+            "other_unknown": 0.0656
+          }
+        },
+        {
+          "question_id": "severity",
+          "primitive": "score",
+          "valid": true,
+          "predicted_level": 1,
+          "score_value": 0.7370000000000001,
+          "max_probability": 0.4348,
+          "normalized_entropy": 0.7522459594490112,
+          "confidence_vendor": 0.2477,
+          "distribution": {
+            "0": 0.4188,
+            "1": 0.4348,
+            "2": 0.137,
+            "3": 0.0094
+          }
+        },
+        {
+          "question_id": "requires_human",
+          "primitive": "noul",
+          "valid": true,
+          "noul_probability": 0.1252,
+          "max_probability": 0.8748,
+          "normalized_entropy": 0.5441256504974136,
+          "confidence_vendor": 0.8748,
+          "distribution": {
+            "false": 0.8748,
+            "true": 0.1252
+          }
+        }
+      ]
+    },
+    {
+      "scenario_id": "smoke_e01",
+      "language": "en",
+      "track": "laya_en_fixed",
+      "error": null,
+      "resolved_model": "laya:english@7b928d828b7b",
+      "wall_ms": 53.328,
+      "load_ms": 0.0,
+      "cold": false,
+      "routing": {
+        "model": "english",
+        "repo": "convaiinnovations/laya",
+        "reason": "explicit model='english'",
+        "detection": null,
+        "workflow": null
+      },
+      "truncated": false,
+      "state_tokens": 9,
+      "state_tokens_dropped": 0,
+      "truncated_questions": [],
+      "max_len": 512,
+      "head_max_len": 192,
+      "normalized": [
+        {
+          "question_id": "failure_family",
+          "primitive": "choice",
+          "valid": true,
+          "predicted_label": "schema_mismatch",
+          "max_probability": 0.35923592359235923,
+          "normalized_entropy": 0.7658905705058972,
+          "confidence_vendor": 0.234,
+          "api_choice_matches_argmax": true,
+          "distribution": {
+            "schema_mismatch": 0.35923592359235923,
+            "connectivity": 0.032503250325032505,
+            "authentication": 0.0133013301330133,
+            "data_error": 0.2915291529152915,
+            "resource_exhaustion": 0.038003800380038005,
+            "other_unknown": 0.26542654265426546
+          }
+        },
+        {
+          "question_id": "severity",
+          "primitive": "score",
+          "valid": true,
+          "predicted_level": 2,
+          "score_value": 1.405,
+          "max_probability": 0.4547,
+          "normalized_entropy": 0.7200915396087744,
+          "confidence_vendor": 0.28,
+          "distribution": {
+            "0": 0.0845,
+            "1": 0.4434,
+            "2": 0.4547,
+            "3": 0.0174
+          }
+        },
+        {
+          "question_id": "requires_human",
+          "primitive": "noul",
+          "valid": true,
+          "noul_probability": 0.0984,
+          "max_probability": 0.9016,
+          "normalized_entropy": 0.4639030971887938,
+          "confidence_vendor": 0.9016,
+          "distribution": {
+            "false": 0.9016,
+            "true": 0.0984
+          }
+        }
+      ]
+    },
+    {
+      "scenario_id": "smoke_e02",
+      "language": "en",
+      "track": "laya_en_fixed",
+      "error": null,
+      "resolved_model": "laya:english@7b928d828b7b",
+      "wall_ms": 47.954,
+      "load_ms": 0.0,
+      "cold": false,
+      "routing": {
+        "model": "english",
+        "repo": "convaiinnovations/laya",
+        "reason": "explicit model='english'",
+        "detection": null,
+        "workflow": null
+      },
+      "truncated": false,
+      "state_tokens": 12,
+      "state_tokens_dropped": 0,
+      "truncated_questions": [],
+      "max_len": 512,
+      "head_max_len": 192,
+      "normalized": [
+        {
+          "question_id": "failure_family",
+          "primitive": "choice",
+          "valid": true,
+          "predicted_label": "other_unknown",
+          "max_probability": 0.41855814418558146,
+          "normalized_entropy": 0.7569526451977536,
+          "confidence_vendor": 0.2431,
+          "api_choice_matches_argmax": true,
+          "distribution": {
+            "schema_mismatch": 0.18648135186481352,
+            "connectivity": 0.022897710228977103,
+            "authentication": 0.015498450154984501,
+            "data_error": 0.29767023297670236,
+            "resource_exhaustion": 0.05889411058894111,
+            "other_unknown": 0.41855814418558146
+          }
+        },
+        {
+          "question_id": "severity",
+          "primitive": "score",
+          "valid": true,
+          "predicted_level": 0,
+          "score_value": 0.526047395260474,
+          "max_probability": 0.5031496850314968,
+          "normalized_entropy": 0.5786497431949386,
+          "confidence_vendor": 0.4216,
+          "distribution": {
+            "0": 0.5031496850314968,
+            "1": 0.47265273472652736,
+            "2": 0.019198080191980802,
+            "3": 0.004999500049995001
+          }
+        },
+        {
+          "question_id": "requires_human",
+          "primitive": "noul",
+          "valid": true,
+          "noul_probability": 0.1257,
+          "max_probability": 0.8743,
+          "normalized_entropy": 0.5455263651639912,
+          "confidence_vendor": 0.8743,
+          "distribution": {
+            "false": 0.8743,
+            "true": 0.1257
+          }
+        }
+      ]
+    },
+    {
+      "scenario_id": "smoke_canonical",
+      "language": "th",
+      "track": "laya_en_fixed",
+      "error": null,
+      "resolved_model": "laya:english@7b928d828b7b",
+      "wall_ms": 87.893,
+      "load_ms": 0.0,
+      "cold": false,
+      "routing": {
+        "model": "english",
+        "repo": "convaiinnovations/laya",
+        "reason": "explicit model='english'",
+        "detection": null,
+        "workflow": null
+      },
+      "truncated": false,
+      "state_tokens": 96,
+      "state_tokens_dropped": 0,
+      "truncated_questions": [],
+      "max_len": 512,
+      "head_max_len": 192,
+      "normalized": [
+        {
+          "question_id": "failure_family",
+          "primitive": "choice",
+          "valid": true,
+          "predicted_label": "data_error",
+          "max_probability": 0.48674867486748674,
+          "normalized_entropy": 0.7726526102682685,
+          "confidence_vendor": 0.2273,
+          "api_choice_matches_argmax": true,
+          "distribution": {
+            "schema_mismatch": 0.2636263626362636,
+            "connectivity": 0.08710871087108711,
+            "authentication": 0.037803780378037805,
+            "data_error": 0.48674867486748674,
+            "resource_exhaustion": 0.061606160616061605,
+            "other_unknown": 0.0631063106310631
+          }
+        },
+        {
+          "question_id": "severity",
+          "primitive": "score",
+          "valid": true,
+          "predicted_level": 1,
+          "score_value": 1.4177,
+          "max_probability": 0.381,
+          "normalized_entropy": 0.9504268300288191,
+          "confidence_vendor": 0.0496,
+          "distribution": {
+            "0": 0.1757,
+            "1": 0.381,
+            "2": 0.2932,
+            "3": 0.1501
+          }
+        },
+        {
+          "question_id": "requires_human",
+          "primitive": "noul",
+          "valid": true,
+          "noul_probability": 0.1362,
+          "max_probability": 0.8638,
+          "normalized_entropy": 0.5741997758595797,
+          "confidence_vendor": 0.8638,
+          "distribution": {
+            "false": 0.8638,
+            "true": 0.1362
+          }
+        }
+      ]
+    },
+    {
+      "scenario_id": "smoke_e01",
+      "language": "th",
+      "track": "laya_en_fixed",
+      "error": null,
+      "resolved_model": "laya:english@7b928d828b7b",
+      "wall_ms": 82.551,
+      "load_ms": 0.0,
+      "cold": false,
+      "routing": {
+        "model": "english",
+        "repo": "convaiinnovations/laya",
+        "reason": "explicit model='english'",
+        "detection": null,
+        "workflow": null
+      },
+      "truncated": false,
+      "state_tokens": 69,
+      "state_tokens_dropped": 0,
+      "truncated_questions": [],
+      "max_len": 512,
+      "head_max_len": 192,
+      "normalized": [
+        {
+          "question_id": "failure_family",
+          "primitive": "choice",
+          "valid": true,
+          "predicted_label": "schema_mismatch",
+          "max_probability": 0.2095,
+          "normalized_entropy": 0.9853958664377686,
+          "confidence_vendor": 0.0146,
+          "api_choice_matches_argmax": true,
+          "distribution": {
+            "schema_mismatch": 0.2095,
+            "connectivity": 0.1885,
+            "authentication": 0.1371,
+            "data_error": 0.2003,
+            "resource_exhaustion": 0.1606,
+            "other_unknown": 0.104
+          }
+        },
+        {
+          "question_id": "severity",
+          "primitive": "score",
+          "valid": true,
+          "predicted_level": 1,
+          "score_value": 1.2031,
+          "max_probability": 0.3815,
+          "normalized_entropy": 0.9199738584995917,
+          "confidence_vendor": 0.08,
+          "distribution": {
+            "0": 0.248,
+            "1": 0.3815,
+            "2": 0.2899,
+            "3": 0.0806
+          }
+        },
+        {
+          "question_id": "requires_human",
+          "primitive": "noul",
+          "valid": true,
+          "noul_probability": 0.4504,
+          "max_probability": 0.5496,
+          "normalized_entropy": 0.9928897903340862,
+          "confidence_vendor": 0.5496,
+          "distribution": {
+            "false": 0.5496,
+            "true": 0.4504
+          }
+        }
+      ]
+    },
+    {
+      "scenario_id": "smoke_e02",
+      "language": "th",
+      "track": "laya_en_fixed",
+      "error": null,
+      "resolved_model": "laya:english@7b928d828b7b",
+      "wall_ms": 77.561,
+      "load_ms": 0.0,
+      "cold": false,
+      "routing": {
+        "model": "english",
+        "repo": "convaiinnovations/laya",
+        "reason": "explicit model='english'",
+        "detection": null,
+        "workflow": null
+      },
+      "truncated": false,
+      "state_tokens": 56,
+      "state_tokens_dropped": 0,
+      "truncated_questions": [],
+      "max_len": 512,
+      "head_max_len": 192,
+      "normalized": [
+        {
+          "question_id": "failure_family",
+          "primitive": "choice",
+          "valid": true,
+          "predicted_label": "schema_mismatch",
+          "max_probability": 0.2338766123387661,
+          "normalized_entropy": 0.9727116394263147,
+          "confidence_vendor": 0.0273,
+          "api_choice_matches_argmax": true,
+          "distribution": {
+            "schema_mismatch": 0.2338766123387661,
+            "connectivity": 0.15458454154584542,
+            "authentication": 0.1923807619238076,
+            "data_error": 0.1882811718828117,
+            "resource_exhaustion": 0.15728427157284272,
+            "other_unknown": 0.0735926407359264
+          }
+        },
+        {
+          "question_id": "severity",
+          "primitive": "score",
+          "valid": true,
+          "predicted_level": 1,
+          "score_value": 1.322,
+          "max_probability": 0.3628,
+          "normalized_entropy": 0.9655429567106987,
+          "confidence_vendor": 0.0345,
+          "distribution": {
+            "0": 0.2314,
+            "1": 0.3628,
+            "2": 0.2582,
+            "3": 0.1476
+          }
+        },
+        {
+          "question_id": "requires_human",
+          "primitive": "noul",
+          "valid": true,
+          "noul_probability": 0.8421,
+          "max_probability": 0.8421,
+          "normalized_entropy": 0.6292619344294356,
+          "confidence_vendor": 0.8421,
+          "distribution": {
+            "false": 0.15790000000000004,
+            "true": 0.8421
+          }
+        }
+      ]
+    },
+    {
+      "scenario_id": "smoke_canonical",
+      "language": "en",
+      "track": "laya_multi_fixed",
+      "error": null,
+      "resolved_model": "laya:multilingual@7b928d828b7b",
+      "wall_ms": 42.73,
+      "load_ms": 0.0,
+      "cold": false,
+      "routing": {
+        "model": "multilingual",
+        "repo": "convaiinnovations/laya/multilingual",
+        "reason": "explicit model='multilingual'",
+        "detection": null,
+        "workflow": null
+      },
+      "truncated": false,
+      "state_tokens": 56,
+      "state_tokens_dropped": 0,
+      "truncated_questions": [],
+      "max_len": 1024,
+      "head_max_len": 256,
+      "normalized": [
+        {
+          "question_id": "failure_family",
+          "primitive": "choice",
+          "valid": true,
+          "predicted_label": "other_unknown",
+          "max_probability": 0.5925,
+          "normalized_entropy": 0.6663206605592581,
+          "confidence_vendor": 0.3336,
+          "api_choice_matches_argmax": true,
+          "distribution": {
+            "schema_mismatch": 0.1623,
+            "connectivity": 0.1346,
+            "authentication": 0.0185,
+            "data_error": 0.0849,
+            "resource_exhaustion": 0.0072,
+            "other_unknown": 0.5925
+          }
+        },
+        {
+          "question_id": "severity",
+          "primitive": "score",
+          "valid": true,
+          "predicted_level": 1,
+          "score_value": 1.1811,
+          "max_probability": 0.5342,
+          "normalized_entropy": 0.7882806051687431,
+          "confidence_vendor": 0.2117,
+          "distribution": {
+            "0": 0.1585,
+            "1": 0.5342,
+            "2": 0.275,
+            "3": 0.0323
+          }
+        },
+        {
+          "question_id": "requires_human",
+          "primitive": "noul",
+          "valid": true,
+          "noul_probability": 0.3166,
+          "max_probability": 0.6834,
+          "normalized_entropy": 0.9006456900798561,
+          "confidence_vendor": 0.6834,
+          "distribution": {
+            "false": 0.6834,
+            "true": 0.3166
+          }
+        }
+      ]
+    },
+    {
+      "scenario_id": "smoke_e01",
+      "language": "en",
+      "track": "laya_multi_fixed",
+      "error": null,
+      "resolved_model": "laya:multilingual@7b928d828b7b",
+      "wall_ms": 43.524,
+      "load_ms": 0.0,
+      "cold": false,
+      "routing": {
+        "model": "multilingual",
+        "repo": "convaiinnovations/laya/multilingual",
+        "reason": "explicit model='multilingual'",
+        "detection": null,
+        "workflow": null
+      },
+      "truncated": false,
+      "state_tokens": 9,
+      "state_tokens_dropped": 0,
+      "truncated_questions": [],
+      "max_len": 1024,
+      "head_max_len": 256,
+      "normalized": [
+        {
+          "question_id": "failure_family",
+          "primitive": "choice",
+          "valid": true,
+          "predicted_label": "connectivity",
+          "max_probability": 0.5659,
+          "normalized_entropy": 0.7283663884433939,
+          "confidence_vendor": 0.2717,
+          "api_choice_matches_argmax": true,
+          "distribution": {
+            "schema_mismatch": 0.1511,
+            "connectivity": 0.5659,
+            "authentication": 0.0208,
+            "data_error": 0.1398,
+            "resource_exhaustion": 0.065,
+            "other_unknown": 0.0574
+          }
+        },
+        {
+          "question_id": "severity",
+          "primitive": "score",
+          "valid": true,
+          "predicted_level": 1,
+          "score_value": 1.781121887811219,
+          "max_probability": 0.43215678432156784,
+          "normalized_entropy": 0.8043187069392447,
+          "confidence_vendor": 0.1957,
+          "distribution": {
+            "0": 0.0103989601039896,
+            "1": 0.43215678432156784,
+            "2": 0.32336766323367666,
+            "3": 0.23407659234076592
+          }
+        },
+        {
+          "question_id": "requires_human",
+          "primitive": "noul",
+          "valid": true,
+          "noul_probability": 0.3684,
+          "max_probability": 0.6315999999999999,
+          "normalized_entropy": 0.9494356433280758,
+          "confidence_vendor": 0.6316,
+          "distribution": {
+            "false": 0.6315999999999999,
+            "true": 0.3684
+          }
+        }
+      ]
+    },
+    {
+      "scenario_id": "smoke_e02",
+      "language": "en",
+      "track": "laya_multi_fixed",
+      "error": null,
+      "resolved_model": "laya:multilingual@7b928d828b7b",
+      "wall_ms": 43.978,
+      "load_ms": 0.0,
+      "cold": false,
+      "routing": {
+        "model": "multilingual",
+        "repo": "convaiinnovations/laya/multilingual",
+        "reason": "explicit model='multilingual'",
+        "detection": null,
+        "workflow": null
+      },
+      "truncated": false,
+      "state_tokens": 11,
+      "state_tokens_dropped": 0,
+      "truncated_questions": [],
+      "max_len": 1024,
+      "head_max_len": 256,
+      "normalized": [
+        {
+          "question_id": "failure_family",
+          "primitive": "choice",
+          "valid": true,
+          "predicted_label": "data_error",
+          "max_probability": 0.33,
+          "normalized_entropy": 0.8828845570534997,
+          "confidence_vendor": 0.1171,
+          "api_choice_matches_argmax": true,
+          "distribution": {
+            "schema_mismatch": 0.1646,
+            "connectivity": 0.0815,
+            "authentication": 0.0182,
+            "data_error": 0.33,
+            "resource_exhaustion": 0.1699,
+            "other_unknown": 0.2358
+          }
+        },
+        {
+          "question_id": "severity",
+          "primitive": "score",
+          "valid": true,
+          "predicted_level": 1,
+          "score_value": 0.8467,
+          "max_probability": 0.7244,
+          "normalized_entropy": 0.5453061358110133,
+          "confidence_vendor": 0.4547,
+          "distribution": {
+            "0": 0.2209,
+            "1": 0.7244,
+            "2": 0.0418,
+            "3": 0.0129
+          }
+        },
+        {
+          "question_id": "requires_human",
+          "primitive": "noul",
+          "valid": true,
+          "noul_probability": 0.0051,
+          "max_probability": 0.9949,
+          "normalized_entropy": 0.04617691437376712,
+          "confidence_vendor": 0.9949,
+          "distribution": {
+            "false": 0.9949,
+            "true": 0.0051
+          }
+        }
+      ]
+    },
+    {
+      "scenario_id": "smoke_canonical",
+      "language": "th",
+      "track": "laya_multi_fixed",
+      "error": null,
+      "resolved_model": "laya:multilingual@7b928d828b7b",
+      "wall_ms": 38.376,
+      "load_ms": 0.0,
+      "cold": false,
+      "routing": {
+        "model": "multilingual",
+        "repo": "convaiinnovations/laya/multilingual",
+        "reason": "explicit model='multilingual'",
+        "detection": null,
+        "workflow": null
+      },
+      "truncated": false,
+      "state_tokens": 62,
+      "state_tokens_dropped": 0,
+      "truncated_questions": [],
+      "max_len": 1024,
+      "head_max_len": 256,
+      "normalized": [
+        {
+          "question_id": "failure_family",
+          "primitive": "choice",
+          "valid": true,
+          "predicted_label": "connectivity",
+          "max_probability": 0.6353,
+          "normalized_entropy": 0.6809155196035029,
+          "confidence_vendor": 0.3191,
+          "api_choice_matches_argmax": true,
+          "distribution": {
+            "schema_mismatch": 0.0517,
+            "connectivity": 0.6353,
+            "authentication": 0.0827,
+            "data_error": 0.0596,
+            "resource_exhaustion": 0.0494,
+            "other_unknown": 0.1213
+          }
+        },
+        {
+          "question_id": "severity",
+          "primitive": "score",
+          "valid": true,
+          "predicted_level": 1,
+          "score_value": 1.4424442444244425,
+          "max_probability": 0.5953595359535954,
+          "normalized_entropy": 0.7175347948384676,
+          "confidence_vendor": 0.2824,
+          "distribution": {
+            "0": 0.0295029502950295,
+            "1": 0.5953595359535954,
+            "2": 0.27832783278327833,
+            "3": 0.0968096809680968
+          }
+        },
+        {
+          "question_id": "requires_human",
+          "primitive": "noul",
+          "valid": true,
+          "noul_probability": 0.587,
+          "max_probability": 0.587,
+          "normalized_entropy": 0.9780489236102556,
+          "confidence_vendor": 0.587,
+          "distribution": {
+            "false": 0.41300000000000003,
+            "true": 0.587
+          }
+        }
+      ]
+    },
+    {
+      "scenario_id": "smoke_e01",
+      "language": "th",
+      "track": "laya_multi_fixed",
+      "error": null,
+      "resolved_model": "laya:multilingual@7b928d828b7b",
+      "wall_ms": 37.596,
+      "load_ms": 0.0,
+      "cold": false,
+      "routing": {
+        "model": "multilingual",
+        "repo": "convaiinnovations/laya/multilingual",
+        "reason": "explicit model='multilingual'",
+        "detection": null,
+        "workflow": null
+      },
+      "truncated": false,
+      "state_tokens": 23,
+      "state_tokens_dropped": 0,
+      "truncated_questions": [],
+      "max_len": 1024,
+      "head_max_len": 256,
+      "normalized": [
+        {
+          "question_id": "failure_family",
+          "primitive": "choice",
+          "valid": true,
+          "predicted_label": "schema_mismatch",
+          "max_probability": 0.8497300539892022,
+          "normalized_entropy": 0.34540752812690734,
+          "confidence_vendor": 0.6549,
+          "api_choice_matches_argmax": true,
+          "distribution": {
+            "schema_mismatch": 0.8497300539892022,
+            "connectivity": 0.07458508298340331,
+            "authentication": 0.010597880423915218,
+            "data_error": 0.012797440511897622,
+            "resource_exhaustion": 0.012397520495900819,
+            "other_unknown": 0.039892021595680865
+          }
+        },
+        {
+          "question_id": "severity",
+          "primitive": "score",
+          "valid": true,
+          "predicted_level": 2,
+          "score_value": 2.2696,
+          "max_probability": 0.4832,
+          "normalized_entropy": 0.736824884593782,
+          "confidence_vendor": 0.2632,
+          "distribution": {
+            "0": 0.0266,
+            "1": 0.0837,
+            "2": 0.4832,
+            "3": 0.4065
+          }
+        },
+        {
+          "question_id": "requires_human",
+          "primitive": "noul",
+          "valid": true,
+          "noul_probability": 0.7134,
+          "max_probability": 0.7134,
+          "normalized_entropy": 0.8642886480208948,
+          "confidence_vendor": 0.7134,
+          "distribution": {
+            "false": 0.28659999999999997,
+            "true": 0.7134
+          }
+        }
+      ]
+    },
+    {
+      "scenario_id": "smoke_e02",
+      "language": "th",
+      "track": "laya_multi_fixed",
+      "error": null,
+      "resolved_model": "laya:multilingual@7b928d828b7b",
+      "wall_ms": 40.29,
+      "load_ms": 0.0,
+      "cold": false,
+      "routing": {
+        "model": "multilingual",
+        "repo": "convaiinnovations/laya/multilingual",
+        "reason": "explicit model='multilingual'",
+        "detection": null,
+        "workflow": null
+      },
+      "truncated": false,
+      "state_tokens": 20,
+      "state_tokens_dropped": 0,
+      "truncated_questions": [],
+      "max_len": 1024,
+      "head_max_len": 256,
+      "normalized": [
+        {
+          "question_id": "failure_family",
+          "primitive": "choice",
+          "valid": true,
+          "predicted_label": "connectivity",
+          "max_probability": 0.9399,
+          "normalized_entropy": 0.17369374671284837,
+          "confidence_vendor": 0.8264,
+          "api_choice_matches_argmax": true,
+          "distribution": {
+            "schema_mismatch": 0.0084,
+            "connectivity": 0.9399,
+            "authentication": 0.0052,
+            "data_error": 0.0045,
+            "resource_exhaustion": 0.0162,
+            "other_unknown": 0.0258
+          }
+        },
+        {
+          "question_id": "severity",
+          "primitive": "score",
+          "valid": true,
+          "predicted_level": 3,
+          "score_value": 2.4511999999999996,
+          "max_probability": 0.6202,
+          "normalized_entropy": 0.7114700836977256,
+          "confidence_vendor": 0.2885,
+          "distribution": {
+            "0": 0.0427,
+            "1": 0.0836,
+            "2": 0.2535,
+            "3": 0.6202
+          }
+        },
+        {
+          "question_id": "requires_human",
+          "primitive": "noul",
+          "valid": true,
+          "noul_probability": 0.3992,
+          "max_probability": 0.6008,
+          "normalized_entropy": 0.9704807004322407,
+          "confidence_vendor": 0.6008,
+          "distribution": {
+            "false": 0.6008,
+            "true": 0.3992
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+# Protocol registry. Every case runs the same protocol ids so results share one table.
+protocols:
+  P0_contract: {required: true, desc: "Provider schema/auth/normalizer checks on a single dry sample"}
+  P1_primary_en: {required: true, state_lang: en, question_lang: en, tracks: [laya_routed, jev_114]}
+  P2_primary_th: {required: true, state_lang: th, question_lang: th, tracks: [laya_routed, jev_114]}
+  P3_checkpoint: {required: true, tracks: [laya_en_fixed, laya_multi_fixed, laya_routed, jev_114]}
+  P4_cross_language:
+    required: true
+    subset: p4_subset
+    variants: {en_en: [en, en], th_th: [th, th], th_en: [th, en], en_th: [en, th]}
+  P5_order_paraphrase: {required: true, choice_permutation_seeds: 5, paraphrases_per_question: 3}
+  P6_calibration: {required: true, fit_split: calibration, eval_split: test}
+  P7_context: {required: true, context_levels: [common_fit, natural_long]}
+  P8_latency_cost: {required: true}
+  P9_ambiguity: {required: true, slices: [insufficient, ambiguous, distractor]}
+  P10_jev_regression: {required: false, tracks: [jev_113, jev_114]}
+  P11_laya_finetune: {required: false}
+  P12_llm_cascade: {required: false}

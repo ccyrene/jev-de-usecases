@@ -1,0 +1,26 @@
+{
+  "settings": {
+    "number_of_shards": 1,
+    "number_of_replicas": 0,
+    "refresh_interval": "-1"
+  },
+  "mappings": {
+    "dynamic": "strict",
+    "properties": {
+      "event_ts": {"type": "date", "format": "strict_date_time_no_millis"},
+      "dag_id": {"type": "keyword"},
+      "task_id": {"type": "keyword"},
+      "run_id": {"type": "keyword"},
+      "status": {"type": "keyword"},
+      "message": {
+        "type": "text",
+        "fields": {"raw": {"type": "keyword", "ignore_above": 1024}}
+      },
+      "exception_type": {"type": "keyword"},
+      "retry_count": {"type": "integer"},
+      "duration_ms": {"type": "long"},
+      "upstream_task": {"type": "keyword"},
+      "deployment_id": {"type": "keyword"}
+    }
+  }
+}

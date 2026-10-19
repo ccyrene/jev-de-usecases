@@ -1,0 +1,41 @@
+experiment_id,question_id,model_track,variant,definition,n_positive,misses,miss_rate,invalid_on_positive,upper_95_if_zero
+E01,severity,laya_en_fixed,en_en,severe incident (gold >= 2) predicted < 2,15,10,0.6666666666666666,0,
+E01,severity,laya_en_fixed,th_th,severe incident (gold >= 2) predicted < 2,15,14,0.9333333333333333,0,
+E01,severity,laya_multi_fixed,en_en,severe incident (gold >= 2) predicted < 2,15,15,1.0,0,
+E01,severity,laya_multi_fixed,th_th,severe incident (gold >= 2) predicted < 2,15,15,1.0,0,
+E01,severity,laya_routed,en_en,severe incident (gold >= 2) predicted < 2,15,10,0.6666666666666666,0,
+E01,severity,laya_routed,th_th,severe incident (gold >= 2) predicted < 2,15,15,1.0,0,
+E01,severity,rules_only,en_en,severe incident (gold >= 2) predicted < 2,15,0,0.0,0,0.18103627252208462
+E01,severity,rules_only,th_th,severe incident (gold >= 2) predicted < 2,15,0,0.0,0,0.18103627252208462
+E03,drift_impact,laya_en_fixed,en_en,breaking change predicted non-breaking,13,0,0.0,0,0.20581666518655062
+E03,drift_impact,laya_en_fixed,th_th,breaking change predicted non-breaking,13,10,0.7692307692307693,0,
+E03,drift_impact,laya_multi_fixed,en_en,breaking change predicted non-breaking,13,10,0.7692307692307693,0,
+E03,drift_impact,laya_multi_fixed,th_th,breaking change predicted non-breaking,13,7,0.5384615384615384,0,
+E03,drift_impact,laya_routed,en_en,breaking change predicted non-breaking,13,0,0.0,0,0.20581666518655062
+E03,drift_impact,laya_routed,th_th,breaking change predicted non-breaking,13,7,0.5384615384615384,0,
+E03,drift_impact,rules_only,en_en,breaking change predicted non-breaking,13,0,0.0,0,0.20581666518655062
+E03,drift_impact,rules_only,th_th,breaking change predicted non-breaking,13,0,0.0,0,0.20581666518655062
+E04,impact_tier,laya_en_fixed,en_en,critical downstream impact missed,2,0,0.0,0,0.776393202250021
+E04,impact_tier,laya_en_fixed,th_th,critical downstream impact missed,2,2,1.0,0,
+E04,impact_tier,laya_multi_fixed,en_en,critical downstream impact missed,2,1,0.5,0,
+E04,impact_tier,laya_multi_fixed,th_th,critical downstream impact missed,2,0,0.0,0,0.776393202250021
+E04,impact_tier,laya_routed,en_en,critical downstream impact missed,2,0,0.0,0,0.776393202250021
+E04,impact_tier,laya_routed,th_th,critical downstream impact missed,2,0,0.0,0,0.776393202250021
+E04,impact_tier,rules_only,en_en,critical downstream impact missed,2,0,0.0,0,0.776393202250021
+E04,impact_tier,rules_only,th_th,critical downstream impact missed,2,0,0.0,0,0.776393202250021
+E05,data_class,laya_en_fixed,en_en,sensitive/direct identifier predicted non-personal,6,3,0.5,0,
+E05,data_class,laya_en_fixed,th_th,sensitive/direct identifier predicted non-personal,6,0,0.0,0,0.39303776899708265
+E05,data_class,laya_multi_fixed,en_en,sensitive/direct identifier predicted non-personal,6,2,0.3333333333333333,0,
+E05,data_class,laya_multi_fixed,th_th,sensitive/direct identifier predicted non-personal,6,0,0.0,0,0.39303776899708265
+E05,data_class,laya_routed,en_en,sensitive/direct identifier predicted non-personal,6,3,0.5,0,
+E05,data_class,laya_routed,th_th,sensitive/direct identifier predicted non-personal,6,0,0.0,0,0.39303776899708265
+E05,data_class,rules_only,en_en,sensitive/direct identifier predicted non-personal,6,0,0.0,0,0.39303776899708265
+E05,data_class,rules_only,th_th,sensitive/direct identifier predicted non-personal,6,0,0.0,0,0.39303776899708265
+E06,candidate_verdict,laya_en_fixed,en_en,unsafe or wrong SQL accepted as correct,13,11,0.8461538461538461,0,
+E06,candidate_verdict,laya_en_fixed,th_th,unsafe or wrong SQL accepted as correct,13,5,0.38461538461538464,0,
+E06,candidate_verdict,laya_multi_fixed,en_en,unsafe or wrong SQL accepted as correct,13,12,0.9230769230769231,0,
+E06,candidate_verdict,laya_multi_fixed,th_th,unsafe or wrong SQL accepted as correct,13,13,1.0,0,
+E06,candidate_verdict,laya_routed,en_en,unsafe or wrong SQL accepted as correct,13,11,0.8461538461538461,0,
+E06,candidate_verdict,laya_routed,th_th,unsafe or wrong SQL accepted as correct,13,13,1.0,0,
+E06,candidate_verdict,rules_only,en_en,unsafe or wrong SQL accepted as correct,13,5,0.38461538461538464,0,
+E06,candidate_verdict,rules_only,th_th,unsafe or wrong SQL accepted as correct,13,5,0.38461538461538464,0,

@@ -1,0 +1,7 @@
+model_track,basis,requests,sustained_decisions_per_hour,usd_per_1000_scenario_decisions
+laya_en_fixed,"ASSUMED host price 0.5 USD/h, sequential warm throughput",240,28134.06981874161,0.0177720466047512
+laya_en_fixed,"ASSUMED host price 1.0 USD/h, sequential warm throughput",240,28134.06981874161,0.0355440932095024
+laya_multi_fixed,"ASSUMED host price 0.5 USD/h, sequential warm throughput",240,60153.79427847674,0.008312027628470012
+laya_multi_fixed,"ASSUMED host price 1.0 USD/h, sequential warm throughput",240,60153.79427847674,0.016624055256940024
+laya_routed,"ASSUMED host price 0.5 USD/h, sequential warm throughput",240,30614.421487412397,0.016332172084505433
+laya_routed,"ASSUMED host price 1.0 USD/h, sequential warm throughput",240,30614.421487412397,0.032664344169010866

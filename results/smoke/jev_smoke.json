@@ -1,0 +1,396 @@
+{
+  "provider": "jev",
+  "remote_status": "enabled",
+  "results": [
+    {
+      "scenario_id": "smoke_canonical",
+      "language": "en",
+      "track": "jev_114",
+      "error": null,
+      "resolved_model": "jev-1.14.0",
+      "wall_ms": 397.316,
+      "load_ms": 0.0,
+      "cold": null,
+      "routing": null,
+      "truncated": null,
+      "state_tokens": null,
+      "state_tokens_dropped": null,
+      "truncated_questions": null,
+      "max_len": null,
+      "head_max_len": null,
+      "normalized": [
+        {
+          "question_id": "failure_family",
+          "primitive": "choice",
+          "valid": true,
+          "predicted_label": "schema_mismatch",
+          "max_probability": 1.0,
+          "normalized_entropy": -0.0,
+          "confidence_vendor": 1.0,
+          "api_choice_matches_argmax": true,
+          "distribution": {
+            "schema_mismatch": 1.0,
+            "connectivity": 0.0,
+            "authentication": 0.0,
+            "data_error": 0.0,
+            "resource_exhaustion": 0.0,
+            "other_unknown": 0.0
+          }
+        },
+        {
+          "question_id": "severity",
+          "primitive": "score",
+          "valid": true,
+          "predicted_level": 2,
+          "score_value": 2.02,
+          "max_probability": 0.96,
+          "normalized_entropy": 0.13737165703039006,
+          "confidence_vendor": 0.96,
+          "distribution": {
+            "0": 0.0,
+            "1": 0.01,
+            "2": 0.96,
+            "3": 0.03
+          }
+        },
+        {
+          "question_id": "requires_human",
+          "primitive": "noul",
+          "valid": true,
+          "noul_probability": 0.88,
+          "max_probability": 0.88,
+          "normalized_entropy": 0.5293608652873644,
+          "distribution": {
+            "false": 0.12,
+            "true": 0.88
+          }
+        }
+      ]
+    },
+    {
+      "scenario_id": "smoke_e01",
+      "language": "en",
+      "track": "jev_114",
+      "error": null,
+      "resolved_model": "jev-1.14.0",
+      "wall_ms": 237.115,
+      "load_ms": 0.0,
+      "cold": null,
+      "routing": null,
+      "truncated": null,
+      "state_tokens": null,
+      "state_tokens_dropped": null,
+      "truncated_questions": null,
+      "max_len": null,
+      "head_max_len": null,
+      "normalized": [
+        {
+          "question_id": "failure_family",
+          "primitive": "choice",
+          "valid": true,
+          "predicted_label": "schema_mismatch",
+          "max_probability": 1.0,
+          "normalized_entropy": -0.0,
+          "confidence_vendor": 1.0,
+          "api_choice_matches_argmax": true,
+          "distribution": {
+            "schema_mismatch": 1.0,
+            "connectivity": 0.0,
+            "authentication": 0.0,
+            "data_error": 0.0,
+            "resource_exhaustion": 0.0,
+            "other_unknown": 0.0
+          }
+        },
+        {
+          "question_id": "severity",
+          "primitive": "score",
+          "valid": true,
+          "predicted_level": 2,
+          "score_value": 2.02,
+          "max_probability": 0.96,
+          "normalized_entropy": 0.13737165703039006,
+          "confidence_vendor": 0.96,
+          "distribution": {
+            "0": 0.0,
+            "1": 0.01,
+            "2": 0.96,
+            "3": 0.03
+          }
+        },
+        {
+          "question_id": "requires_human",
+          "primitive": "noul",
+          "valid": true,
+          "noul_probability": 0.88,
+          "max_probability": 0.88,
+          "normalized_entropy": 0.5293608652873644,
+          "distribution": {
+            "false": 0.12,
+            "true": 0.88
+          }
+        }
+      ]
+    },
+    {
+      "scenario_id": "smoke_e02",
+      "language": "en",
+      "track": "jev_114",
+      "error": null,
+      "resolved_model": "jev-1.14.0",
+      "wall_ms": 232.459,
+      "load_ms": 0.0,
+      "cold": null,
+      "routing": null,
+      "truncated": null,
+      "state_tokens": null,
+      "state_tokens_dropped": null,
+      "truncated_questions": null,
+      "max_len": null,
+      "head_max_len": null,
+      "normalized": [
+        {
+          "question_id": "failure_family",
+          "primitive": "choice",
+          "valid": true,
+          "predicted_label": "other_unknown",
+          "max_probability": 0.61,
+          "normalized_entropy": 0.4577662084377898,
+          "confidence_vendor": 0.53,
+          "api_choice_matches_argmax": true,
+          "distribution": {
+            "schema_mismatch": 0.03,
+            "connectivity": 0.0,
+            "authentication": 0.0,
+            "data_error": 0.35,
+            "resource_exhaustion": 0.01,
+            "other_unknown": 0.61
+          }
+        },
+        {
+          "question_id": "severity",
+          "primitive": "score",
+          "valid": true,
+          "predicted_level": 2,
+          "score_value": 1.67,
+          "max_probability": 0.64,
+          "normalized_entropy": 0.5596030651932175,
+          "confidence_vendor": 0.63,
+          "distribution": {
+            "0": 0.01,
+            "1": 0.33,
+            "2": 0.64,
+            "3": 0.02
+          }
+        },
+        {
+          "question_id": "requires_human",
+          "primitive": "noul",
+          "valid": true,
+          "noul_probability": 0.9,
+          "max_probability": 0.9,
+          "normalized_entropy": 0.46899559358928117,
+          "distribution": {
+            "false": 0.09999999999999998,
+            "true": 0.9
+          }
+        }
+      ]
+    },
+    {
+      "scenario_id": "smoke_canonical",
+      "language": "th",
+      "track": "jev_114",
+      "error": null,
+      "resolved_model": "jev-1.14.0",
+      "wall_ms": 240.031,
+      "load_ms": 0.0,
+      "cold": null,
+      "routing": null,
+      "truncated": null,
+      "state_tokens": null,
+      "state_tokens_dropped": null,
+      "truncated_questions": null,
+      "max_len": null,
+      "head_max_len": null,
+      "normalized": [
+        {
+          "question_id": "failure_family",
+          "primitive": "choice",
+          "valid": true,
+          "predicted_label": "schema_mismatch",
+          "max_probability": 1.0,
+          "normalized_entropy": -0.0,
+          "confidence_vendor": 1.0,
+          "api_choice_matches_argmax": true,
+          "distribution": {
+            "schema_mismatch": 1.0,
+            "connectivity": 0.0,
+            "authentication": 0.0,
+            "data_error": 0.0,
+            "resource_exhaustion": 0.0,
+            "other_unknown": 0.0
+          }
+        },
+        {
+          "question_id": "severity",
+          "primitive": "score",
+          "valid": true,
+          "predicted_level": 2,
+          "score_value": 2.06,
+          "max_probability": 0.92,
+          "normalized_entropy": 0.22283217282912027,
+          "confidence_vendor": 0.92,
+          "distribution": {
+            "0": 0.0,
+            "1": 0.01,
+            "2": 0.92,
+            "3": 0.07
+          }
+        },
+        {
+          "question_id": "requires_human",
+          "primitive": "noul",
+          "valid": true,
+          "noul_probability": 0.79,
+          "max_probability": 0.79,
+          "normalized_entropy": 0.7414827399312738,
+          "distribution": {
+            "false": 0.20999999999999996,
+            "true": 0.79
+          }
+        }
+      ]
+    },
+    {
+      "scenario_id": "smoke_e01",
+      "language": "th",
+      "track": "jev_114",
+      "error": null,
+      "resolved_model": "jev-1.14.0",
+      "wall_ms": 282.387,
+      "load_ms": 0.0,
+      "cold": null,
+      "routing": null,
+      "truncated": null,
+      "state_tokens": null,
+      "state_tokens_dropped": null,
+      "truncated_questions": null,
+      "max_len": null,
+      "head_max_len": null,
+      "normalized": [
+        {
+          "question_id": "failure_family",
+          "primitive": "choice",
+          "valid": true,
+          "predicted_label": "schema_mismatch",
+          "max_probability": 1.0,
+          "normalized_entropy": -0.0,
+          "confidence_vendor": 1.0,
+          "api_choice_matches_argmax": true,
+          "distribution": {
+            "schema_mismatch": 1.0,
+            "connectivity": 0.0,
+            "authentication": 0.0,
+            "data_error": 0.0,
+            "resource_exhaustion": 0.0,
+            "other_unknown": 0.0
+          }
+        },
+        {
+          "question_id": "severity",
+          "primitive": "score",
+          "valid": true,
+          "predicted_level": 2,
+          "score_value": 2.1,
+          "max_probability": 0.81,
+          "normalized_entropy": 0.4374976115376331,
+          "confidence_vendor": 0.8,
+          "distribution": {
+            "0": 0.010000000000000002,
+            "1": 0.030000000000000002,
+            "2": 0.81,
+            "3": 0.15000000000000002
+          }
+        },
+        {
+          "question_id": "requires_human",
+          "primitive": "noul",
+          "valid": true,
+          "noul_probability": 0.78,
+          "max_probability": 0.78,
+          "normalized_entropy": 0.7601675029619656,
+          "distribution": {
+            "false": 0.21999999999999997,
+            "true": 0.78
+          }
+        }
+      ]
+    },
+    {
+      "scenario_id": "smoke_e02",
+      "language": "th",
+      "track": "jev_114",
+      "error": null,
+      "resolved_model": "jev-1.14.0",
+      "wall_ms": 248.102,
+      "load_ms": 0.0,
+      "cold": null,
+      "routing": null,
+      "truncated": null,
+      "state_tokens": null,
+      "state_tokens_dropped": null,
+      "truncated_questions": null,
+      "max_len": null,
+      "head_max_len": null,
+      "normalized": [
+        {
+          "question_id": "failure_family",
+          "primitive": "choice",
+          "valid": true,
+          "predicted_label": "data_error",
+          "max_probability": 0.79,
+          "normalized_entropy": 0.3439124225029342,
+          "confidence_vendor": 0.75,
+          "api_choice_matches_argmax": true,
+          "distribution": {
+            "schema_mismatch": 0.04,
+            "connectivity": 0.0,
+            "authentication": 0.0,
+            "data_error": 0.79,
+            "resource_exhaustion": 0.0,
+            "other_unknown": 0.17
+          }
+        },
+        {
+          "question_id": "severity",
+          "primitive": "score",
+          "valid": true,
+          "predicted_level": 1,
+          "score_value": 1.39,
+          "max_probability": 0.48,
+          "normalized_entropy": 0.7394644962567604,
+          "confidence_vendor": 0.45,
+          "distribution": {
+            "0": 0.08,
+            "1": 0.48,
+            "2": 0.41,
+            "3": 0.03
+          }
+        },
+        {
+          "question_id": "requires_human",
+          "primitive": "noul",
+          "valid": true,
+          "noul_probability": 0.77,
+          "max_probability": 0.77,
+          "normalized_entropy": 0.7780113035465377,
+          "distribution": {
+            "false": 0.22999999999999998,
+            "true": 0.77
+          }
+        }
+      ]
+    }
+  ]
+}

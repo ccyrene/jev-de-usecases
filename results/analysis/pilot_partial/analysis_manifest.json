@@ -1,0 +1,35 @@
+{
+  "runs": [
+    "pilot_laya",
+    "pilot_rules"
+  ],
+  "rows": 1920,
+  "tracks": [
+    "laya_en_fixed",
+    "laya_multi_fixed",
+    "laya_routed",
+    "rules_only"
+  ],
+  "cases": [
+    "E01",
+    "E02",
+    "E04",
+    "E05"
+  ],
+  "variants": [
+    "en_en",
+    "th_th"
+  ],
+  "splits": [
+    "dev"
+  ],
+  "tables": {
+    "summary": 96,
+    "paired_deltas": 0,
+    "language_gaps": 64,
+    "latency": 6,
+    "cost": 6,
+    "high_risk": 24,
+    "rules_comparison": 72
+  }
+}

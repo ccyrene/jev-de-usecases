@@ -1,0 +1,48 @@
+# Exact model identities. Verified 2026-10-19 against upstream (see docs/MODEL_CARD_SNAPSHOTS.md).
+# .env LAYA_* values, when non-empty, override the Laya revision below and are recorded in the manifest.
+
+laya:
+  package: laya==0.4.11
+  repo: convaiinnovations/laya          # bundle repo: English at root, multilingual/ subfolder
+  revision: 7b928d828b7b0e022f929d9bd2e44165aa270148
+  checkpoints:
+    english: {subfolder: null, encoder: ModernBERT-large, max_len: 512, head_max_len: 192}
+    multilingual: {subfolder: multilingual, encoder: mmBERT-base, max_len: 1024, head_max_len: 256}
+  # typed-decisions is never auto-routed (auto_task_detection=False), so it is not preloaded.
+  preload: [english, multilingual]
+
+jev:
+  base_url: https://api.typesafe.ai
+  endpoint: /v1/systemone
+  usd_per_million_input_tokens: 0.042   # re-verify at https://docs.typesafe.ai/models before each run
+  context_tokens_per_request: 64000
+
+tracks:
+  laya_routed:
+    provider: laya
+    mode: router          # Router decides the checkpoint; routing decision is logged per call
+    required: true
+  laya_en_fixed:
+    provider: laya
+    mode: fixed
+    checkpoint: english
+    required: true
+  laya_multi_fixed:
+    provider: laya
+    mode: fixed
+    checkpoint: multilingual
+    required: true
+  jev_114:
+    provider: jev
+    model: jev-1.14.0
+    required: true
+  jev_113:
+    provider: jev
+    model: jev-1.13.0
+    required: false
+  rules_only:
+    provider: rules
+    required: true
+  mock:
+    provider: mock        # CI only; rejected by every final aggregation
+    required: false

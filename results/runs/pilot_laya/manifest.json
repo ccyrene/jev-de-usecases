@@ -1,0 +1,390 @@
+{
+  "study_id": "de-laya-jev-th-en-2026",
+  "run_id": "pilot_laya",
+  "protocol": "primary",
+  "split": "dev",
+  "n_pairs_per_case": 20,
+  "context_level": "common_fit",
+  "seed": 20261019,
+  "pilot": true,
+  "started": "2026-10-19T13:58:57.705092+07:00",
+  "settings": {
+    "ALLOW_REMOTE_API": "1",
+    "CLICKHOUSE_DB": "debench",
+    "CLICKHOUSE_HTTP_PORT": "8123",
+    "CLICKHOUSE_NATIVE_PORT": "9000",
+    "CLICKHOUSE_PASSWORD": "<set>",
+    "CLICKHOUSE_USER": "debench",
+    "DB_BIND_HOST": "127.0.0.1",
+    "DUCKDB_PATH": "data/warehouse.duckdb",
+    "E03_POSTGRES_DB": "schema_drift",
+    "E03_POSTGRES_PASSWORD": "<set>",
+    "E03_POSTGRES_PORT": "5433",
+    "E03_POSTGRES_USER": "debench",
+    "E05_POSTGRES_DB": "pii_catalog",
+    "E05_POSTGRES_PASSWORD": "<set>",
+    "E05_POSTGRES_PORT": "5434",
+    "E05_POSTGRES_USER": "debench",
+    "JEV_MAX_REQUESTS": "12000",
+    "JEV_MAX_RETRIES": "3",
+    "JEV_MAX_USD": "5",
+    "JEV_MODEL": "jev-1.14.0",
+    "JEV_REGRESSION_MODEL": "",
+    "JEV_TIMEOUT_S": "30",
+    "JEV_USD_PER_MILLION_INPUT_TOKENS": "0.042",
+    "LAYA_DEVICE": "cpu",
+    "LAYA_EN_MODEL": "convaiinnovations/laya",
+    "LAYA_EN_REVISION": "",
+    "LAYA_MULTI_MODEL": "",
+    "LAYA_MULTI_REVISION": "",
+    "LAYA_ROUTER_PRELOAD": "1",
+    "LAYA_WARMUP_CALLS": "30",
+    "LOG_RAW_RESPONSES": "0",
+    "NEO4J_BOLT_PORT": "7687",
+    "NEO4J_EDITION": "community",
+    "NEO4J_HTTP_PORT": "7474",
+    "NEO4J_PASSWORD": "<set>",
+    "NEO4J_USER": "neo4j",
+    "OPENSEARCH_INDEX": "airflow-task-logs",
+    "OPENSEARCH_INITIAL_ADMIN_PASSWORD": "<set>",
+    "OPENSEARCH_PORT": "9200",
+    "RESULTS_DIR": "results",
+    "SEED": "20261019",
+    "SQL_QUERY_TIMEOUT_S": "10",
+    "STUDY_ID": "de-laya-jev-th-en-2026",
+    "TYPESAFE_API_KEY": "<set>",
+    "TYPESAFE_BASE_URL": "https://api.typesafe.ai"
+  },
+  "cases": {
+    "E01": {
+      "questions_version": "e01-v1",
+      "questions_hash": "347e32838483402b4fcd07eaaf36db19119d0f708a170a584a1acc039d859f0b",
+      "dataset_sha256": "437f0cb6df5527abd055ad98a9a309a0c605a095e3b82a35016cd9f891426b2f",
+      "evidence_mode": "db",
+      "engine": {
+        "runtime": "native_tarball",
+        "version": "opensearch 3.9.0"
+      },
+      "pair_ids": [
+        "E01-0023",
+        "E01-0024",
+        "E01-0046",
+        "E01-0051",
+        "E01-0060",
+        "E01-0096",
+        "E01-0103",
+        "E01-0107",
+        "E01-0117",
+        "E01-0147",
+        "E01-0175",
+        "E01-0187",
+        "E01-0188",
+        "E01-0198",
+        "E01-0216",
+        "E01-0226",
+        "E01-0247",
+        "E01-0276",
+        "E01-0285",
+        "E01-0286"
+      ],
+      "work_items": 40
+    },
+    "E02": {
+      "questions_version": "e02-v1",
+      "questions_hash": "2502c6fa1ba51f0ae9ba591c4af5d002dae24d3c3257e85bce6cbd5e262a582b",
+      "dataset_sha256": "44b0f8b3d184a702c5eebc8ef3465a5a69500d3385d1fc44d5781d8c22a081ae",
+      "evidence_mode": "db",
+      "engine": {
+        "runtime": "embedded",
+        "version": "26.9.2.1"
+      },
+      "pair_ids": [
+        "E02-0004",
+        "E02-0008",
+        "E02-0026",
+        "E02-0031",
+        "E02-0072",
+        "E02-0085",
+        "E02-0086",
+        "E02-0101",
+        "E02-0115",
+        "E02-0143",
+        "E02-0148",
+        "E02-0159",
+        "E02-0167",
+        "E02-0170",
+        "E02-0198",
+        "E02-0252",
+        "E02-0257",
+        "E02-0269",
+        "E02-0270",
+        "E02-0272"
+      ],
+      "work_items": 40
+    },
+    "E04": {
+      "questions_version": "e04-v1",
+      "questions_hash": "d99c4bda1cb9100302ebf05499c6063fd483cc2391e16651e770a644ec16f14e",
+      "dataset_sha256": "9a364084e87dae2bf15d847b5de35f9c8f1dbe3beaba78456d0b4d9ecfca2738",
+      "evidence_mode": "db",
+      "engine": {
+        "runtime": "native_tarball",
+        "version": "Neo4j Kernel 5.26.32 community"
+      },
+      "pair_ids": [
+        "E04-0011",
+        "E04-0024",
+        "E04-0073",
+        "E04-0075",
+        "E04-0090",
+        "E04-0104",
+        "E04-0108",
+        "E04-0118",
+        "E04-0127",
+        "E04-0145",
+        "E04-0147",
+        "E04-0162",
+        "E04-0169",
+        "E04-0180",
+        "E04-0201",
+        "E04-0223",
+        "E04-0224",
+        "E04-0252",
+        "E04-0256",
+        "E04-0257"
+      ],
+      "work_items": 40
+    },
+    "E05": {
+      "questions_version": "e05-v1",
+      "questions_hash": "89cd131edeab9ace38dcdbbdd273c5fbbbbc31d3e17e297868668724e4011935",
+      "dataset_sha256": "1cad69228e12bea9ef60bf42274b164b283e6c0a4ef70291f112f1e271c27993",
+      "evidence_mode": "db",
+      "engine": {
+        "runtime": "embedded",
+        "version": "PostgreSQL 18.4 on x86_64-pc-linux-gnu, compiled by gcc (GCC) 14.2.1 20250110 (Red Hat 14.2.1-11), 64-bit"
+      },
+      "pair_ids": [
+        "E05-0007",
+        "E05-0008",
+        "E05-0047",
+        "E05-0049",
+        "E05-0082",
+        "E05-0093",
+        "E05-0095",
+        "E05-0109",
+        "E05-0119",
+        "E05-0134",
+        "E05-0145",
+        "E05-0161",
+        "E05-0166",
+        "E05-0173",
+        "E05-0200",
+        "E05-0232",
+        "E05-0235",
+        "E05-0261",
+        "E05-0269",
+        "E05-0270"
+      ],
+      "work_items": 40
+    },
+    "E03": {
+      "questions_version": "e03-v1",
+      "questions_hash": "33c5861d6abc929cfc6a45539d2c27f0b765bfa3622b68509dafee280b916be7",
+      "dataset_sha256": "38e0aa0a1451c6f49efe13dd4e4731ad86adb84e2fa26884765d3d6944a7144c",
+      "evidence_mode": "db",
+      "engine": {
+        "runtime": "embedded",
+        "version": "PostgreSQL 18.4 on x86_64-pc-linux-gnu, compiled by gcc (GCC) 14.2.1 20250110 (Red Hat 14.2.1-11), 64-bit"
+      },
+      "pair_ids": [
+        "E03-0001",
+        "E03-0003",
+        "E03-0042",
+        "E03-0046",
+        "E03-0058",
+        "E03-0066",
+        "E03-0077",
+        "E03-0083",
+        "E03-0097",
+        "E03-0126",
+        "E03-0135",
+        "E03-0148",
+        "E03-0158",
+        "E03-0163",
+        "E03-0179",
+        "E03-0226",
+        "E03-0230",
+        "E03-0255",
+        "E03-0257",
+        "E03-0260"
+      ],
+      "work_items": 40
+    },
+    "E06": {
+      "questions_version": "e06-v1",
+      "questions_hash": "04bb0518cba1489c113344ef45cccc00349833ed33d3ea72269af1147b621fa7",
+      "dataset_sha256": "37940b4291ebb6c68c4e2857d2bd9d183f102be10871d30df395056636531397",
+      "evidence_mode": "db",
+      "engine": {
+        "runtime": "embedded",
+        "version": "v1.5.6"
+      },
+      "pair_ids": [
+        "E06-0002",
+        "E06-0008",
+        "E06-0041",
+        "E06-0045",
+        "E06-0080",
+        "E06-0095",
+        "E06-0097",
+        "E06-0109",
+        "E06-0116",
+        "E06-0147",
+        "E06-0154",
+        "E06-0164",
+        "E06-0167",
+        "E06-0176",
+        "E06-0190",
+        "E06-0210",
+        "E06-0215",
+        "E06-0240",
+        "E06-0252",
+        "E06-0260"
+      ],
+      "work_items": 40
+    }
+  },
+  "tracks": {
+    "laya_routed": {
+      "provider": "laya",
+      "warmup": {
+        "load_ms": 34773.09525199962,
+        "cold": true,
+        "warmup_ms": 5911.3088519989105,
+        "calls": 60
+      },
+      "warmup_wall_ms": 40688.3922929992,
+      "per_case": {
+        "E01": {
+          "requests": 0,
+          "errors": 0,
+          "skipped_existing": 40
+        },
+        "E02": {
+          "requests": 0,
+          "errors": 0,
+          "skipped_existing": 40
+        },
+        "E03": {
+          "requests": 40,
+          "errors": 0,
+          "skipped_existing": 0
+        },
+        "E04": {
+          "requests": 0,
+          "errors": 0,
+          "skipped_existing": 40
+        },
+        "E05": {
+          "requests": 0,
+          "errors": 0,
+          "skipped_existing": 40
+        },
+        "E06": {
+          "requests": 40,
+          "errors": 0,
+          "skipped_existing": 0
+        }
+      },
+      "status": "OK"
+    },
+    "laya_en_fixed": {
+      "provider": "laya",
+      "warmup": {
+        "load_ms": 0.0,
+        "cold": false,
+        "warmup_ms": 3438.0973129991617,
+        "calls": 60
+      },
+      "warmup_wall_ms": 3438.3961370003817,
+      "per_case": {
+        "E01": {
+          "requests": 0,
+          "errors": 0,
+          "skipped_existing": 40
+        },
+        "E02": {
+          "requests": 0,
+          "errors": 0,
+          "skipped_existing": 40
+        },
+        "E03": {
+          "requests": 40,
+          "errors": 0,
+          "skipped_existing": 0
+        },
+        "E04": {
+          "requests": 0,
+          "errors": 0,
+          "skipped_existing": 40
+        },
+        "E05": {
+          "requests": 0,
+          "errors": 0,
+          "skipped_existing": 40
+        },
+        "E06": {
+          "requests": 40,
+          "errors": 0,
+          "skipped_existing": 0
+        }
+      },
+      "status": "OK"
+    },
+    "laya_multi_fixed": {
+      "provider": "laya",
+      "warmup": {
+        "load_ms": 0.0,
+        "cold": false,
+        "warmup_ms": 2822.063297000568,
+        "calls": 60
+      },
+      "warmup_wall_ms": 2822.4315350016695,
+      "per_case": {
+        "E01": {
+          "requests": 0,
+          "errors": 0,
+          "skipped_existing": 40
+        },
+        "E02": {
+          "requests": 0,
+          "errors": 0,
+          "skipped_existing": 40
+        },
+        "E03": {
+          "requests": 40,
+          "errors": 0,
+          "skipped_existing": 0
+        },
+        "E04": {
+          "requests": 0,
+          "errors": 0,
+          "skipped_existing": 40
+        },
+        "E05": {
+          "requests": 0,
+          "errors": 0,
+          "skipped_existing": 40
+        },
+        "E06": {
+          "requests": 40,
+          "errors": 0,
+          "skipped_existing": 0
+        }
+      },
+      "status": "OK"
+    }
+  },
+  "finished": "2026-10-19T14:18:20.843153+07:00"
+}

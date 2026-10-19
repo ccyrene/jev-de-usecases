@@ -1,0 +1,60 @@
+[project]
+name = "debench"
+version = "0.1.0"
+description = "Bilingual (EN/TH) data-engineering decision benchmark: Laya vs TypeSafe Jev on identical choice/score/noul tasks"
+readme = "README.md"
+requires-python = ">=3.12"
+license = { text = "Apache-2.0" }
+dependencies = [
+  "httpx>=0.27",
+  "pyyaml>=6.0",
+  "python-dotenv>=1.0",
+  "numpy>=1.26",
+  "pandas>=2.2",
+  "pyarrow>=16",
+  "scipy>=1.13",
+  "scikit-learn>=1.5",
+  "duckdb>=1.1",
+  "sqlglot>=25",
+  "networkx>=3.3",
+  "matplotlib>=3.9",
+]
+
+[project.optional-dependencies]
+# Database clients and embedded engines (one profile at a time).
+db = [
+  "chdb>=4.4",
+  "pixeltable-pgserver>=0.6.0",
+  "psycopg[binary]>=3.2",
+  "opensearch-py>=2.6",
+  "neo4j>=5.20",
+]
+# Local Laya inference (pulls torch).
+laya = ["laya==0.4.11"]
+
+[dependency-groups]
+dev = ["pytest>=8.3", "pytest-asyncio>=0.24", "ruff>=0.6"]
+
+[project.scripts]
+debench = "debench.cli:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/debench"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+asyncio_mode = "auto"
+markers = [
+  "db: needs a running database engine for the case",
+  "laya: needs local Laya weights",
+  "remote: makes paid remote API calls (never in default runs)",
+]
+addopts = "-m 'not remote'"
+
+[tool.ruff]
+line-length = 110
+target-version = "py312"

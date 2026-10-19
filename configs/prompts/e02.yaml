@@ -1,0 +1,51 @@
+case: E02
+version: e02-v1
+questions:
+  anomaly_family:
+    type: choice
+    instructions:
+      en: "Which data quality anomaly best explains the evidence?"
+      th: "ความผิดปกติด้านคุณภาพข้อมูลแบบใดอธิบายหลักฐานนี้ได้ดีที่สุด"
+    criteria:
+      volume_drop:
+        en: "Row count far below the expected volume"
+        th: "จำนวนแถวต่ำกว่าปริมาณที่คาดไว้มาก"
+      null_spike:
+        en: "Abnormal share of missing values"
+        th: "สัดส่วนค่าว่างสูงผิดปกติ"
+      duplicate_spike:
+        en: "Abnormal share of repeated records"
+        th: "สัดส่วนเรคคอร์ดซ้ำสูงผิดปกติ"
+      distribution_shift:
+        en: "Numeric values changed distribution versus baseline"
+        th: "การกระจายของค่าตัวเลขเปลี่ยนไปจากค่าฐาน"
+      freshness_lag:
+        en: "Data arrived much later than the freshness SLA"
+        th: "ข้อมูลมาถึงช้ากว่า SLA ความสดใหม่มาก"
+      type_violation:
+        en: "Values do not match the expected data type"
+        th: "ค่าไม่ตรงกับชนิดข้อมูลที่กำหนด"
+      normal_or_unknown:
+        en: "Normal variation, or evidence too weak to confirm"
+        th: "เป็นความแปรผันปกติ หรือหลักฐานไม่พอจะยืนยัน"
+  quality_impact:
+    type: score
+    instructions:
+      en: "How severe is the data quality impact on downstream jobs?"
+      th: "ปัญหาคุณภาพข้อมูลนี้กระทบงานปลายทางรุนแรงเพียงใด"
+    criteria:
+      - en: "No confirmed impact"
+        th: "ไม่พบผลกระทบที่ยืนยันได้"
+      - en: "Low: minor, isolated or easily corrected"
+        th: "ต่ำ: เล็กน้อย เฉพาะจุด หรือแก้ได้ง่าย"
+      - en: "Medium: noticeable degradation in some outputs"
+        th: "ปานกลาง: ผลลัพธ์บางส่วนเสียคุณภาพชัดเจน"
+      - en: "High: important outputs unreliable"
+        th: "สูง: ผลลัพธ์สำคัญเชื่อถือไม่ได้"
+      - en: "Critical: critical consumers receive wrong data"
+        th: "วิกฤต: ผู้ใช้ปลายทางสำคัญได้รับข้อมูลผิด"
+  investigate_now:
+    type: noul
+    instructions:
+      en: "Should this incident be investigated immediately?"
+      th: "เหตุการณ์นี้ควรถูกตรวจสอบทันทีหรือไม่"

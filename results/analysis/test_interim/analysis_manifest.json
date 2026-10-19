@@ -1,0 +1,43 @@
+{
+  "runs": [
+    "test_primary_laya",
+    "rules_test",
+    "pilot_jev"
+  ],
+  "rows": 32040,
+  "tracks": [
+    "laya_en_fixed",
+    "laya_multi_fixed",
+    "laya_routed",
+    "rules_only"
+  ],
+  "cases": [
+    "E01",
+    "E02",
+    "E03",
+    "E04",
+    "E05",
+    "E06"
+  ],
+  "variants": [
+    "en_en",
+    "th_th"
+  ],
+  "splits": [
+    "test"
+  ],
+  "tables": {
+    "summary": 160,
+    "paired_deltas": 0,
+    "language_gaps": 108,
+    "latency": 6,
+    "cost": 6,
+    "high_risk": 40,
+    "rules_comparison": 120,
+    "robustness_p5": 0,
+    "routing_p3": 12,
+    "ambiguity_p9": 152,
+    "truncation": 36,
+    "calibration_p6": 120
+  }
+}

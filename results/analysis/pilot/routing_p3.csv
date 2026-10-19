@@ -1,0 +1,13 @@
+split,protocol,context_level,experiment_id,variant,n,routed_english,routed_multilingual,mismatch_vs_state_language
+dev,primary,common_fit,E01,en_en,20,20,0,0.0
+dev,primary,common_fit,E01,th_th,20,0,20,0.0
+dev,primary,common_fit,E02,en_en,20,20,0,0.0
+dev,primary,common_fit,E02,th_th,20,0,20,0.0
+dev,primary,common_fit,E03,en_en,20,20,0,0.0
+dev,primary,common_fit,E03,th_th,20,0,20,0.0
+dev,primary,common_fit,E04,en_en,20,20,0,0.0
+dev,primary,common_fit,E04,th_th,20,0,20,0.0
+dev,primary,common_fit,E05,en_en,20,18,2,0.1
+dev,primary,common_fit,E05,th_th,20,0,20,0.0
+dev,primary,common_fit,E06,en_en,20,20,0,0.0
+dev,primary,common_fit,E06,th_th,20,0,20,0.0

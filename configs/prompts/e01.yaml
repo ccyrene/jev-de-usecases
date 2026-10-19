@@ -1,0 +1,49 @@
+case: E01
+version: e01-v1
+questions:
+  failure_family:
+    type: choice
+    instructions:
+      en: "Which failure family best matches the evidence?"
+      th: "ปัญหานี้ควรจัดอยู่ในประเภทใด"
+    criteria:
+      schema_mismatch:
+        en: "A table or column is missing, renamed or incompatible"
+        th: "ตารางหรือคอลัมน์หายไป ถูกเปลี่ยนชื่อ หรือโครงสร้างไม่ตรงกัน"
+      connectivity:
+        en: "Network, DNS or database reachability failure"
+        th: "ปัญหาเครือข่าย DNS หรือการเชื่อมต่อฐานข้อมูล"
+      authentication:
+        en: "Rejected credentials or insufficient permissions"
+        th: "ข้อมูลยืนยันตัวตนถูกปฏิเสธหรือสิทธิ์ไม่เพียงพอ"
+      data_error:
+        en: "Invalid, malformed or missing input data"
+        th: "ข้อมูลนำเข้าไม่ถูกต้อง รูปแบบเสีย หรือไม่พบ"
+      resource_exhaustion:
+        en: "Memory, disk, CPU or quota exhausted"
+        th: "หน่วยความจำ ดิสก์ CPU หรือโควตาหมด"
+      dependency_failure:
+        en: "An upstream task or external dependency failed or never arrived"
+        th: "งาน upstream หรือ dependency ภายนอกล้มเหลวหรือไม่มาถึง"
+      other_unknown:
+        en: "Another cause, conflicting signals or not enough evidence"
+        th: "สาเหตุอื่น สัญญาณขัดแย้งกัน หรือหลักฐานไม่พอ"
+  severity:
+    type: score
+    instructions:
+      en: "Rate the operational severity of this pipeline incident."
+      th: "ประเมินความรุนแรงเชิงปฏิบัติการของเหตุการณ์ pipeline นี้"
+    criteria:
+      - en: "Informational: recovered or no real failure"
+        th: "เพื่อทราบ: ฟื้นตัวแล้วหรือไม่มีความล้มเหลวจริง"
+      - en: "Task can be retried; nothing downstream blocked yet"
+        th: "งาน retry ได้ และยังไม่มีงานปลายน้ำถูกบล็อก"
+      - en: "Important workflow blocked; fewer than 3 consumers"
+        th: "workflow สำคัญถูกบล็อก มีผู้ใช้ข้อมูลน้อยกว่า 3 ราย"
+      - en: "Critical: 3 or more downstream consumers blocked"
+        th: "วิกฤต: ผู้ใช้ข้อมูลปลายน้ำตั้งแต่ 3 รายขึ้นไปถูกบล็อก"
+  requires_human:
+    type: noul
+    instructions:
+      en: "Does this incident need human review before changing a production system?"
+      th: "เหตุการณ์นี้จำเป็นต้องให้มนุษย์ตรวจสอบก่อนดำเนินการหรือไม่"

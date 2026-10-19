@@ -1,0 +1,86 @@
+# One profile at a time:  docker compose -f infra/compose.yaml --env-file .env --profile e01 up -d
+# Images are pinned by tag AND multi-arch index digest (resolved 2026-10-19). Ports bind to
+# ${DB_BIND_HOST} (127.0.0.1). E06 uses in-process DuckDB and has no service.
+# Without Docker the same engines run natively (infra/native/) or embedded; the manifest records which.
+
+name: debench
+
+services:
+  opensearch:
+    profiles: [e01]
+    image: opensearchproject/opensearch:3.9.0@sha256:adfa61f85025d06b4aeb562e7e74fde7e31c437039c93c3862c17e9acebd6c7c
+    environment:
+      discovery.type: single-node
+      plugins.security.disabled: "true"
+      DISABLE_INSTALL_DEMO_CONFIG: "true"
+      OPENSEARCH_INITIAL_ADMIN_PASSWORD: ${OPENSEARCH_INITIAL_ADMIN_PASSWORD:?set in .env}
+      OPENSEARCH_JAVA_OPTS: -Xms512m -Xmx512m
+    ports: ["${DB_BIND_HOST:-127.0.0.1}:${OPENSEARCH_PORT:-9200}:9200"]
+    healthcheck:
+      test: ["CMD-SHELL", "curl -fs http://localhost:9200/_cluster/health?wait_for_status=yellow || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 30
+
+  clickhouse:
+    profiles: [e02]
+    image: clickhouse/clickhouse-server:26.9.21.9@sha256:fd4652f708ecfc2239d08c828f5a51dfcc92a1e4a57269b1837c4dbe2dbe33a2
+    environment:
+      CLICKHOUSE_DB: ${CLICKHOUSE_DB:-debench}
+      CLICKHOUSE_USER: ${CLICKHOUSE_USER:-debench}
+      CLICKHOUSE_PASSWORD: ${CLICKHOUSE_PASSWORD:?set in .env}
+    ports:
+      - "${DB_BIND_HOST:-127.0.0.1}:${CLICKHOUSE_HTTP_PORT:-8123}:8123"
+      - "${DB_BIND_HOST:-127.0.0.1}:${CLICKHOUSE_NATIVE_PORT:-9000}:9000"
+    volumes: ["./init/e02_clickhouse:/docker-entrypoint-initdb.d:ro"]
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO- http://localhost:8123/ping || exit 1"]
+      interval: 5s
+      timeout: 3s
+      retries: 30
+
+  postgres-e03:
+    profiles: [e03]
+    image: postgres:18.6-bookworm@sha256:afc7e2d441324c0388fa80c3d24f733b4194a4eb7f47dd8ee2b08eb1a24a647c
+    environment:
+      POSTGRES_DB: ${E03_POSTGRES_DB:-schema_drift}
+      POSTGRES_USER: ${E03_POSTGRES_USER:-debench}
+      POSTGRES_PASSWORD: ${E03_POSTGRES_PASSWORD:?set in .env}
+    ports: ["${DB_BIND_HOST:-127.0.0.1}:${E03_POSTGRES_PORT:-5433}:5432"]
+    volumes: ["./init/e03_postgres:/docker-entrypoint-initdb.d:ro"]
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
+      interval: 5s
+      timeout: 3s
+      retries: 30
+
+  neo4j:
+    profiles: [e04]
+    image: neo4j:5.26.32-community@sha256:0a6e7aedf54a531f76286032d4365ead65b11cca05e4a15cdf23b8e53d6db02b
+    environment:
+      NEO4J_AUTH: ${NEO4J_USER:-neo4j}/${NEO4J_PASSWORD:?set in .env}
+      NEO4J_server_memory_heap_max__size: 512m
+      NEO4J_server_memory_pagecache_size: 256m
+    ports:
+      - "${DB_BIND_HOST:-127.0.0.1}:${NEO4J_HTTP_PORT:-7474}:7474"
+      - "${DB_BIND_HOST:-127.0.0.1}:${NEO4J_BOLT_PORT:-7687}:7687"
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO- http://localhost:7474 || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 30
+
+  postgres-e05:
+    profiles: [e05]
+    image: postgres:18.6-bookworm@sha256:afc7e2d441324c0388fa80c3d24f733b4194a4eb7f47dd8ee2b08eb1a24a647c
+    environment:
+      POSTGRES_DB: ${E05_POSTGRES_DB:-pii_catalog}
+      POSTGRES_USER: ${E05_POSTGRES_USER:-debench}
+      POSTGRES_PASSWORD: ${E05_POSTGRES_PASSWORD:?set in .env}
+    ports: ["${DB_BIND_HOST:-127.0.0.1}:${E05_POSTGRES_PORT:-5434}:5432"]
+    volumes: ["./init/e05_postgres:/docker-entrypoint-initdb.d:ro"]
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
+      interval: 5s
+      timeout: 3s
+      retries: 30

@@ -1,0 +1,40 @@
+study_id: de-laya-jev-th-en-2026
+seed: 20261019
+cases: [E01, E02, E03, E04, E05, E06]
+languages: [en, th]
+question_types: [choice, score, noul]
+split_scenarios_per_case:
+  dev: 60
+  calibration: 40
+  test: 200
+primary_models: [laya_routed, jev_114]
+extra_models: [laya_en_fixed, laya_multi_fixed]
+primary_protocols: [P1_primary_en, P2_primary_th]
+pilot:
+  # A pilot is never reported as the final result.
+  n_paired_per_case: 20
+  split: dev
+remote:
+  allow: false  # overridden only by ALLOW_REMOTE_API=1 in .env
+  base_url: https://api.typesafe.ai
+  model: jev-1.14.0
+  max_requests: 12000
+  max_usd: 5
+  max_retries: 3
+bilingual:
+  pair_by: scenario_id
+  preserve_machine_tokens: true
+  option_ids_ascii_and_invariant: true
+  validate_semantic_pairs: true
+  p4_subset_per_case: 50
+latency:
+  warmup_local_calls: 30
+  repeats: 3
+  concurrency: [1, 4, 8]
+  question_counts: [1, 3, 6]
+  sample_paired_per_case: 100
+statistics:
+  bootstrap_iterations: 2000
+  confidence_interval: 0.95
+  nll_epsilon: 1.0e-12
+  ece_bins: 15

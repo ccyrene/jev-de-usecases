@@ -1,0 +1,62 @@
+{
+  "runs": [
+    "test_primary_laya",
+    "rules_test",
+    "test_p4_laya",
+    "test_p5_laya",
+    "test_p7_long_laya",
+    "test_primary_jev",
+    "test_p4_jev",
+    "test_p5_jev",
+    "test_p7_long_jev"
+  ],
+  "rows": 160180,
+  "tracks": [
+    "jev_114",
+    "laya_en_fixed",
+    "laya_multi_fixed",
+    "laya_routed",
+    "rules_only"
+  ],
+  "cases": [
+    "E01",
+    "E02",
+    "E03",
+    "E04",
+    "E05",
+    "E06"
+  ],
+  "variants": [
+    "en_en",
+    "en_en_perm1",
+    "en_en_perm2",
+    "en_en_perm3",
+    "en_en_perm4",
+    "en_en_perm5",
+    "en_th",
+    "th_en",
+    "th_th",
+    "th_th_perm1",
+    "th_th_perm2",
+    "th_th_perm3",
+    "th_th_perm4",
+    "th_th_perm5"
+  ],
+  "splits": [
+    "test"
+  ],
+  "tables": {
+    "summary": 680,
+    "paired_deltas": 648,
+    "language_gaps": 351,
+    "latency": 8,
+    "cost": 7,
+    "high_risk": 50,
+    "rules_comparison": 160,
+    "robustness_p5": 98,
+    "routing_p3": 120,
+    "ambiguity_p9": 342,
+    "truncation": 144,
+    "calibration_p6": 160
+  }
+}

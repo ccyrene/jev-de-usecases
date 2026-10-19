@@ -1,0 +1,45 @@
+case: E04
+version: e04-v1
+questions:
+  impact_tier:
+    type: choice
+    instructions:
+      en: "What is the verified downstream impact of this change?"
+      th: "การเปลี่ยนแปลงนี้ส่งผลกระทบปลายทางที่ยืนยันแล้วในระดับใด"
+    criteria:
+      none:
+        en: "No active downstream consumer is affected."
+        th: "ไม่มี consumer ปลายทางที่ active ได้รับผลกระทบ"
+      single_noncritical:
+        en: "Exactly one consumer affected, not high or critical."
+        th: "กระทบ consumer เพียงหนึ่งรายการ และไม่ใช่ high หรือ critical"
+      multi_noncritical:
+        en: "Several consumers affected, none high or critical."
+        th: "กระทบ consumer หลายรายการ และไม่มี high หรือ critical"
+      critical_downstream:
+        en: "A high or critical consumer is affected."
+        th: "กระทบ consumer ที่เป็น high หรือ critical"
+      unknown:
+        en: "Lineage evidence is too incomplete to decide."
+        th: "หลักฐาน lineage ไม่ครบพอที่จะตัดสินได้"
+  impact_severity:
+    type: score
+    instructions:
+      en: "How severe is the downstream impact of this change?"
+      th: "การเปลี่ยนแปลงนี้ส่งผลกระทบปลายทางรุนแรงเพียงใด"
+    criteria:
+      - en: "None: no downstream consumer is affected."
+        th: "ไม่มี: ไม่มี consumer ปลายทางได้รับผลกระทบ"
+      - en: "Low: only minor consumers are affected."
+        th: "ต่ำ: กระทบเฉพาะ consumer ที่สำคัญน้อย"
+      - en: "Medium: moderately important consumers are affected."
+        th: "ปานกลาง: กระทบ consumer ที่สำคัญระดับกลาง"
+      - en: "High: a high-criticality consumer is affected."
+        th: "สูง: กระทบ consumer ที่มี criticality สูง"
+      - en: "Critical: a critical or tight-SLA consumer is affected."
+        th: "วิกฤต: กระทบ consumer ที่ critical หรือมี SLA เข้มงวด"
+  needs_owner_escalation:
+    type: noul
+    instructions:
+      en: "Does this change need owner approval before deployment?"
+      th: "การเปลี่ยนแปลงนี้ต้องได้รับอนุมัติจากเจ้าของก่อน deploy หรือไม่"

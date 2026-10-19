@@ -1,0 +1,25 @@
+experiment_id,question_id,model_track,variant,definition,n_positive,misses,miss_rate,invalid_on_positive,upper_95_if_zero
+E01,severity,laya_en_fixed,en_en,severe incident (gold >= 2) predicted < 2,15,10,0.6666666666666666,0,
+E01,severity,laya_en_fixed,th_th,severe incident (gold >= 2) predicted < 2,15,14,0.9333333333333333,0,
+E01,severity,laya_multi_fixed,en_en,severe incident (gold >= 2) predicted < 2,15,15,1.0,0,
+E01,severity,laya_multi_fixed,th_th,severe incident (gold >= 2) predicted < 2,15,15,1.0,0,
+E01,severity,laya_routed,en_en,severe incident (gold >= 2) predicted < 2,15,10,0.6666666666666666,0,
+E01,severity,laya_routed,th_th,severe incident (gold >= 2) predicted < 2,15,15,1.0,0,
+E01,severity,rules_only,en_en,severe incident (gold >= 2) predicted < 2,15,0,0.0,0,0.18103627252208462
+E01,severity,rules_only,th_th,severe incident (gold >= 2) predicted < 2,15,0,0.0,0,0.18103627252208462
+E04,impact_tier,laya_en_fixed,en_en,critical downstream impact missed,2,0,0.0,0,0.776393202250021
+E04,impact_tier,laya_en_fixed,th_th,critical downstream impact missed,2,2,1.0,0,
+E04,impact_tier,laya_multi_fixed,en_en,critical downstream impact missed,2,1,0.5,0,
+E04,impact_tier,laya_multi_fixed,th_th,critical downstream impact missed,2,0,0.0,0,0.776393202250021
+E04,impact_tier,laya_routed,en_en,critical downstream impact missed,2,0,0.0,0,0.776393202250021
+E04,impact_tier,laya_routed,th_th,critical downstream impact missed,2,0,0.0,0,0.776393202250021
+E04,impact_tier,rules_only,en_en,critical downstream impact missed,2,0,0.0,0,0.776393202250021
+E04,impact_tier,rules_only,th_th,critical downstream impact missed,2,0,0.0,0,0.776393202250021
+E05,data_class,laya_en_fixed,en_en,sensitive/direct identifier predicted non-personal,6,3,0.5,0,
+E05,data_class,laya_en_fixed,th_th,sensitive/direct identifier predicted non-personal,6,0,0.0,0,0.39303776899708265
+E05,data_class,laya_multi_fixed,en_en,sensitive/direct identifier predicted non-personal,6,2,0.3333333333333333,0,
+E05,data_class,laya_multi_fixed,th_th,sensitive/direct identifier predicted non-personal,6,0,0.0,0,0.39303776899708265
+E05,data_class,laya_routed,en_en,sensitive/direct identifier predicted non-personal,6,3,0.5,0,
+E05,data_class,laya_routed,th_th,sensitive/direct identifier predicted non-personal,6,0,0.0,0,0.39303776899708265
+E05,data_class,rules_only,en_en,sensitive/direct identifier predicted non-personal,6,0,0.0,0,0.39303776899708265
+E05,data_class,rules_only,th_th,sensitive/direct identifier predicted non-personal,6,0,0.0,0,0.39303776899708265

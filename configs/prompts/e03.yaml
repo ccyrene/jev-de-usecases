@@ -1,0 +1,48 @@
+case: E03
+version: e03-v1
+questions:
+  drift_impact:
+    type: choice
+    instructions:
+      en: "How does this schema change affect existing consumers?"
+      th: "การเปลี่ยนแปลงสคีมานี้ส่งผลต่อ consumer ที่ใช้งานอยู่อย่างไร"
+    criteria:
+      non_breaking_addition:
+        en: "Compatible change; every consumer query still works."
+        th: "เปลี่ยนแปลงที่เข้ากันได้ query ของ consumer ทุกตัวยังใช้งานได้"
+      breaking_rename_drop:
+        en: "A column, table or view was renamed or dropped and consumers fail."
+        th: "คอลัมน์ ตาราง หรือ view ถูกเปลี่ยนชื่อหรือลบ ทำให้ consumer พัง"
+      type_or_cast_break:
+        en: "A data type change breaks queries or silently alters values."
+        th: "การเปลี่ยนชนิดข้อมูลทำให้ query พังหรือค่าเปลี่ยนไปโดยไม่แจ้ง"
+      constraint_or_nullability_break:
+        en: "A constraint, NOT NULL or default change rejects data or writes."
+        th: "constraint, NOT NULL หรือค่า default ทำให้ข้อมูลหรือการเขียนถูกปฏิเสธ"
+      semantic_change:
+        en: "Meaning of the data changed while the SQL type stays the same."
+        th: "ความหมายของข้อมูลเปลี่ยน แต่ชนิดข้อมูล SQL ยังเหมือนเดิม"
+      no_change_or_unknown:
+        en: "No contract change (index, comment, storage) or too little evidence."
+        th: "ไม่มีการเปลี่ยนสัญญาข้อมูล (index, comment, storage) หรือหลักฐานไม่พอ"
+  migration_risk:
+    type: score
+    instructions:
+      en: "Rate the deployment risk of this migration."
+      th: "ประเมินความเสี่ยงในการ deploy migration นี้"
+    criteria:
+      - en: "0 = safe, no consumer impact"
+        th: "0 = ปลอดภัย ไม่กระทบ consumer"
+      - en: "1 = low, compatible and reversible"
+        th: "1 = ต่ำ เข้ากันได้และย้อนกลับได้"
+      - en: "2 = moderate, blocked, irreversible or contract changed"
+        th: "2 = ปานกลาง ถูกบล็อก ย้อนกลับไม่ได้ หรือสัญญาข้อมูลเปลี่ยน"
+      - en: "3 = high, consumers fail or results silently change"
+        th: "3 = สูง consumer พังหรือผลลัพธ์เปลี่ยนโดยไม่แจ้ง"
+      - en: "4 = critical, critical consumers broken or data lost"
+        th: "4 = วิกฤต consumer สำคัญพังหรือข้อมูลสูญหาย"
+  review_before_deploy:
+    type: noul
+    instructions:
+      en: "Does this migration need manual schema review before deployment?"
+      th: "migration นี้ต้องให้คนตรวจสอบสคีมาก่อน deploy หรือไม่"

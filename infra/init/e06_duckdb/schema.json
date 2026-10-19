@@ -1,0 +1,1004 @@
+{
+  "database": "e06_warehouse",
+  "version": "e06-warehouse-v1",
+  "dialect": "duckdb",
+  "notes": {
+    "en": "Synthetic data only. Identifiers are ASCII; province and category names are stored data values in English and Thai.",
+    "th": "ข้อมูลสังเคราะห์เท่านั้น ตัวระบุเป็น ASCII ส่วนชื่อจังหวัดและหมวดหมู่เป็นค่าข้อมูลที่เก็บเป็นภาษาอังกฤษและภาษาไทย"
+  },
+  "tables": {
+    "provinces": {
+      "description": {
+        "en": "Thai provinces (public geography, 77 rows).",
+        "th": "จังหวัดของประเทศไทย (ข้อมูลภูมิศาสตร์สาธารณะ 77 แถว)"
+      },
+      "primary_key": [
+        "province_id"
+      ],
+      "foreign_keys": [],
+      "columns": [
+        {
+          "name": "province_id",
+          "type": "INTEGER",
+          "nullable": false,
+          "description": {
+            "en": "Province key.",
+            "th": "รหัสจังหวัด"
+          }
+        },
+        {
+          "name": "name_en",
+          "type": "VARCHAR",
+          "nullable": false,
+          "description": {
+            "en": "English province name (stored data value).",
+            "th": "ชื่อจังหวัดภาษาอังกฤษ (ค่าข้อมูลที่เก็บไว้)"
+          }
+        },
+        {
+          "name": "name_th",
+          "type": "VARCHAR",
+          "nullable": false,
+          "description": {
+            "en": "Thai province name (stored data value).",
+            "th": "ชื่อจังหวัดภาษาไทย (ค่าข้อมูลที่เก็บไว้)"
+          }
+        },
+        {
+          "name": "region",
+          "type": "VARCHAR",
+          "nullable": false,
+          "description": {
+            "en": "Region: north, northeast, central, east, west or south.",
+            "th": "ภูมิภาค: north, northeast, central, east, west หรือ south"
+          }
+        }
+      ]
+    },
+    "product_categories": {
+      "description": {
+        "en": "Product category tree with 2 levels.",
+        "th": "ต้นไม้หมวดหมู่สินค้า 2 ระดับ"
+      },
+      "primary_key": [
+        "category_id"
+      ],
+      "foreign_keys": [
+        {
+          "columns": [
+            "parent_category_id"
+          ],
+          "references": {
+            "table": "product_categories",
+            "columns": [
+              "category_id"
+            ]
+          }
+        }
+      ],
+      "columns": [
+        {
+          "name": "category_id",
+          "type": "INTEGER",
+          "nullable": false,
+          "description": {
+            "en": "Category key.",
+            "th": "รหัสหมวดหมู่"
+          }
+        },
+        {
+          "name": "name_en",
+          "type": "VARCHAR",
+          "nullable": false,
+          "description": {
+            "en": "English category name.",
+            "th": "ชื่อหมวดหมู่ภาษาอังกฤษ"
+          }
+        },
+        {
+          "name": "name_th",
+          "type": "VARCHAR",
+          "nullable": false,
+          "description": {
+            "en": "Thai category name.",
+            "th": "ชื่อหมวดหมู่ภาษาไทย"
+          }
+        },
+        {
+          "name": "parent_category_id",
+          "type": "INTEGER",
+          "nullable": true,
+          "description": {
+            "en": "Parent category; NULL for top-level categories.",
+            "th": "หมวดหมู่แม่ เป็น NULL สำหรับหมวดหมู่ระดับบนสุด"
+          }
+        }
+      ]
+    },
+    "products": {
+      "description": {
+        "en": "Products on the catalogue; each belongs to a leaf category.",
+        "th": "สินค้าในแคตตาล็อก แต่ละรายการอยู่ในหมวดหมู่ระดับย่อย"
+      },
+      "primary_key": [
+        "product_id"
+      ],
+      "foreign_keys": [
+        {
+          "columns": [
+            "category_id"
+          ],
+          "references": {
+            "table": "product_categories",
+            "columns": [
+              "category_id"
+            ]
+          }
+        }
+      ],
+      "columns": [
+        {
+          "name": "product_id",
+          "type": "INTEGER",
+          "nullable": false,
+          "description": {
+            "en": "Product key.",
+            "th": "รหัสสินค้า"
+          }
+        },
+        {
+          "name": "product_name",
+          "type": "VARCHAR",
+          "nullable": false,
+          "description": {
+            "en": "Product name.",
+            "th": "ชื่อสินค้า"
+          }
+        },
+        {
+          "name": "category_id",
+          "type": "INTEGER",
+          "nullable": false,
+          "description": {
+            "en": "Leaf category of the product.",
+            "th": "หมวดหมู่ย่อยของสินค้า"
+          }
+        },
+        {
+          "name": "list_price",
+          "type": "DECIMAL(10,2)",
+          "nullable": false,
+          "description": {
+            "en": "List price in THB.",
+            "th": "ราคาตั้งต้นเป็นบาท"
+          }
+        },
+        {
+          "name": "cost_price",
+          "type": "DECIMAL(10,2)",
+          "nullable": false,
+          "description": {
+            "en": "Unit cost in THB.",
+            "th": "ต้นทุนต่อหน่วยเป็นบาท"
+          }
+        },
+        {
+          "name": "is_active",
+          "type": "BOOLEAN",
+          "nullable": false,
+          "description": {
+            "en": "True while the product is on sale.",
+            "th": "เป็น true เมื่อสินค้ายังวางขาย"
+          }
+        }
+      ]
+    },
+    "customers": {
+      "description": {
+        "en": "Synthetic customers (no real people).",
+        "th": "ลูกค้าสังเคราะห์ (ไม่ใช่บุคคลจริง)"
+      },
+      "primary_key": [
+        "customer_id"
+      ],
+      "foreign_keys": [
+        {
+          "columns": [
+            "province_id"
+          ],
+          "references": {
+            "table": "provinces",
+            "columns": [
+              "province_id"
+            ]
+          }
+        }
+      ],
+      "columns": [
+        {
+          "name": "customer_id",
+          "type": "INTEGER",
+          "nullable": false,
+          "description": {
+            "en": "Customer key.",
+            "th": "รหัสลูกค้า"
+          }
+        },
+        {
+          "name": "customer_code",
+          "type": "VARCHAR",
+          "nullable": false,
+          "description": {
+            "en": "Synthetic customer code.",
+            "th": "รหัสลูกค้าสังเคราะห์"
+          }
+        },
+        {
+          "name": "email",
+          "type": "VARCHAR",
+          "nullable": false,
+          "description": {
+            "en": "Placeholder email at example.com.",
+            "th": "อีเมลสมมติที่ example.com"
+          }
+        },
+        {
+          "name": "province_id",
+          "type": "INTEGER",
+          "nullable": false,
+          "description": {
+            "en": "Home province of the customer.",
+            "th": "จังหวัดที่อยู่ของลูกค้า"
+          }
+        },
+        {
+          "name": "segment",
+          "type": "VARCHAR",
+          "nullable": false,
+          "description": {
+            "en": "Customer segment: retail, wholesale or vip.",
+            "th": "กลุ่มลูกค้า: retail, wholesale หรือ vip"
+          }
+        },
+        {
+          "name": "signup_date",
+          "type": "DATE",
+          "nullable": false,
+          "description": {
+            "en": "Sign-up date.",
+            "th": "วันที่สมัคร"
+          }
+        },
+        {
+          "name": "is_test",
+          "type": "BOOLEAN",
+          "nullable": false,
+          "description": {
+            "en": "True for internal test accounts.",
+            "th": "เป็น true สำหรับบัญชีทดสอบภายใน"
+          }
+        }
+      ]
+    },
+    "campaigns": {
+      "description": {
+        "en": "Marketing campaigns with a date window.",
+        "th": "แคมเปญการตลาดที่มีช่วงวันที่"
+      },
+      "primary_key": [
+        "campaign_id"
+      ],
+      "foreign_keys": [],
+      "columns": [
+        {
+          "name": "campaign_id",
+          "type": "INTEGER",
+          "nullable": false,
+          "description": {
+            "en": "Campaign key.",
+            "th": "รหัสแคมเปญ"
+          }
+        },
+        {
+          "name": "campaign_name",
+          "type": "VARCHAR",
+          "nullable": false,
+          "description": {
+            "en": "Campaign name.",
+            "th": "ชื่อแคมเปญ"
+          }
+        },
+        {
+          "name": "channel",
+          "type": "VARCHAR",
+          "nullable": false,
+          "description": {
+            "en": "Marketing channel: email, social, search or display.",
+            "th": "ช่องทางการตลาด: email, social, search หรือ display"
+          }
+        },
+        {
+          "name": "start_date",
+          "type": "DATE",
+          "nullable": false,
+          "description": {
+            "en": "First day of the campaign (inclusive).",
+            "th": "วันแรกของแคมเปญ (รวมวันนี้)"
+          }
+        },
+        {
+          "name": "end_date",
+          "type": "DATE",
+          "nullable": false,
+          "description": {
+            "en": "Last day of the campaign (inclusive).",
+            "th": "วันสุดท้ายของแคมเปญ (รวมวันนี้)"
+          }
+        },
+        {
+          "name": "budget",
+          "type": "DECIMAL(12,2)",
+          "nullable": false,
+          "description": {
+            "en": "Budget in THB.",
+            "th": "งบประมาณเป็นบาท"
+          }
+        }
+      ]
+    },
+    "calendar": {
+      "description": {
+        "en": "Calendar dimension, one row per day (Asia/Bangkok dates).",
+        "th": "มิติปฏิทิน หนึ่งแถวต่อวัน (วันที่ตามเวลา Asia/Bangkok)"
+      },
+      "primary_key": [
+        "date_key"
+      ],
+      "foreign_keys": [],
+      "columns": [
+        {
+          "name": "date_key",
+          "type": "DATE",
+          "nullable": false,
+          "description": {
+            "en": "Calendar date.",
+            "th": "วันที่ในปฏิทิน"
+          }
+        },
+        {
+          "name": "year",
+          "type": "INTEGER",
+          "nullable": false,
+          "description": {
+            "en": "Calendar year.",
+            "th": "ปี ค.ศ."
+          }
+        },
+        {
+          "name": "month",
+          "type": "INTEGER",
+          "nullable": false,
+          "description": {
+            "en": "Month number 1-12.",
+            "th": "เดือน 1-12"
+          }
+        },
+        {
+          "name": "day",
+          "type": "INTEGER",
+          "nullable": false,
+          "description": {
+            "en": "Day of month.",
+            "th": "วันที่ในเดือน"
+          }
+        },
+        {
+          "name": "quarter",
+          "type": "INTEGER",
+          "nullable": false,
+          "description": {
+            "en": "Quarter 1-4.",
+            "th": "ไตรมาส 1-4"
+          }
+        },
+        {
+          "name": "iso_dow",
+          "type": "INTEGER",
+          "nullable": false,
+          "description": {
+            "en": "ISO weekday, 1 = Monday.",
+            "th": "วันในสัปดาห์แบบ ISO โดย 1 = วันจันทร์"
+          }
+        },
+        {
+          "name": "is_weekend",
+          "type": "BOOLEAN",
+          "nullable": false,
+          "description": {
+            "en": "True on Saturday and Sunday.",
+            "th": "เป็น true ในวันเสาร์และอาทิตย์"
+          }
+        },
+        {
+          "name": "is_holiday",
+          "type": "BOOLEAN",
+          "nullable": false,
+          "description": {
+            "en": "True on listed public holidays.",
+            "th": "เป็น true ในวันหยุดนักขัตฤกษ์ที่ระบุ"
+          }
+        }
+      ]
+    },
+    "orders": {
+      "description": {
+        "en": "Customer orders; one row per order.",
+        "th": "คำสั่งซื้อของลูกค้า หนึ่งแถวต่อคำสั่งซื้อ"
+      },
+      "primary_key": [
+        "order_id"
+      ],
+      "foreign_keys": [
+        {
+          "columns": [
+            "customer_id"
+          ],
+          "references": {
+            "table": "customers",
+            "columns": [
+              "customer_id"
+            ]
+          }
+        },
+        {
+          "columns": [
+            "province_id"
+          ],
+          "references": {
+            "table": "provinces",
+            "columns": [
+              "province_id"
+            ]
+          }
+        },
+        {
+          "columns": [
+            "campaign_id"
+          ],
+          "references": {
+            "table": "campaigns",
+            "columns": [
+              "campaign_id"
+            ]
+          }
+        }
+      ],
+      "columns": [
+        {
+          "name": "order_id",
+          "type": "INTEGER",
+          "nullable": false,
+          "description": {
+            "en": "Order key.",
+            "th": "รหัสคำสั่งซื้อ"
+          }
+        },
+        {
+          "name": "customer_id",
+          "type": "INTEGER",
+          "nullable": false,
+          "description": {
+            "en": "Customer who placed the order.",
+            "th": "ลูกค้าที่สั่งซื้อ"
+          }
+        },
+        {
+          "name": "province_id",
+          "type": "INTEGER",
+          "nullable": false,
+          "description": {
+            "en": "Shipping province of the order.",
+            "th": "จังหวัดปลายทางจัดส่งของคำสั่งซื้อ"
+          }
+        },
+        {
+          "name": "campaign_id",
+          "type": "INTEGER",
+          "nullable": true,
+          "description": {
+            "en": "Attributed campaign; NULL when none.",
+            "th": "แคมเปญที่เป็นต้นทาง เป็น NULL เมื่อไม่มี"
+          }
+        },
+        {
+          "name": "order_ts",
+          "type": "TIMESTAMP",
+          "nullable": false,
+          "description": {
+            "en": "Order time stored in UTC.",
+            "th": "เวลาสั่งซื้อที่เก็บเป็น UTC"
+          }
+        },
+        {
+          "name": "status",
+          "type": "VARCHAR",
+          "nullable": false,
+          "description": {
+            "en": "completed, cancelled or pending.",
+            "th": "completed, cancelled หรือ pending"
+          }
+        },
+        {
+          "name": "channel",
+          "type": "VARCHAR",
+          "nullable": false,
+          "description": {
+            "en": "Sales channel: web, app or store.",
+            "th": "ช่องทางขาย: web, app หรือ store"
+          }
+        },
+        {
+          "name": "total_amount",
+          "type": "DECIMAL(12,2)",
+          "nullable": false,
+          "description": {
+            "en": "Order total in THB, net of line discounts.",
+            "th": "ยอดรวมคำสั่งซื้อเป็นบาท หลังหักส่วนลดรายการ"
+          }
+        }
+      ]
+    },
+    "order_items": {
+      "description": {
+        "en": "Order lines; one row per product per order.",
+        "th": "รายการสินค้าในคำสั่งซื้อ หนึ่งแถวต่อสินค้าต่อคำสั่งซื้อ"
+      },
+      "primary_key": [
+        "order_item_id"
+      ],
+      "foreign_keys": [
+        {
+          "columns": [
+            "order_id"
+          ],
+          "references": {
+            "table": "orders",
+            "columns": [
+              "order_id"
+            ]
+          }
+        },
+        {
+          "columns": [
+            "product_id"
+          ],
+          "references": {
+            "table": "products",
+            "columns": [
+              "product_id"
+            ]
+          }
+        }
+      ],
+      "columns": [
+        {
+          "name": "order_item_id",
+          "type": "INTEGER",
+          "nullable": false,
+          "description": {
+            "en": "Order line key.",
+            "th": "รหัสรายการสินค้า"
+          }
+        },
+        {
+          "name": "order_id",
+          "type": "INTEGER",
+          "nullable": false,
+          "description": {
+            "en": "Parent order.",
+            "th": "คำสั่งซื้อแม่"
+          }
+        },
+        {
+          "name": "product_id",
+          "type": "INTEGER",
+          "nullable": false,
+          "description": {
+            "en": "Product sold.",
+            "th": "สินค้าที่ขาย"
+          }
+        },
+        {
+          "name": "quantity",
+          "type": "INTEGER",
+          "nullable": false,
+          "description": {
+            "en": "Units sold.",
+            "th": "จำนวนหน่วยที่ขาย"
+          }
+        },
+        {
+          "name": "unit_price",
+          "type": "DECIMAL(10,2)",
+          "nullable": false,
+          "description": {
+            "en": "Price per unit in THB.",
+            "th": "ราคาต่อหน่วยเป็นบาท"
+          }
+        },
+        {
+          "name": "discount",
+          "type": "DECIMAL(10,2)",
+          "nullable": true,
+          "description": {
+            "en": "Line discount in THB; NULL means no discount.",
+            "th": "ส่วนลดของรายการเป็นบาท NULL หมายถึงไม่มีส่วนลด"
+          }
+        }
+      ]
+    },
+    "payments": {
+      "description": {
+        "en": "Payment attempts against orders.",
+        "th": "ความพยายามชำระเงินของคำสั่งซื้อ"
+      },
+      "primary_key": [
+        "payment_id"
+      ],
+      "foreign_keys": [
+        {
+          "columns": [
+            "order_id"
+          ],
+          "references": {
+            "table": "orders",
+            "columns": [
+              "order_id"
+            ]
+          }
+        }
+      ],
+      "columns": [
+        {
+          "name": "payment_id",
+          "type": "INTEGER",
+          "nullable": false,
+          "description": {
+            "en": "Payment key.",
+            "th": "รหัสการชำระเงิน"
+          }
+        },
+        {
+          "name": "order_id",
+          "type": "INTEGER",
+          "nullable": false,
+          "description": {
+            "en": "Order being paid.",
+            "th": "คำสั่งซื้อที่ชำระ"
+          }
+        },
+        {
+          "name": "method",
+          "type": "VARCHAR",
+          "nullable": false,
+          "description": {
+            "en": "card, qr, bank_transfer or cod.",
+            "th": "card, qr, bank_transfer หรือ cod"
+          }
+        },
+        {
+          "name": "amount",
+          "type": "DECIMAL(12,2)",
+          "nullable": false,
+          "description": {
+            "en": "Amount in THB.",
+            "th": "จำนวนเงินเป็นบาท"
+          }
+        },
+        {
+          "name": "paid_ts",
+          "type": "TIMESTAMP",
+          "nullable": false,
+          "description": {
+            "en": "Payment time stored in UTC.",
+            "th": "เวลาชำระเงินที่เก็บเป็น UTC"
+          }
+        },
+        {
+          "name": "status",
+          "type": "VARCHAR",
+          "nullable": false,
+          "description": {
+            "en": "captured or failed.",
+            "th": "captured หรือ failed"
+          }
+        }
+      ]
+    },
+    "returns": {
+      "description": {
+        "en": "Returned order lines with refunds.",
+        "th": "รายการสินค้าที่ถูกคืนพร้อมการคืนเงิน"
+      },
+      "primary_key": [
+        "return_id"
+      ],
+      "foreign_keys": [
+        {
+          "columns": [
+            "order_item_id"
+          ],
+          "references": {
+            "table": "order_items",
+            "columns": [
+              "order_item_id"
+            ]
+          }
+        },
+        {
+          "columns": [
+            "order_id"
+          ],
+          "references": {
+            "table": "orders",
+            "columns": [
+              "order_id"
+            ]
+          }
+        }
+      ],
+      "columns": [
+        {
+          "name": "return_id",
+          "type": "INTEGER",
+          "nullable": false,
+          "description": {
+            "en": "Return key.",
+            "th": "รหัสการคืนสินค้า"
+          }
+        },
+        {
+          "name": "order_item_id",
+          "type": "INTEGER",
+          "nullable": false,
+          "description": {
+            "en": "Returned order line.",
+            "th": "รายการสินค้าที่ถูกคืน"
+          }
+        },
+        {
+          "name": "order_id",
+          "type": "INTEGER",
+          "nullable": false,
+          "description": {
+            "en": "Order of the returned line.",
+            "th": "คำสั่งซื้อของรายการที่ถูกคืน"
+          }
+        },
+        {
+          "name": "return_ts",
+          "type": "TIMESTAMP",
+          "nullable": false,
+          "description": {
+            "en": "Return time stored in UTC.",
+            "th": "เวลาคืนสินค้าที่เก็บเป็น UTC"
+          }
+        },
+        {
+          "name": "reason",
+          "type": "VARCHAR",
+          "nullable": false,
+          "description": {
+            "en": "damaged, wrong_item, not_needed or late.",
+            "th": "damaged, wrong_item, not_needed หรือ late"
+          }
+        },
+        {
+          "name": "refund_amount",
+          "type": "DECIMAL(12,2)",
+          "nullable": false,
+          "description": {
+            "en": "Refund in THB.",
+            "th": "ยอดคืนเงินเป็นบาท"
+          }
+        }
+      ]
+    },
+    "daily_fact_sales": {
+      "description": {
+        "en": "Pre-aggregated completed-order sales per Asia/Bangkok day and shipping province.",
+        "th": "ยอดขายสรุปของคำสั่งซื้อที่สำเร็จรายวัน (ตามเวลา Asia/Bangkok) และจังหวัดปลายทาง"
+      },
+      "primary_key": [
+        "sales_date",
+        "province_id"
+      ],
+      "foreign_keys": [
+        {
+          "columns": [
+            "sales_date"
+          ],
+          "references": {
+            "table": "calendar",
+            "columns": [
+              "date_key"
+            ]
+          }
+        },
+        {
+          "columns": [
+            "province_id"
+          ],
+          "references": {
+            "table": "provinces",
+            "columns": [
+              "province_id"
+            ]
+          }
+        }
+      ],
+      "columns": [
+        {
+          "name": "sales_date",
+          "type": "DATE",
+          "nullable": false,
+          "description": {
+            "en": "Asia/Bangkok business date.",
+            "th": "วันที่ทางธุรกิจตามเวลา Asia/Bangkok"
+          }
+        },
+        {
+          "name": "province_id",
+          "type": "INTEGER",
+          "nullable": false,
+          "description": {
+            "en": "Shipping province.",
+            "th": "จังหวัดปลายทางจัดส่ง"
+          }
+        },
+        {
+          "name": "order_count",
+          "type": "INTEGER",
+          "nullable": false,
+          "description": {
+            "en": "Completed orders that day.",
+            "th": "จำนวนคำสั่งซื้อที่สำเร็จในวันนั้น"
+          }
+        },
+        {
+          "name": "units",
+          "type": "INTEGER",
+          "nullable": false,
+          "description": {
+            "en": "Units sold that day.",
+            "th": "จำนวนหน่วยที่ขายในวันนั้น"
+          }
+        },
+        {
+          "name": "revenue",
+          "type": "DECIMAL(14,2)",
+          "nullable": false,
+          "description": {
+            "en": "Sum of total_amount of completed orders.",
+            "th": "ผลรวม total_amount ของคำสั่งซื้อที่สำเร็จ"
+          }
+        }
+      ]
+    },
+    "inventory_snapshots": {
+      "description": {
+        "en": "Weekly stock snapshot, one row per product per Monday.",
+        "th": "ภาพสต็อกรายสัปดาห์ หนึ่งแถวต่อสินค้าต่อวันจันทร์"
+      },
+      "primary_key": [
+        "snapshot_date",
+        "product_id"
+      ],
+      "foreign_keys": [
+        {
+          "columns": [
+            "product_id"
+          ],
+          "references": {
+            "table": "products",
+            "columns": [
+              "product_id"
+            ]
+          }
+        }
+      ],
+      "columns": [
+        {
+          "name": "snapshot_date",
+          "type": "DATE",
+          "nullable": false,
+          "description": {
+            "en": "Snapshot Monday.",
+            "th": "วันจันทร์ของภาพสต็อก"
+          }
+        },
+        {
+          "name": "product_id",
+          "type": "INTEGER",
+          "nullable": false,
+          "description": {
+            "en": "Product in stock.",
+            "th": "สินค้าในสต็อก"
+          }
+        },
+        {
+          "name": "on_hand",
+          "type": "INTEGER",
+          "nullable": false,
+          "description": {
+            "en": "Units on hand.",
+            "th": "จำนวนหน่วยคงเหลือ"
+          }
+        },
+        {
+          "name": "reorder_level",
+          "type": "INTEGER",
+          "nullable": false,
+          "description": {
+            "en": "Reorder threshold in units.",
+            "th": "จุดสั่งซื้อเพิ่มเป็นจำนวนหน่วย"
+          }
+        }
+      ]
+    }
+  },
+  "business_rules": {
+    "tz": {
+      "en": "orders.order_ts is stored in UTC; business days and months use Asia/Bangkok (UTC+7).",
+      "th": "orders.order_ts เก็บเป็น UTC ส่วนวันและเดือนทางธุรกิจใช้เวลา Asia/Bangkok (UTC+7)"
+    },
+    "sales": {
+      "en": "Sales means SUM(orders.total_amount) over orders with status 'completed'.",
+      "th": "ยอดขายคือ SUM(orders.total_amount) ของคำสั่งซื้อที่มี status เป็น 'completed'"
+    },
+    "province_names": {
+      "en": "provinces.name_en and name_th hold the stored province names; match the stored value.",
+      "th": "provinces.name_en และ name_th เก็บชื่อจังหวัดไว้ ต้องเทียบกับค่าที่เก็บจริง"
+    },
+    "exclude_test": {
+      "en": "Exclude test accounts (customers.is_test = true).",
+      "th": "ไม่รวมบัญชีทดสอบ (customers.is_test = true)"
+    },
+    "active_only": {
+      "en": "Only products with is_active = true are on sale.",
+      "th": "สินค้าที่วางขายคือสินค้าที่ is_active = true เท่านั้น"
+    },
+    "captured_only": {
+      "en": "Only payments with status 'captured' count as money received.",
+      "th": "เฉพาะการชำระเงินที่ status เป็น 'captured' เท่านั้นที่นับเป็นเงินที่ได้รับ"
+    },
+    "campaign_null": {
+      "en": "orders.campaign_id is NULL when no campaign applies; keep campaigns that have no orders.",
+      "th": "orders.campaign_id เป็น NULL เมื่อไม่มีแคมเปญ และต้องแสดงแคมเปญที่ไม่มีคำสั่งซื้อด้วย"
+    },
+    "ship_province": {
+      "en": "Province of an order means orders.province_id (shipping), not the customer's home province.",
+      "th": "จังหวัดของคำสั่งซื้อหมายถึง orders.province_id (จัดส่ง) ไม่ใช่จังหวัดที่อยู่ของลูกค้า"
+    },
+    "category_names": {
+      "en": "product_categories.name_en and name_th hold the stored category names; match the stored value.",
+      "th": "product_categories.name_en และ name_th เก็บชื่อหมวดหมู่ไว้ ต้องเทียบกับค่าที่เก็บจริง"
+    },
+    "snapshots": {
+      "en": "inventory_snapshots has one row per product per Monday.",
+      "th": "inventory_snapshots มีหนึ่งแถวต่อสินค้าต่อวันจันทร์"
+    },
+    "net_lines": {
+      "en": "Line revenue is quantity * unit_price minus discount; a NULL discount means 0.",
+      "th": "รายได้ต่อรายการคือ quantity * unit_price ลบ discount โดย discount ที่เป็น NULL คือ 0"
+    },
+    "inclusive_dates": {
+      "en": "Date ranges and campaign windows include both end dates.",
+      "th": "ช่วงวันที่และช่วงแคมเปญรวมทั้งวันเริ่มและวันสิ้นสุด"
+    },
+    "refunds": {
+      "en": "Refund totals use returns.refund_amount, bucketed by Asia/Bangkok return date.",
+      "th": "ยอดคืนเงินใช้ returns.refund_amount และจัดกลุ่มตามวันที่คืนสินค้าตามเวลา Asia/Bangkok"
+    }
+  }
+}

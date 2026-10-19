@@ -1,0 +1,43 @@
+case: E05
+version: e05-v1
+questions:
+  data_class:
+    type: choice
+    instructions:
+      en: "Classify the data in this field by personal-data risk."
+      th: "จัดประเภทข้อมูลในฟิลด์นี้ตามความเสี่ยงด้านข้อมูลส่วนบุคคล"
+    criteria:
+      direct_identifier:
+        en: "Identifies one person on its own."
+        th: "ระบุตัวบุคคลได้ด้วยตัวเอง"
+      quasi_identifier:
+        en: "Identifies a person only when combined with other data."
+        th: "ระบุตัวบุคคลได้เมื่อรวมกับข้อมูลอื่นเท่านั้น"
+      sensitive_personal:
+        en: "Health, belief, biometric or similar sensitive data."
+        th: "ข้อมูลอ่อนไหว เช่น สุขภาพ ความเชื่อ หรือชีวมาตร"
+      non_personal:
+        en: "Does not relate to any person."
+        th: "ไม่เกี่ยวข้องกับตัวบุคคลใด"
+      unknown:
+        en: "Evidence is not enough to decide."
+        th: "หลักฐานไม่พอที่จะตัดสิน"
+  handling_tier:
+    type: score
+    instructions:
+      en: "Pick the handling tier this field needs."
+      th: "เลือกระดับการจัดการที่ฟิลด์นี้ต้องการ"
+    criteria:
+      - en: "Public or non-personal data."
+        th: "ข้อมูลสาธารณะหรือไม่ใช่ข้อมูลส่วนบุคคล"
+      - en: "Internal use only."
+        th: "ใช้ภายในองค์กรเท่านั้น"
+      - en: "Restricted: limited access and masking."
+        th: "จำกัดสิทธิ์: เข้าถึงได้จำกัดและต้องปกปิดข้อมูล"
+      - en: "Highly restricted: strictest controls."
+        th: "จำกัดสิทธิ์สูงสุด: ควบคุมเข้มงวดที่สุด"
+  requires_masking_review:
+    type: noul
+    instructions:
+      en: "Should this field be reviewed for masking or access control?"
+      th: "ควรตรวจสอบการปกปิดข้อมูลหรือการควบคุมสิทธิ์ของฟิลด์นี้หรือไม่"

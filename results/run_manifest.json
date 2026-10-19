@@ -1,0 +1,988 @@
+{
+  "study_id": "de-laya-jev-th-en-2026",
+  "generated": "2026-10-19T16:45:18+07:00",
+  "git_commit": null,
+  "frozen": {
+    "frozen_at": "2026-10-19T14:18:53+07:00",
+    "cases": {
+      "E01": {
+        "questions_version": "e01-v1",
+        "questions_hash": "347e32838483402b4fcd07eaaf36db19119d0f708a170a584a1acc039d859f0b",
+        "datasets": {
+          "common_fit": "44292f8cfa5b5a0ac11a732d055ab84377ade7ff248a42a1881cb078c385d899",
+          "natural_long": "6980eff25b4aa063e17d663d8f35fcb611f19de390a4db008a22644979a5deca"
+        }
+      },
+      "E02": {
+        "questions_version": "e02-v1",
+        "questions_hash": "2502c6fa1ba51f0ae9ba591c4af5d002dae24d3c3257e85bce6cbd5e262a582b",
+        "datasets": {
+          "common_fit": "6f706b5411cb708d52355635ebec3b7d09a9b9c3407cae4151f1a3f366338b8f",
+          "natural_long": "96e8e2f79e8e6de908f2de74e47d96334ef4446a0f5fef16daeda79caa493068"
+        }
+      },
+      "E03": {
+        "questions_version": "e03-v1",
+        "questions_hash": "33c5861d6abc929cfc6a45539d2c27f0b765bfa3622b68509dafee280b916be7",
+        "datasets": {
+          "common_fit": "d54127d180dfa9eba4239ac5d12937cc4afe26417703e88167ba06b40237c747",
+          "natural_long": "9574be0a864ea58ce5a4ad1694e46c26e0d5dd075ea759480f83fbb4be0f1ca6"
+        }
+      },
+      "E04": {
+        "questions_version": "e04-v1",
+        "questions_hash": "d99c4bda1cb9100302ebf05499c6063fd483cc2391e16651e770a644ec16f14e",
+        "datasets": {
+          "common_fit": "0e9507a8762657888a47925c9f9ab934824ef85c6318da55b3d5ac47d6d88de6",
+          "natural_long": "7fadabbc45b367825af07e03f92a0b32635d85e9c2b6e87bed86073f06dde69f"
+        }
+      },
+      "E05": {
+        "questions_version": "e05-v1",
+        "questions_hash": "89cd131edeab9ace38dcdbbdd273c5fbbbbc31d3e17e297868668724e4011935",
+        "datasets": {
+          "common_fit": "40135d30a9cba48958c7a781c9c65c847482cfcbc22687c363b47877e11bcadd",
+          "natural_long": "79f8243c13e1409fc79b3a9c84cdd4c8baf4ffac315696c77a85155bbb1d3792"
+        }
+      },
+      "E06": {
+        "questions_version": "e06-v1",
+        "questions_hash": "04bb0518cba1489c113344ef45cccc00349833ed33d3ea72269af1147b621fa7",
+        "datasets": {
+          "common_fit": "36c0959e5560c199e30765b0cbfb0a94d8cc2b395a84967869b96d5c2ebf08c2",
+          "natural_long": "9fe08bd965244df9dd7d66ba7270229dfab34a64fb0e02c03502ecfe674756d4"
+        }
+      }
+    }
+  },
+  "models": {
+    "laya": "laya==0.4.11 @ convaiinnovations/laya 7b928d828b7b0e022f929d9bd2e44165aa270148",
+    "jev": "jev-1.14.0 (resolved model verified on every response)"
+  },
+  "runs": {
+    "test_primary_laya": {
+      "protocol": "primary",
+      "split": "test",
+      "context_level": "common_fit",
+      "pilot": false,
+      "tracks": {
+        "laya_routed": "OK",
+        "laya_en_fixed": "OK",
+        "laya_multi_fixed": "OK"
+      },
+      "cases": {
+        "E01": {
+          "questions_hash": "347e32838483402b",
+          "dataset_sha256": "437f0cb6df5527ab",
+          "engine": {
+            "runtime": "native_tarball",
+            "version": "opensearch 3.9.0"
+          }
+        },
+        "E02": {
+          "questions_hash": "2502c6fa1ba51f0a",
+          "dataset_sha256": "44b0f8b3d184a702",
+          "engine": {
+            "runtime": "embedded",
+            "version": "26.9.2.1"
+          }
+        },
+        "E03": {
+          "questions_hash": "33c5861d6abc929c",
+          "dataset_sha256": "38e0aa0a1451c6f4",
+          "engine": {
+            "runtime": "embedded",
+            "version": "PostgreSQL 18.4 on x86_64-pc-linux-gnu, compiled by gcc (GCC) 14.2.1 20250110 (Red Hat 14.2.1-11), 64-bit"
+          }
+        },
+        "E04": {
+          "questions_hash": "d99c4bda1cb91003",
+          "dataset_sha256": "9a364084e87dae2b",
+          "engine": {
+            "runtime": "native_tarball",
+            "version": "Neo4j Kernel 5.26.32 community"
+          }
+        },
+        "E05": {
+          "questions_hash": "89cd131edeab9ace",
+          "dataset_sha256": "1cad69228e12bea9",
+          "engine": {
+            "runtime": "embedded",
+            "version": "PostgreSQL 18.4 on x86_64-pc-linux-gnu, compiled by gcc (GCC) 14.2.1 20250110 (Red Hat 14.2.1-11), 64-bit"
+          }
+        },
+        "E06": {
+          "questions_hash": "04bb0518cba1489c",
+          "dataset_sha256": "37940b4291ebb6c6",
+          "engine": {
+            "runtime": "embedded",
+            "version": "v1.5.6"
+          }
+        }
+      },
+      "ignored_shell_secrets": null
+    },
+    "test_primary_jev": {
+      "protocol": "primary",
+      "split": "test",
+      "context_level": "common_fit",
+      "pilot": false,
+      "tracks": {
+        "jev_114": "OK"
+      },
+      "cases": {
+        "E01": {
+          "questions_hash": "347e32838483402b",
+          "dataset_sha256": "437f0cb6df5527ab",
+          "engine": {
+            "runtime": "native_tarball",
+            "version": "opensearch 3.9.0"
+          }
+        },
+        "E02": {
+          "questions_hash": "2502c6fa1ba51f0a",
+          "dataset_sha256": "44b0f8b3d184a702",
+          "engine": {
+            "runtime": "embedded",
+            "version": "26.9.2.1"
+          }
+        },
+        "E03": {
+          "questions_hash": "33c5861d6abc929c",
+          "dataset_sha256": "38e0aa0a1451c6f4",
+          "engine": {
+            "runtime": "embedded",
+            "version": "PostgreSQL 18.4 on x86_64-pc-linux-gnu, compiled by gcc (GCC) 14.2.1 20250110 (Red Hat 14.2.1-11), 64-bit"
+          }
+        },
+        "E04": {
+          "questions_hash": "d99c4bda1cb91003",
+          "dataset_sha256": "9a364084e87dae2b",
+          "engine": {
+            "runtime": "native_tarball",
+            "version": "Neo4j Kernel 5.26.32 community"
+          }
+        },
+        "E05": {
+          "questions_hash": "89cd131edeab9ace",
+          "dataset_sha256": "1cad69228e12bea9",
+          "engine": {
+            "runtime": "embedded",
+            "version": "PostgreSQL 18.4 on x86_64-pc-linux-gnu, compiled by gcc (GCC) 14.2.1 20250110 (Red Hat 14.2.1-11), 64-bit"
+          }
+        },
+        "E06": {
+          "questions_hash": "04bb0518cba1489c",
+          "dataset_sha256": "37940b4291ebb6c6",
+          "engine": {
+            "runtime": "embedded",
+            "version": "v1.5.6"
+          }
+        }
+      },
+      "ignored_shell_secrets": "TYPESAFE_API_KEY"
+    },
+    "rules_test": {
+      "protocol": "primary",
+      "split": "test",
+      "context_level": "common_fit",
+      "pilot": false,
+      "tracks": {
+        "rules_only": "OK"
+      },
+      "cases": {
+        "E01": {
+          "questions_hash": "347e32838483402b",
+          "dataset_sha256": "437f0cb6df5527ab",
+          "engine": {
+            "runtime": "native_tarball",
+            "version": "opensearch 3.9.0"
+          }
+        },
+        "E02": {
+          "questions_hash": "2502c6fa1ba51f0a",
+          "dataset_sha256": "44b0f8b3d184a702",
+          "engine": {
+            "runtime": "embedded",
+            "version": "26.9.2.1"
+          }
+        },
+        "E03": {
+          "questions_hash": "33c5861d6abc929c",
+          "dataset_sha256": "38e0aa0a1451c6f4",
+          "engine": {
+            "runtime": "embedded",
+            "version": "PostgreSQL 18.4 on x86_64-pc-linux-gnu, compiled by gcc (GCC) 14.2.1 20250110 (Red Hat 14.2.1-11), 64-bit"
+          }
+        },
+        "E04": {
+          "questions_hash": "d99c4bda1cb91003",
+          "dataset_sha256": "9a364084e87dae2b",
+          "engine": {
+            "runtime": "native_tarball",
+            "version": "Neo4j Kernel 5.26.32 community"
+          }
+        },
+        "E05": {
+          "questions_hash": "89cd131edeab9ace",
+          "dataset_sha256": "1cad69228e12bea9",
+          "engine": {
+            "runtime": "embedded",
+            "version": "PostgreSQL 18.4 on x86_64-pc-linux-gnu, compiled by gcc (GCC) 14.2.1 20250110 (Red Hat 14.2.1-11), 64-bit"
+          }
+        },
+        "E06": {
+          "questions_hash": "04bb0518cba1489c",
+          "dataset_sha256": "37940b4291ebb6c6",
+          "engine": {
+            "runtime": "embedded",
+            "version": "v1.5.6"
+          }
+        }
+      },
+      "ignored_shell_secrets": null
+    },
+    "test_p4_laya": {
+      "protocol": "P4_cross_language",
+      "split": "test",
+      "context_level": "common_fit",
+      "pilot": false,
+      "tracks": {
+        "laya_routed": "OK",
+        "laya_en_fixed": "OK",
+        "laya_multi_fixed": "OK"
+      },
+      "cases": {
+        "E01": {
+          "questions_hash": "347e32838483402b",
+          "dataset_sha256": "437f0cb6df5527ab",
+          "engine": {
+            "runtime": "native_tarball",
+            "version": "opensearch 3.9.0"
+          }
+        },
+        "E02": {
+          "questions_hash": "2502c6fa1ba51f0a",
+          "dataset_sha256": "44b0f8b3d184a702",
+          "engine": {
+            "runtime": "embedded",
+            "version": "26.9.2.1"
+          }
+        },
+        "E03": {
+          "questions_hash": "33c5861d6abc929c",
+          "dataset_sha256": "38e0aa0a1451c6f4",
+          "engine": {
+            "runtime": "embedded",
+            "version": "PostgreSQL 18.4 on x86_64-pc-linux-gnu, compiled by gcc (GCC) 14.2.1 20250110 (Red Hat 14.2.1-11), 64-bit"
+          }
+        },
+        "E04": {
+          "questions_hash": "d99c4bda1cb91003",
+          "dataset_sha256": "9a364084e87dae2b",
+          "engine": {
+            "runtime": "native_tarball",
+            "version": "Neo4j Kernel 5.26.32 community"
+          }
+        },
+        "E05": {
+          "questions_hash": "89cd131edeab9ace",
+          "dataset_sha256": "1cad69228e12bea9",
+          "engine": {
+            "runtime": "embedded",
+            "version": "PostgreSQL 18.4 on x86_64-pc-linux-gnu, compiled by gcc (GCC) 14.2.1 20250110 (Red Hat 14.2.1-11), 64-bit"
+          }
+        },
+        "E06": {
+          "questions_hash": "04bb0518cba1489c",
+          "dataset_sha256": "37940b4291ebb6c6",
+          "engine": {
+            "runtime": "embedded",
+            "version": "v1.5.6"
+          }
+        }
+      },
+      "ignored_shell_secrets": null
+    },
+    "test_p4_jev": {
+      "protocol": "P4_cross_language",
+      "split": "test",
+      "context_level": "common_fit",
+      "pilot": false,
+      "tracks": {
+        "jev_114": "OK"
+      },
+      "cases": {
+        "E01": {
+          "questions_hash": "347e32838483402b",
+          "dataset_sha256": "437f0cb6df5527ab",
+          "engine": {
+            "runtime": "native_tarball",
+            "version": "opensearch 3.9.0"
+          }
+        },
+        "E02": {
+          "questions_hash": "2502c6fa1ba51f0a",
+          "dataset_sha256": "44b0f8b3d184a702",
+          "engine": {
+            "runtime": "embedded",
+            "version": "26.9.2.1"
+          }
+        },
+        "E03": {
+          "questions_hash": "33c5861d6abc929c",
+          "dataset_sha256": "38e0aa0a1451c6f4",
+          "engine": {
+            "runtime": "embedded",
+            "version": "PostgreSQL 18.4 on x86_64-pc-linux-gnu, compiled by gcc (GCC) 14.2.1 20250110 (Red Hat 14.2.1-11), 64-bit"
+          }
+        },
+        "E04": {
+          "questions_hash": "d99c4bda1cb91003",
+          "dataset_sha256": "9a364084e87dae2b",
+          "engine": {
+            "runtime": "native_tarball",
+            "version": "Neo4j Kernel 5.26.32 community"
+          }
+        },
+        "E05": {
+          "questions_hash": "89cd131edeab9ace",
+          "dataset_sha256": "1cad69228e12bea9",
+          "engine": {
+            "runtime": "embedded",
+            "version": "PostgreSQL 18.4 on x86_64-pc-linux-gnu, compiled by gcc (GCC) 14.2.1 20250110 (Red Hat 14.2.1-11), 64-bit"
+          }
+        },
+        "E06": {
+          "questions_hash": "04bb0518cba1489c",
+          "dataset_sha256": "37940b4291ebb6c6",
+          "engine": {
+            "runtime": "embedded",
+            "version": "v1.5.6"
+          }
+        }
+      },
+      "ignored_shell_secrets": "TYPESAFE_API_KEY"
+    },
+    "test_p5_laya": {
+      "protocol": "P5_order",
+      "split": "test",
+      "context_level": "common_fit",
+      "pilot": false,
+      "tracks": {
+        "laya_routed": "OK"
+      },
+      "cases": {
+        "E01": {
+          "questions_hash": "347e32838483402b",
+          "dataset_sha256": "437f0cb6df5527ab",
+          "engine": {
+            "runtime": "native_tarball",
+            "version": "opensearch 3.9.0"
+          }
+        },
+        "E02": {
+          "questions_hash": "2502c6fa1ba51f0a",
+          "dataset_sha256": "44b0f8b3d184a702",
+          "engine": {
+            "runtime": "embedded",
+            "version": "26.9.2.1"
+          }
+        },
+        "E03": {
+          "questions_hash": "33c5861d6abc929c",
+          "dataset_sha256": "38e0aa0a1451c6f4",
+          "engine": {
+            "runtime": "embedded",
+            "version": "PostgreSQL 18.4 on x86_64-pc-linux-gnu, compiled by gcc (GCC) 14.2.1 20250110 (Red Hat 14.2.1-11), 64-bit"
+          }
+        },
+        "E04": {
+          "questions_hash": "d99c4bda1cb91003",
+          "dataset_sha256": "9a364084e87dae2b",
+          "engine": {
+            "runtime": "native_tarball",
+            "version": "Neo4j Kernel 5.26.32 community"
+          }
+        },
+        "E05": {
+          "questions_hash": "89cd131edeab9ace",
+          "dataset_sha256": "1cad69228e12bea9",
+          "engine": {
+            "runtime": "embedded",
+            "version": "PostgreSQL 18.4 on x86_64-pc-linux-gnu, compiled by gcc (GCC) 14.2.1 20250110 (Red Hat 14.2.1-11), 64-bit"
+          }
+        },
+        "E06": {
+          "questions_hash": "04bb0518cba1489c",
+          "dataset_sha256": "37940b4291ebb6c6",
+          "engine": {
+            "runtime": "embedded",
+            "version": "v1.5.6"
+          }
+        }
+      },
+      "ignored_shell_secrets": null
+    },
+    "test_p5_jev": {
+      "protocol": "P5_order",
+      "split": "test",
+      "context_level": "common_fit",
+      "pilot": false,
+      "tracks": {
+        "jev_114": "OK"
+      },
+      "cases": {
+        "E01": {
+          "questions_hash": "347e32838483402b",
+          "dataset_sha256": "437f0cb6df5527ab",
+          "engine": {
+            "runtime": "native_tarball",
+            "version": "opensearch 3.9.0"
+          }
+        },
+        "E02": {
+          "questions_hash": "2502c6fa1ba51f0a",
+          "dataset_sha256": "44b0f8b3d184a702",
+          "engine": {
+            "runtime": "embedded",
+            "version": "26.9.2.1"
+          }
+        },
+        "E03": {
+          "questions_hash": "33c5861d6abc929c",
+          "dataset_sha256": "38e0aa0a1451c6f4",
+          "engine": {
+            "runtime": "embedded",
+            "version": "PostgreSQL 18.4 on x86_64-pc-linux-gnu, compiled by gcc (GCC) 14.2.1 20250110 (Red Hat 14.2.1-11), 64-bit"
+          }
+        },
+        "E04": {
+          "questions_hash": "d99c4bda1cb91003",
+          "dataset_sha256": "9a364084e87dae2b",
+          "engine": {
+            "runtime": "native_tarball",
+            "version": "Neo4j Kernel 5.26.32 community"
+          }
+        },
+        "E05": {
+          "questions_hash": "89cd131edeab9ace",
+          "dataset_sha256": "1cad69228e12bea9",
+          "engine": {
+            "runtime": "embedded",
+            "version": "PostgreSQL 18.4 on x86_64-pc-linux-gnu, compiled by gcc (GCC) 14.2.1 20250110 (Red Hat 14.2.1-11), 64-bit"
+          }
+        },
+        "E06": {
+          "questions_hash": "04bb0518cba1489c",
+          "dataset_sha256": "37940b4291ebb6c6",
+          "engine": {
+            "runtime": "embedded",
+            "version": "v1.5.6"
+          }
+        }
+      },
+      "ignored_shell_secrets": "TYPESAFE_API_KEY"
+    },
+    "test_p7_long_laya": {
+      "protocol": "primary",
+      "split": "test",
+      "context_level": "natural_long",
+      "pilot": false,
+      "tracks": {
+        "laya_routed": "OK",
+        "laya_en_fixed": "OK",
+        "laya_multi_fixed": "OK"
+      },
+      "cases": {
+        "E01": {
+          "questions_hash": "347e32838483402b",
+          "dataset_sha256": "1a4b9d947961a56b",
+          "engine": {
+            "runtime": "native_tarball",
+            "version": "opensearch 3.9.0"
+          }
+        },
+        "E02": {
+          "questions_hash": "2502c6fa1ba51f0a",
+          "dataset_sha256": "290d45611e7c4d30",
+          "engine": {
+            "runtime": "embedded",
+            "version": "26.9.2.1"
+          }
+        },
+        "E03": {
+          "questions_hash": "33c5861d6abc929c",
+          "dataset_sha256": "860487babac7c236",
+          "engine": {
+            "runtime": "embedded",
+            "version": "PostgreSQL 18.4 on x86_64-pc-linux-gnu, compiled by gcc (GCC) 14.2.1 20250110 (Red Hat 14.2.1-11), 64-bit"
+          }
+        },
+        "E04": {
+          "questions_hash": "d99c4bda1cb91003",
+          "dataset_sha256": "1957feda2b2c7ddc",
+          "engine": {
+            "runtime": "native_tarball",
+            "version": "Neo4j Kernel 5.26.32 community"
+          }
+        },
+        "E05": {
+          "questions_hash": "89cd131edeab9ace",
+          "dataset_sha256": "d8dbbb0316a72b76",
+          "engine": {
+            "runtime": "embedded",
+            "version": "PostgreSQL 18.4 on x86_64-pc-linux-gnu, compiled by gcc (GCC) 14.2.1 20250110 (Red Hat 14.2.1-11), 64-bit"
+          }
+        },
+        "E06": {
+          "questions_hash": "04bb0518cba1489c",
+          "dataset_sha256": "b68d73fe714c2338",
+          "engine": {
+            "runtime": "embedded",
+            "version": "v1.5.6"
+          }
+        }
+      },
+      "ignored_shell_secrets": null
+    },
+    "test_p7_long_jev": {
+      "protocol": "primary",
+      "split": "test",
+      "context_level": "natural_long",
+      "pilot": false,
+      "tracks": {
+        "jev_114": "OK"
+      },
+      "cases": {
+        "E01": {
+          "questions_hash": "347e32838483402b",
+          "dataset_sha256": "1a4b9d947961a56b",
+          "engine": {
+            "runtime": "native_tarball",
+            "version": "opensearch 3.9.0"
+          }
+        },
+        "E02": {
+          "questions_hash": "2502c6fa1ba51f0a",
+          "dataset_sha256": "290d45611e7c4d30",
+          "engine": {
+            "runtime": "embedded",
+            "version": "26.9.2.1"
+          }
+        },
+        "E03": {
+          "questions_hash": "33c5861d6abc929c",
+          "dataset_sha256": "860487babac7c236",
+          "engine": {
+            "runtime": "embedded",
+            "version": "PostgreSQL 18.4 on x86_64-pc-linux-gnu, compiled by gcc (GCC) 14.2.1 20250110 (Red Hat 14.2.1-11), 64-bit"
+          }
+        },
+        "E04": {
+          "questions_hash": "d99c4bda1cb91003",
+          "dataset_sha256": "1957feda2b2c7ddc",
+          "engine": {
+            "runtime": "native_tarball",
+            "version": "Neo4j Kernel 5.26.32 community"
+          }
+        },
+        "E05": {
+          "questions_hash": "89cd131edeab9ace",
+          "dataset_sha256": "d8dbbb0316a72b76",
+          "engine": {
+            "runtime": "embedded",
+            "version": "PostgreSQL 18.4 on x86_64-pc-linux-gnu, compiled by gcc (GCC) 14.2.1 20250110 (Red Hat 14.2.1-11), 64-bit"
+          }
+        },
+        "E06": {
+          "questions_hash": "04bb0518cba1489c",
+          "dataset_sha256": "b68d73fe714c2338",
+          "engine": {
+            "runtime": "embedded",
+            "version": "v1.5.6"
+          }
+        }
+      },
+      "ignored_shell_secrets": "TYPESAFE_API_KEY"
+    },
+    "calibration_primary_laya": {
+      "protocol": "primary",
+      "split": "calibration",
+      "context_level": "common_fit",
+      "pilot": false,
+      "tracks": {
+        "laya_routed": "OK",
+        "laya_en_fixed": "OK",
+        "laya_multi_fixed": "OK"
+      },
+      "cases": {
+        "E01": {
+          "questions_hash": "347e32838483402b",
+          "dataset_sha256": "437f0cb6df5527ab",
+          "engine": {
+            "runtime": "native_tarball",
+            "version": "opensearch 3.9.0"
+          }
+        },
+        "E02": {
+          "questions_hash": "2502c6fa1ba51f0a",
+          "dataset_sha256": "44b0f8b3d184a702",
+          "engine": {
+            "runtime": "embedded",
+            "version": "26.9.2.1"
+          }
+        },
+        "E03": {
+          "questions_hash": "33c5861d6abc929c",
+          "dataset_sha256": "38e0aa0a1451c6f4",
+          "engine": {
+            "runtime": "embedded",
+            "version": "PostgreSQL 18.4 on x86_64-pc-linux-gnu, compiled by gcc (GCC) 14.2.1 20250110 (Red Hat 14.2.1-11), 64-bit"
+          }
+        },
+        "E04": {
+          "questions_hash": "d99c4bda1cb91003",
+          "dataset_sha256": "9a364084e87dae2b",
+          "engine": {
+            "runtime": "native_tarball",
+            "version": "Neo4j Kernel 5.26.32 community"
+          }
+        },
+        "E05": {
+          "questions_hash": "89cd131edeab9ace",
+          "dataset_sha256": "1cad69228e12bea9",
+          "engine": {
+            "runtime": "embedded",
+            "version": "PostgreSQL 18.4 on x86_64-pc-linux-gnu, compiled by gcc (GCC) 14.2.1 20250110 (Red Hat 14.2.1-11), 64-bit"
+          }
+        },
+        "E06": {
+          "questions_hash": "04bb0518cba1489c",
+          "dataset_sha256": "37940b4291ebb6c6",
+          "engine": {
+            "runtime": "embedded",
+            "version": "v1.5.6"
+          }
+        }
+      },
+      "ignored_shell_secrets": null
+    },
+    "calibration_primary_jev": {
+      "protocol": "primary",
+      "split": "calibration",
+      "context_level": "common_fit",
+      "pilot": false,
+      "tracks": {
+        "jev_114": "OK"
+      },
+      "cases": {
+        "E01": {
+          "questions_hash": "347e32838483402b",
+          "dataset_sha256": "437f0cb6df5527ab",
+          "engine": {
+            "runtime": "native_tarball",
+            "version": "opensearch 3.9.0"
+          }
+        },
+        "E02": {
+          "questions_hash": "2502c6fa1ba51f0a",
+          "dataset_sha256": "44b0f8b3d184a702",
+          "engine": {
+            "runtime": "embedded",
+            "version": "26.9.2.1"
+          }
+        },
+        "E03": {
+          "questions_hash": "33c5861d6abc929c",
+          "dataset_sha256": "38e0aa0a1451c6f4",
+          "engine": {
+            "runtime": "embedded",
+            "version": "PostgreSQL 18.4 on x86_64-pc-linux-gnu, compiled by gcc (GCC) 14.2.1 20250110 (Red Hat 14.2.1-11), 64-bit"
+          }
+        },
+        "E04": {
+          "questions_hash": "d99c4bda1cb91003",
+          "dataset_sha256": "9a364084e87dae2b",
+          "engine": {
+            "runtime": "native_tarball",
+            "version": "Neo4j Kernel 5.26.32 community"
+          }
+        },
+        "E05": {
+          "questions_hash": "89cd131edeab9ace",
+          "dataset_sha256": "1cad69228e12bea9",
+          "engine": {
+            "runtime": "embedded",
+            "version": "PostgreSQL 18.4 on x86_64-pc-linux-gnu, compiled by gcc (GCC) 14.2.1 20250110 (Red Hat 14.2.1-11), 64-bit"
+          }
+        },
+        "E06": {
+          "questions_hash": "04bb0518cba1489c",
+          "dataset_sha256": "37940b4291ebb6c6",
+          "engine": {
+            "runtime": "embedded",
+            "version": "v1.5.6"
+          }
+        }
+      },
+      "ignored_shell_secrets": "TYPESAFE_API_KEY"
+    },
+    "pilot_laya": {
+      "protocol": "primary",
+      "split": "dev",
+      "context_level": "common_fit",
+      "pilot": true,
+      "tracks": {
+        "laya_routed": "OK",
+        "laya_en_fixed": "OK",
+        "laya_multi_fixed": "OK"
+      },
+      "cases": {
+        "E01": {
+          "questions_hash": "347e32838483402b",
+          "dataset_sha256": "437f0cb6df5527ab",
+          "engine": {
+            "runtime": "native_tarball",
+            "version": "opensearch 3.9.0"
+          }
+        },
+        "E02": {
+          "questions_hash": "2502c6fa1ba51f0a",
+          "dataset_sha256": "44b0f8b3d184a702",
+          "engine": {
+            "runtime": "embedded",
+            "version": "26.9.2.1"
+          }
+        },
+        "E04": {
+          "questions_hash": "d99c4bda1cb91003",
+          "dataset_sha256": "9a364084e87dae2b",
+          "engine": {
+            "runtime": "native_tarball",
+            "version": "Neo4j Kernel 5.26.32 community"
+          }
+        },
+        "E05": {
+          "questions_hash": "89cd131edeab9ace",
+          "dataset_sha256": "1cad69228e12bea9",
+          "engine": {
+            "runtime": "embedded",
+            "version": "PostgreSQL 18.4 on x86_64-pc-linux-gnu, compiled by gcc (GCC) 14.2.1 20250110 (Red Hat 14.2.1-11), 64-bit"
+          }
+        },
+        "E03": {
+          "questions_hash": "33c5861d6abc929c",
+          "dataset_sha256": "38e0aa0a1451c6f4",
+          "engine": {
+            "runtime": "embedded",
+            "version": "PostgreSQL 18.4 on x86_64-pc-linux-gnu, compiled by gcc (GCC) 14.2.1 20250110 (Red Hat 14.2.1-11), 64-bit"
+          }
+        },
+        "E06": {
+          "questions_hash": "04bb0518cba1489c",
+          "dataset_sha256": "37940b4291ebb6c6",
+          "engine": {
+            "runtime": "embedded",
+            "version": "v1.5.6"
+          }
+        }
+      },
+      "ignored_shell_secrets": null
+    },
+    "pilot_jev": {
+      "protocol": "primary",
+      "split": "dev",
+      "context_level": "common_fit",
+      "pilot": true,
+      "tracks": {
+        "jev_114": "OK"
+      },
+      "cases": {
+        "E01": {
+          "questions_hash": "347e32838483402b",
+          "dataset_sha256": "437f0cb6df5527ab",
+          "engine": {
+            "runtime": "native_tarball",
+            "version": "opensearch 3.9.0"
+          }
+        },
+        "E02": {
+          "questions_hash": "2502c6fa1ba51f0a",
+          "dataset_sha256": "44b0f8b3d184a702",
+          "engine": {
+            "runtime": "embedded",
+            "version": "26.9.2.1"
+          }
+        },
+        "E03": {
+          "questions_hash": "33c5861d6abc929c",
+          "dataset_sha256": "38e0aa0a1451c6f4",
+          "engine": {
+            "runtime": "embedded",
+            "version": "PostgreSQL 18.4 on x86_64-pc-linux-gnu, compiled by gcc (GCC) 14.2.1 20250110 (Red Hat 14.2.1-11), 64-bit"
+          }
+        },
+        "E04": {
+          "questions_hash": "d99c4bda1cb91003",
+          "dataset_sha256": "9a364084e87dae2b",
+          "engine": {
+            "runtime": "native_tarball",
+            "version": "Neo4j Kernel 5.26.32 community"
+          }
+        },
+        "E05": {
+          "questions_hash": "89cd131edeab9ace",
+          "dataset_sha256": "1cad69228e12bea9",
+          "engine": {
+            "runtime": "embedded",
+            "version": "PostgreSQL 18.4 on x86_64-pc-linux-gnu, compiled by gcc (GCC) 14.2.1 20250110 (Red Hat 14.2.1-11), 64-bit"
+          }
+        },
+        "E06": {
+          "questions_hash": "04bb0518cba1489c",
+          "dataset_sha256": "37940b4291ebb6c6",
+          "engine": {
+            "runtime": "embedded",
+            "version": "v1.5.6"
+          }
+        }
+      },
+      "ignored_shell_secrets": "TYPESAFE_API_KEY"
+    },
+    "pilot_rules": {
+      "protocol": "primary",
+      "split": "dev",
+      "context_level": "common_fit",
+      "pilot": true,
+      "tracks": {
+        "rules_only": "OK"
+      },
+      "cases": {
+        "E01": {
+          "questions_hash": "347e32838483402b",
+          "dataset_sha256": "437f0cb6df5527ab",
+          "engine": {
+            "runtime": "native_tarball",
+            "version": "opensearch 3.9.0"
+          }
+        },
+        "E02": {
+          "questions_hash": "2502c6fa1ba51f0a",
+          "dataset_sha256": "44b0f8b3d184a702",
+          "engine": {
+            "runtime": "embedded",
+            "version": "26.9.2.1"
+          }
+        },
+        "E04": {
+          "questions_hash": "d99c4bda1cb91003",
+          "dataset_sha256": "9a364084e87dae2b",
+          "engine": {
+            "runtime": "native_tarball",
+            "version": "Neo4j Kernel 5.26.32 community"
+          }
+        },
+        "E05": {
+          "questions_hash": "89cd131edeab9ace",
+          "dataset_sha256": "1cad69228e12bea9",
+          "engine": {
+            "runtime": "embedded",
+            "version": "PostgreSQL 18.4 on x86_64-pc-linux-gnu, compiled by gcc (GCC) 14.2.1 20250110 (Red Hat 14.2.1-11), 64-bit"
+          }
+        },
+        "E03": {
+          "questions_hash": "33c5861d6abc929c",
+          "dataset_sha256": "38e0aa0a1451c6f4",
+          "engine": {
+            "runtime": "embedded",
+            "version": "PostgreSQL 18.4 on x86_64-pc-linux-gnu, compiled by gcc (GCC) 14.2.1 20250110 (Red Hat 14.2.1-11), 64-bit"
+          }
+        },
+        "E06": {
+          "questions_hash": "04bb0518cba1489c",
+          "dataset_sha256": "37940b4291ebb6c6",
+          "engine": {
+            "runtime": "embedded",
+            "version": "v1.5.6"
+          }
+        }
+      },
+      "ignored_shell_secrets": null
+    },
+    "rules_calibration": {
+      "protocol": "primary",
+      "split": "calibration",
+      "context_level": "common_fit",
+      "pilot": false,
+      "tracks": {
+        "rules_only": "OK"
+      },
+      "cases": {
+        "E01": {
+          "questions_hash": "347e32838483402b",
+          "dataset_sha256": "437f0cb6df5527ab",
+          "engine": {
+            "runtime": "native_tarball",
+            "version": "opensearch 3.9.0"
+          }
+        },
+        "E02": {
+          "questions_hash": "2502c6fa1ba51f0a",
+          "dataset_sha256": "44b0f8b3d184a702",
+          "engine": {
+            "runtime": "embedded",
+            "version": "26.9.2.1"
+          }
+        },
+        "E03": {
+          "questions_hash": "33c5861d6abc929c",
+          "dataset_sha256": "38e0aa0a1451c6f4",
+          "engine": {
+            "runtime": "embedded",
+            "version": "PostgreSQL 18.4 on x86_64-pc-linux-gnu, compiled by gcc (GCC) 14.2.1 20250110 (Red Hat 14.2.1-11), 64-bit"
+          }
+        },
+        "E04": {
+          "questions_hash": "d99c4bda1cb91003",
+          "dataset_sha256": "9a364084e87dae2b",
+          "engine": {
+            "runtime": "native_tarball",
+            "version": "Neo4j Kernel 5.26.32 community"
+          }
+        },
+        "E05": {
+          "questions_hash": "89cd131edeab9ace",
+          "dataset_sha256": "1cad69228e12bea9",
+          "engine": {
+            "runtime": "embedded",
+            "version": "PostgreSQL 18.4 on x86_64-pc-linux-gnu, compiled by gcc (GCC) 14.2.1 20250110 (Red Hat 14.2.1-11), 64-bit"
+          }
+        },
+        "E06": {
+          "questions_hash": "04bb0518cba1489c",
+          "dataset_sha256": "37940b4291ebb6c6",
+          "engine": {
+            "runtime": "embedded",
+            "version": "v1.5.6"
+          }
+        }
+      },
+      "ignored_shell_secrets": null
+    }
+  },
+  "remote_ledger": {
+    "attempts": 11384,
+    "usd_total": 0.504446,
+    "statuses": {
+      "http_403": 10,
+      "ok": 11374
+    }
+  },
+  "hardware": "results/hardware.json",
+  "latency": [
+    "jev_114_remote.json",
+    "laya_routed_cpu.json",
+    "laya_routed_cuda.json"
+  ]
+}

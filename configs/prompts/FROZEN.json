@@ -1,0 +1,53 @@
+{
+  "frozen_at": "2026-10-19T14:18:53+07:00",
+  "cases": {
+    "E01": {
+      "questions_version": "e01-v1",
+      "questions_hash": "347e32838483402b4fcd07eaaf36db19119d0f708a170a584a1acc039d859f0b",
+      "datasets": {
+        "common_fit": "44292f8cfa5b5a0ac11a732d055ab84377ade7ff248a42a1881cb078c385d899",
+        "natural_long": "6980eff25b4aa063e17d663d8f35fcb611f19de390a4db008a22644979a5deca"
+      }
+    },
+    "E02": {
+      "questions_version": "e02-v1",
+      "questions_hash": "2502c6fa1ba51f0ae9ba591c4af5d002dae24d3c3257e85bce6cbd5e262a582b",
+      "datasets": {
+        "common_fit": "6f706b5411cb708d52355635ebec3b7d09a9b9c3407cae4151f1a3f366338b8f",
+        "natural_long": "96e8e2f79e8e6de908f2de74e47d96334ef4446a0f5fef16daeda79caa493068"
+      }
+    },
+    "E03": {
+      "questions_version": "e03-v1",
+      "questions_hash": "33c5861d6abc929cfc6a45539d2c27f0b765bfa3622b68509dafee280b916be7",
+      "datasets": {
+        "common_fit": "d54127d180dfa9eba4239ac5d12937cc4afe26417703e88167ba06b40237c747",
+        "natural_long": "9574be0a864ea58ce5a4ad1694e46c26e0d5dd075ea759480f83fbb4be0f1ca6"
+      }
+    },
+    "E04": {
+      "questions_version": "e04-v1",
+      "questions_hash": "d99c4bda1cb9100302ebf05499c6063fd483cc2391e16651e770a644ec16f14e",
+      "datasets": {
+        "common_fit": "0e9507a8762657888a47925c9f9ab934824ef85c6318da55b3d5ac47d6d88de6",
+        "natural_long": "7fadabbc45b367825af07e03f92a0b32635d85e9c2b6e87bed86073f06dde69f"
+      }
+    },
+    "E05": {
+      "questions_version": "e05-v1",
+      "questions_hash": "89cd131edeab9ace38dcdbbdd273c5fbbbbc31d3e17e297868668724e4011935",
+      "datasets": {
+        "common_fit": "40135d30a9cba48958c7a781c9c65c847482cfcbc22687c363b47877e11bcadd",
+        "natural_long": "79f8243c13e1409fc79b3a9c84cdd4c8baf4ffac315696c77a85155bbb1d3792"
+      }
+    },
+    "E06": {
+      "questions_version": "e06-v1",
+      "questions_hash": "04bb0518cba1489c113344ef45cccc00349833ed33d3ea72269af1147b621fa7",
+      "datasets": {
+        "common_fit": "36c0959e5560c199e30765b0cbfb0a94d8cc2b395a84967869b96d5c2ebf08c2",
+        "natural_long": "9fe08bd965244df9dd7d66ba7270229dfab34a64fb0e02c03502ecfe674756d4"
+      }
+    }
+  }
+}

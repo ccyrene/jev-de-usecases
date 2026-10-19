@@ -1,0 +1,71 @@
+case: E06
+version: e06-v1
+questions:
+  intent_type:
+    type: choice
+    instructions:
+      en: "What type of analytic request is this?"
+      th: "คำขอวิเคราะห์ข้อมูลนี้เป็นประเภทใด"
+    criteria:
+      aggregation:
+        en: "One total, count or average over filtered rows"
+        th: "ค่ารวม จำนวน หรือค่าเฉลี่ยค่าเดียวจากแถวที่กรองแล้ว"
+      filtered_lookup:
+        en: "List the rows that match conditions"
+        th: "แสดงรายการแถวที่ตรงตามเงื่อนไข"
+      join_analysis:
+        en: "Breakdown that needs several tables joined"
+        th: "สรุปแยกกลุ่มที่ต้องเชื่อมหลายตาราง"
+      time_series:
+        en: "Metric per day, week or month"
+        th: "ตัวชี้วัดรายวัน รายสัปดาห์ หรือรายเดือน"
+      ranking:
+        en: "Top or bottom N by a metric"
+        th: "N อันดับสูงสุดหรือต่ำสุดตามตัวชี้วัด"
+      unsupported_or_ambiguous:
+        en: "Unclear request or not answerable from the schema"
+        th: "คำขอไม่ชัดเจนหรือตอบจากสคีมานี้ไม่ได้"
+  candidate_verdict:
+    type: choice
+    instructions:
+      en: "Judge the candidate SQL against the request."
+      th: "ประเมิน SQL ที่เสนอเทียบกับคำขอ"
+    criteria:
+      semantically_correct:
+        en: "Safe, runs, and gives the right answer on any data"
+        th: "ปลอดภัย รันได้ และให้คำตอบถูกต้องกับข้อมูลใดก็ได้"
+      semantically_wrong:
+        en: "Runs or fails, but does not answer the request"
+        th: "รันได้หรือล้มเหลว แต่ไม่ตอบคำขอ"
+      insufficient_specification:
+        en: "Request is too vague to judge any SQL"
+        th: "คำขอคลุมเครือเกินกว่าจะตัดสิน SQL ใดๆ"
+      unsafe_or_unexecutable:
+        en: "Not read-only, not a single SELECT, or unparseable"
+        th: "ไม่ใช่แบบอ่านอย่างเดียว ไม่ใช่ SELECT เดียว หรือแยกวิเคราะห์ไม่ได้"
+  candidate_quality:
+    type: score
+    instructions:
+      en: "Rate how well the candidate meets the request intent."
+      th: "ให้คะแนนว่า SQL ที่เสนอตรงกับเจตนาของคำขอเพียงใด"
+    criteria:
+      - en: "Unusable: blocked, unsafe, or fails"
+        th: "ใช้ไม่ได้: ถูกบล็อก ไม่ปลอดภัย หรือล้มเหลว"
+      - en: "Weak: runs but mostly wrong"
+        th: "อ่อน: รันได้แต่ผิดเป็นส่วนใหญ่"
+      - en: "Partly meets intent"
+        th: "ตรงเจตนาบางส่วน"
+      - en: "Meets intent with a minor issue"
+        th: "ตรงเจตนา แต่มีข้อบกพร่องเล็กน้อย"
+      - en: "Fully correct"
+        th: "ถูกต้องสมบูรณ์"
+  needs_clarification:
+    type: noul
+    instructions:
+      en: "Should the user be asked to clarify before any query runs?"
+      th: "ควรถามผู้ใช้ให้ชี้แจงก่อนรันคิวรีใดๆ หรือไม่"
+  candidate_safe_to_consider:
+    type: noul
+    instructions:
+      en: "Is the candidate a single read-only SELECT worth reviewing?"
+      th: "SQL ที่เสนอเป็น SELECT เดียวแบบอ่านอย่างเดียวที่ควรพิจารณาหรือไม่"

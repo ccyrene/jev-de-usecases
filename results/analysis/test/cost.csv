@@ -1,0 +1,8 @@
+model_track,basis,requests,input_tokens,usd_total,usd_per_1000_scenario_decisions,usd_per_1000_valid_questions,price_usd_per_million_input_tokens,sustained_decisions_per_hour
+jev_114,measured billed input tokens,2402,2423321.0,0.101779482,0.042372806827643626,0.012706552059925094,0.042,
+laya_en_fixed,"ASSUMED host price 0.5 USD/h, sequential warm throughput",2402,,,0.021643007843802468,,,23102.149368909293
+laya_en_fixed,"ASSUMED host price 1.0 USD/h, sequential warm throughput",2402,,,0.043286015687604935,,,23102.149368909293
+laya_multi_fixed,"ASSUMED host price 0.5 USD/h, sequential warm throughput",2402,,,0.009519050048106947,,,52526.24972797942
+laya_multi_fixed,"ASSUMED host price 1.0 USD/h, sequential warm throughput",2402,,,0.019038100096213893,,,52526.24972797942
+laya_routed,"ASSUMED host price 0.5 USD/h, sequential warm throughput",2402,,,0.014003334745468603,,,35705.780736391884
+laya_routed,"ASSUMED host price 1.0 USD/h, sequential warm throughput",2402,,,0.028006669490937205,,,35705.780736391884

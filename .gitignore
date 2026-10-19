@@ -1,0 +1,48 @@
+# Secrets: only the template is versioned
+.env
+.env.*
+!.env.example
+
+# Python
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.coverage
+htmlcov/
+*.egg-info/
+build/
+dist/
+
+# Generated synthetic data and DB files (regenerate with the seed)
+data/generated/*
+!data/generated/.gitkeep
+data/snapshots/*
+!data/snapshots/.gitkeep
+*.duckdb
+*.duckdb.wal
+
+# Raw model responses and run logs
+results/raw/
+*.log
+
+# Local model caches / checkpoints
+.hf-cache/
+*.safetensors
+
+# OS / editor
+.DS_Store
+Thumbs.db
+desktop.ini
+.vscode/
+.idea/
+
+# Large per-run prediction logs (consolidated copies live in results/*.parquet); tool state
+results/runs/*/predictions.jsonl
+results/analysis/*/predictions.parquet
+.claude/*.lock
+
+# Original, unredacted copy of the study contract (kept local)
+PLAN.original.md
