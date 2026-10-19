@@ -218,8 +218,9 @@ flowchart LR
 
 ## Results
 
-All figures come from `python -m debench.figures`, which reads `results/analysis/test/`. Laya
-appears in blue (circle), Jev in orange (square) and rules in green (diamond).
+All figures come from `python -m debench.figures`, which reads `results/analysis/test/`. Colours
+are fixed per model in every chart: Laya blue, Jev orange, rules green. Black whiskers are 95%
+confidence intervals, and the number on each bar is its value.
 
 ### Head-to-head quality and language
 

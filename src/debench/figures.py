@@ -14,6 +14,8 @@ import json
 from pathlib import Path
 
 import matplotlib
+import matplotlib.colors
+import matplotlib.patches
 
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt  # noqa: E402
@@ -33,12 +35,14 @@ COLOR = {"laya_routed": "#2a78d6", "jev_114": "#eb6834", "rules_only": "#1baf7a"
 MARKER = {"laya_routed": "o", "jev_114": "s", "rules_only": "D", "laya_en_fixed": "^", "laya_multi_fixed": "v"}
 NAME = {"laya_routed": "Laya (router)", "jev_114": "Jev 1.14.0", "rules_only": "Rules baseline",
         "laya_en_fixed": "Laya English ckpt", "laya_multi_fixed": "Laya multilingual ckpt"}
+VALUE_INK = "#4a4a46"
 SEQ = LinearSegmentedColormap.from_list("blue_seq", ["#cde2fb", "#86b6ef", "#3987e5", "#1c5cab", "#0d366b"])
 PRIMARY = {"E01": "failure_family", "E02": "anomaly_family", "E03": "drift_impact",
            "E04": "impact_tier", "E05": "data_class", "E06": "candidate_verdict"}
 CASE_LABEL = {"E01": "E01 failure triage", "E02": "E02 data quality", "E03": "E03 schema drift",
               "E04": "E04 lineage impact", "E05": "E05 PII class", "E06": "E06 SQL verdict"}
 LANGS = (("en_en", "English"), ("th_th", "Thai"))
+CASE_TICK = {c: lab.replace(" ", "\n", 1) for c, lab in CASE_LABEL.items()}
 
 plt.rcParams.update({
     "font.size": 10, "axes.edgecolor": GRID, "axes.labelcolor": MUTED, "xtick.color": MUTED,
@@ -57,15 +61,60 @@ def _style(ax, grid_axis: str = "x") -> None:
         ax.tick_params(axis="y", length=0)
 
 
-def _dot(ax, x, y, track, label=True, size=60, filled=True):
-    ax.scatter(x, y, s=size, marker=MARKER[track], color=COLOR[track] if filled else SURFACE,
-               edgecolors=COLOR[track] if not filled else SURFACE, linewidths=2, zorder=3,
-               label=NAME[track] if label else None)
+def _tint(color: str, amount: float = 0.55) -> str:
+    """Lighter shade of the same hue (mixed toward the surface)."""
+    c = np.array(matplotlib.colors.to_rgb(color))
+    base = np.array(matplotlib.colors.to_rgb(SURFACE))
+    return matplotlib.colors.to_hex(c + (base - c) * amount)
 
 
-def _interval(ax, lo, hi, y, track):
-    if pd.notna(lo) and pd.notna(hi):
-        ax.plot([lo, hi], [y, y], color=COLOR[track], lw=2, solid_capstyle="round", zorder=2)
+def _grouped_bars(ax, labels, series, horizontal=False, fmt="{:.2f}", show_values=True):
+    """Side-by-side bars per label. ``series``: dicts with label, color, values and optional lo/hi (CI)."""
+    width = 0.8 / len(series)
+    idx = np.arange(len(labels))
+    for k, ser in enumerate(series):
+        pos = idx - 0.4 + width * (k + 0.5)
+        vals = np.asarray(ser["values"], float)
+        err = None
+        if ser.get("lo") is not None:
+            lo, hi = np.asarray(ser["lo"], float), np.asarray(ser["hi"], float)
+            err = np.clip(np.nan_to_num(np.vstack([vals - lo, hi - vals]), nan=0.0), 0, None)
+        kw = dict(color=ser["color"], edgecolor=SURFACE, linewidth=1.5, label=ser["label"], zorder=2,
+                  error_kw=dict(ecolor=INK, elinewidth=1, capsize=2, zorder=3))
+        if horizontal:
+            ax.barh(pos, np.nan_to_num(vals), height=width, xerr=err, **kw)
+        else:
+            ax.bar(pos, np.nan_to_num(vals), width=width, yerr=err, **kw)
+        if not show_values:
+            continue
+        ends_hi = vals if err is None else vals + err[1]
+        ends_lo = vals if err is None else vals - err[0]
+        for pp, v, e_hi, e_lo in zip(pos, vals, ends_hi, ends_lo):
+            if np.isnan(v):
+                continue
+            neg = v < 0
+            anchor = e_lo if neg else e_hi
+            text = fmt(v) if callable(fmt) else fmt.format(v)
+            if horizontal:
+                ax.annotate(text, (anchor, pp), xytext=(-3 if neg else 3, 0), textcoords="offset points",
+                            ha="right" if neg else "left", va="center", fontsize=7.5, color=VALUE_INK)
+            else:
+                ax.annotate(text, (pp, anchor), xytext=(0, -3 if neg else 2), textcoords="offset points",
+                            ha="center", va="top" if neg else "bottom", fontsize=7.5, color=VALUE_INK)
+    if horizontal:
+        ax.set_yticks(idx, labels)
+        if not ax.yaxis_inverted():  # panels with a shared y axis must not flip it twice
+            ax.invert_yaxis()
+    else:
+        ax.set_xticks(idx, labels)
+
+
+def _signed(v: float) -> str:
+    return "0.00" if abs(v) < 0.005 else f"{v:+.2f}"
+
+
+def _series(track, values, lo=None, hi=None, label=None, color=None):
+    return {"label": label or NAME[track], "color": color or COLOR[track], "values": values, "lo": lo, "hi": hi}
 
 
 def _finish(fig, title: str, name: str, legend_axes=None, ncol: int = 3, top: float = 1.02) -> str:
@@ -86,128 +135,123 @@ def _primary(df: pd.DataFrame) -> pd.DataFrame:
     return df[df.apply(lambda r: PRIMARY.get(r["experiment_id"]) == r["question_id"], axis=1)]
 
 
-def _case_axis(ax, cases):
-    ax.set_yticks(range(len(cases)), [CASE_LABEL[c] for c in cases])
-    for i in range(len(cases)):
-        ax.axhline(i, color=GRID, lw=1, zorder=0)
-
-
 # --------------------------------------------------------------------------------------- figures
+
+def _pick(df: pd.DataFrame, **eq) -> pd.Series | None:
+    m = np.ones(len(df), bool)
+    for k, v in eq.items():
+        m &= (df[k] == v).to_numpy()
+    sub = df[m]
+    return None if sub.empty else sub.iloc[0]
+
+
+def _col(df: pd.DataFrame, rows: list[dict], col: str) -> list[float]:
+    out = []
+    for eq in rows:
+        r = _pick(df, **eq)
+        out.append(np.nan if r is None or pd.isna(r.get(col)) else float(r[col]))
+    return out
+
 
 def fig_quality(s: pd.DataFrame) -> str:
     s = _primary(s)
-    cases = list(PRIMARY)[::-1]
-    fig, axes = plt.subplots(1, 2, figsize=(10, 4.2), sharey=True)
+    cases = list(PRIMARY)
+    fig, axes = plt.subplots(2, 1, figsize=(11, 7.6), sharex=True)
     for ax, (variant, lang) in zip(axes, LANGS):
-        _case_axis(ax, cases)
-        for i, case in enumerate(cases):
-            for track in ("rules_only", "laya_routed", "jev_114"):
-                r = s[(s.experiment_id == case) & (s.variant == variant) & (s.model_track == track)]
-                if r.empty:
-                    continue
-                r = r.iloc[0]
-                if track != "rules_only":
-                    _interval(ax, r.get("macro_f1_ci_low"), r.get("macro_f1_ci_high"), i, track)
-                _dot(ax, r.macro_f1, i, track, label=i == 0)
-        ax.set_xlim(0, 1.03)
+        series = []
+        for track in ("rules_only", "laya_routed", "jev_114"):
+            rows = [dict(experiment_id=c, variant=variant, model_track=track) for c in cases]
+            ci = track != "rules_only"
+            series.append(_series(track, _col(s, rows, "macro_f1"),
+                                  _col(s, rows, "macro_f1_ci_low") if ci else None,
+                                  _col(s, rows, "macro_f1_ci_high") if ci else None))
+        _grouped_bars(ax, [CASE_TICK[c] for c in cases], series)
+        ax.set_ylim(0, 1.12)
+        ax.set_ylabel("macro-F1")
         ax.set_title(lang, loc="left", fontsize=11)
-        ax.set_xlabel("macro-F1, primary choice question (lines: 95% CI)")
-        _style(ax)
-    return _finish(fig, "1 · Decision quality by use case (test, n = 200 per case and language)", "01_quality_primary.png")
+        _style(ax, "y")
+    return _finish(fig, "1 · Decision quality by use case (primary choice question; whiskers = 95% CI; n = 200)",
+                   "01_quality_primary.png")
 
 
 def fig_head_to_head(d: pd.DataFrame) -> str:
     d = _primary(d)
     d = d[(d.track_a == "laya_routed") & (d.metric == "macro_f1")]
-    cases = list(PRIMARY)[::-1]
-    fig, axes = plt.subplots(1, 2, figsize=(10, 3.8), sharey=True, sharex=True)
-    for ax, (variant, lang) in zip(axes, LANGS):
-        _case_axis(ax, cases)
-        ax.axvline(0, color=MUTED, lw=1)
-        for i, case in enumerate(cases):
-            r = d[(d.experiment_id == case) & (d.variant == variant)]
-            if r.empty:
-                continue
-            r = r.iloc[0]
-            ax.plot([r.ci_low, r.ci_high], [i, i], color=INK, lw=2, solid_capstyle="round")
-            ax.scatter(r.delta, i, s=60, color=INK, edgecolors=SURFACE, linewidths=2, zorder=3)
-        ax.set_xlim(-1, 0.25)
-        ax.set_title(lang, loc="left", fontsize=11)
-        ax.set_xlabel("Δ macro-F1 = Laya (router) − Jev  (< 0 favours Jev)")
-        _style(ax)
-    return _finish(fig, "2 · Paired head-to-head difference with 95% scenario-bootstrap CI", "02_head_to_head_delta.png")
+    cases = list(PRIMARY)
+    fig, ax = plt.subplots(figsize=(9, 4.6))
+    series = []
+    for (variant, lang), color in zip(LANGS, ("#55544f", "#a9a89f")):
+        rows = [dict(experiment_id=c, variant=variant) for c in cases]
+        series.append(_series("jev_114", _col(d, rows, "delta"), _col(d, rows, "ci_low"), _col(d, rows, "ci_high"),
+                              label=lang, color=color))
+    _grouped_bars(ax, [CASE_LABEL[c] for c in cases], series, horizontal=True, fmt=_signed)
+    ax.axvline(0, color=MUTED, lw=1)
+    ax.set_xlim(-1.05, 0.1)
+    ax.set_xlabel("Δ macro-F1 = Laya (router) − Jev   (negative = Jev better)")
+    _style(ax)
+    return _finish(fig, "2 · Paired head-to-head difference (whiskers = 95% scenario-bootstrap CI)",
+                   "02_head_to_head_delta.png", ncol=2)
 
 
 def fig_language_gap(g: pd.DataFrame) -> str:
     g = _primary(g)
     g = g[g.metric == "macro_f1"]
-    cases = list(PRIMARY)[::-1]
-    fig, ax = plt.subplots(figsize=(7.5, 4))
-    _case_axis(ax, cases)
+    cases = list(PRIMARY)
+    fig, ax = plt.subplots(figsize=(9, 4.6))
+    series = []
+    for track in ("laya_routed", "jev_114"):
+        rows = [dict(experiment_id=c, model_track=track) for c in cases]
+        series.append(_series(track, _col(g, rows, "delta"), _col(g, rows, "ci_low"), _col(g, rows, "ci_high")))
+    _grouped_bars(ax, [CASE_LABEL[c] for c in cases], series, horizontal=True, fmt=_signed)
     ax.axvline(0, color=MUTED, lw=1)
-    for track, off in (("laya_routed", 0.15), ("jev_114", -0.15)):
-        for i, case in enumerate(cases):
-            r = g[(g.experiment_id == case) & (g.model_track == track)]
-            if r.empty:
-                continue
-            r = r.iloc[0]
-            _interval(ax, r.ci_low, r.ci_high, i + off, track)
-            _dot(ax, r.delta, i + off, track, label=i == 0)
-    ax.set_xlabel("Thai − English macro-F1, same scenarios (< 0: worse in Thai)")
+    ax.set_xlim(-0.7, 0.4)
+    ax.set_xlabel("Thai − English macro-F1 on the same scenarios   (negative = worse in Thai)")
     _style(ax)
-    return _finish(fig, "3 · Language gap within each model", "03_language_gap.png", ncol=2)
+    return _finish(fig, "3 · Language gap within each model (whiskers = 95% CI)", "03_language_gap.png", ncol=2)
 
 
 def fig_score_noul(s: pd.DataFrame) -> str:
     s = s[(s.protocol == "primary") & (s.context_level == "common_fit")]
-    score = s[s.primitive == "score"]
-    noul = s[s.primitive == "noul"]
-    sq = sorted({(r.experiment_id, r.question_id) for r in score.itertuples()}, reverse=True)
-    nq = sorted({(r.experiment_id, r.question_id) for r in noul.itertuples()}, reverse=True)
-    fig, axes = plt.subplots(2, 2, figsize=(11, 7.2), gridspec_kw={"height_ratios": [len(sq), len(nq)]})
+    score, noul = s[s.primitive == "score"], s[s.primitive == "noul"]
+    sq = sorted({(r.experiment_id, r.question_id) for r in score.itertuples()})
+    nq = sorted({(r.experiment_id, r.question_id) for r in noul.itertuples()})
+    fig, axes = plt.subplots(2, 2, figsize=(12, 9), gridspec_kw={"height_ratios": [len(sq), len(nq)]})
     for col, (variant, lang) in enumerate(LANGS):
-        for row, (data, qs, metric, xlabel, xlim) in enumerate((
-            (score, sq, "mae_expected", "expected-level MAE (lower is better)", (0, 2.2)),
-            (noul, nq, "auroc", "AUROC (higher is better; 0.5 = chance)", (0, 1.02)),
+        for row, (data, qs, metric, xlabel, xlim, title) in enumerate((
+            (score, sq, "mae_expected", "expected-level MAE (lower is better)", (0, 1.9), "score questions"),
+            (noul, nq, "auroc", "AUROC (higher is better; dotted line = chance)", (0, 1.12), "yes/no (noul) questions"),
         )):
             ax = axes[row, col]
-            ax.set_yticks(range(len(qs)), [f"{c} {q}" for c, q in qs])
-            for i, (case, qid) in enumerate(qs):
-                ax.axhline(i, color=GRID, lw=1, zorder=0)
-                for track in ("laya_routed", "jev_114"):
-                    r = data[(data.experiment_id == case) & (data.question_id == qid) & (data.variant == variant)
-                             & (data.model_track == track)]
-                    if not r.empty and pd.notna(r.iloc[0].get(metric)):
-                        _dot(ax, r.iloc[0][metric], i, track, label=(i == 0 and row == 0))
+            series = []
+            for track in ("laya_routed", "jev_114"):
+                rows = [dict(experiment_id=c, question_id=q, variant=variant, model_track=track) for c, q in qs]
+                series.append(_series(track, _col(data, rows, metric)))
+            _grouped_bars(ax, [f"{c} {q}" for c, q in qs], series, horizontal=True)
             if metric == "auroc":
                 ax.axvline(0.5, color=MUTED, lw=1, ls=":")
             ax.set_xlim(*xlim)
             ax.set_xlabel(xlabel)
-            ax.set_title(f"{lang} — {'score questions' if row == 0 else 'yes/no (noul) questions'}", loc="left", fontsize=11)
+            ax.set_title(f"{lang} — {title}", loc="left", fontsize=11)
             _style(ax)
     return _finish(fig, "4 · Ordinal and yes/no questions", "04_score_noul.png", legend_axes=axes[0, 0], ncol=2)
 
 
 def fig_checkpoints(s: pd.DataFrame) -> str:
     s = _primary(s)
-    cases = list(PRIMARY)[::-1]
-    tracks = ("laya_en_fixed", "laya_multi_fixed", "laya_routed", "jev_114")
-    fig, axes = plt.subplots(1, 2, figsize=(10, 4.2), sharey=True)
+    cases = list(PRIMARY)
+    fig, axes = plt.subplots(2, 1, figsize=(11, 7.6), sharex=True)
     for ax, (variant, lang) in zip(axes, LANGS):
-        _case_axis(ax, cases)
-        # Dodge vertically: the router's value equals the checkpoint it picked, so markers would overlap.
-        offsets = dict(zip(tracks, (0.24, 0.08, -0.08, -0.24)))
-        for i, case in enumerate(cases):
-            for track in tracks:
-                r = s[(s.experiment_id == case) & (s.variant == variant) & (s.model_track == track)]
-                if not r.empty:
-                    size = 75 if MARKER[track] in "^v" else 55
-                    _dot(ax, r.iloc[0].macro_f1, i + offsets[track], track, label=i == 0, size=size)
-        ax.set_xlim(0, 1.03)
+        series = []
+        for track in ("laya_en_fixed", "laya_multi_fixed", "laya_routed", "jev_114"):
+            rows = [dict(experiment_id=c, variant=variant, model_track=track) for c in cases]
+            series.append(_series(track, _col(s, rows, "macro_f1")))
+        _grouped_bars(ax, [CASE_TICK[c] for c in cases], series)
+        ax.set_ylim(0, 1.08)
+        ax.set_ylabel("macro-F1")
         ax.set_title(lang, loc="left", fontsize=11)
-        ax.set_xlabel("macro-F1, primary choice question")
-        _style(ax)
-    return _finish(fig, "5 · P3 checkpoint ablation: fixed Laya checkpoints vs router vs Jev", "05_checkpoints_p3.png", ncol=4)
+        _style(ax, "y")
+    return _finish(fig, "5 · P3 checkpoint ablation: fixed Laya checkpoints vs router vs Jev", "05_checkpoints_p3.png",
+                   ncol=4)
 
 
 def _choice_rows(p: pd.DataFrame) -> pd.DataFrame:
@@ -276,20 +320,20 @@ def fig_order_robustness(r: pd.DataFrame) -> str:
     r = r[r.variant.str.endswith(("perm1", "perm2"))]
     r = r[r.apply(lambda x: PRIMARY.get(x.experiment_id) == x.question_id, axis=1)]
     agg = r.groupby(["model_track", "experiment_id", "language"], as_index=False).flip_rate.mean()
-    cases = list(PRIMARY)[::-1]
-    fig, axes = plt.subplots(1, 2, figsize=(10, 3.8), sharey=True, sharex=True)
-    for ax, (lang_code, lang) in zip(axes, (("en", "English"), ("th", "Thai"))):
-        _case_axis(ax, cases)
-        for i, case in enumerate(cases):
-            for track in ("laya_routed", "jev_114"):
-                v = agg[(agg.model_track == track) & (agg.experiment_id == case) & (agg.language == lang_code)]
-                if not v.empty:
-                    _dot(ax, v.iloc[0].flip_rate * 100, i, track, label=i == 0)
+    agg["pct"] = agg.flip_rate * 100
+    cases = list(PRIMARY)
+    fig, axes = plt.subplots(1, 2, figsize=(11, 4.4), sharey=True)
+    for ax, (code, lang) in zip(axes, (("en", "English"), ("th", "Thai"))):
+        series = []
+        for track in ("laya_routed", "jev_114"):
+            rows = [dict(experiment_id=c, language=code, model_track=track) for c in cases]
+            series.append(_series(track, _col(agg, rows, "pct")))
+        _grouped_bars(ax, [CASE_LABEL[c] for c in cases], series, horizontal=True, fmt="{:.0f}%")
         ax.set_xlim(0, 45)
-        ax.set_xlabel("% of answers that change when only option order changes")
+        ax.set_xlabel("% of answers that change when only the option order changes")
         ax.set_title(lang, loc="left", fontsize=11)
         _style(ax)
-    return _finish(fig, "8 · P5 option-order sensitivity (same options, 2 shared permutations)",
+    return _finish(fig, "8 · P5 option-order sensitivity (lower is better; 2 shared permutations)",
                    "08_option_order_p5.png", ncol=2)
 
 
@@ -328,33 +372,26 @@ def fig_cross_language(s: pd.DataFrame) -> str:
 def fig_context(s: pd.DataFrame) -> str:
     s = s[(s.protocol == "primary")]
     s = s[s.apply(lambda r: PRIMARY.get(r.experiment_id) == r.question_id, axis=1)]
-    rows = [(c, v) for c in list(PRIMARY)[::-1] for v in ("th_th", "en_en")]
-    fig, axes = plt.subplots(1, 2, figsize=(10, 5.2), sharey=True)
-    for ax, track in zip(axes, ("laya_routed", "jev_114")):
-        ax.set_yticks(range(len(rows)), [f"{CASE_LABEL[c]} · {'EN' if v == 'en_en' else 'TH'}" for c, v in rows], fontsize=9)
-        for i, (case, variant) in enumerate(rows):
-            ax.axhline(i, color=GRID, lw=1, zorder=0)
-            vals = {}
-            for ctx in ("common_fit", "natural_long"):
-                r = s[(s.model_track == track) & (s.experiment_id == case) & (s.variant == variant) & (s.context_level == ctx)]
-                if not r.empty:
-                    vals[ctx] = r.iloc[0].macro_f1
-            if len(vals) == 2:
-                ax.plot([vals["common_fit"], vals["natural_long"]], [i, i], color=COLOR[track], lw=2, alpha=0.6)
-            if "common_fit" in vals:
-                ax.scatter(vals["common_fit"], i, s=55, marker=MARKER[track], color=SURFACE, edgecolors=COLOR[track],
-                           linewidths=2, zorder=3)
-            if "natural_long" in vals:
-                ax.scatter(vals["natural_long"], i, s=55, marker=MARKER[track], color=COLOR[track], edgecolors=SURFACE,
-                           linewidths=2, zorder=4)
-        ax.set_xlim(0, 1.03)
-        ax.set_xlabel("macro-F1, primary choice question")
-        ax.set_title(NAME[track], loc="left", fontsize=11)
-        _style(ax)
-    key = [plt.Line2D([], [], ls="", marker="o", ms=8, mfc=SURFACE, mec=MUTED, mew=2, label="compact evidence (common_fit)"),
-           plt.Line2D([], [], ls="", marker="o", ms=8, mfc=MUTED, mec=SURFACE, mew=2, label="long evidence (natural_long)")]
-    fig.legend(handles=key, loc="upper center", ncol=2, bbox_to_anchor=(0.5, 1.03))
-    fig.suptitle("10 · P7 context length per model", x=0.01, y=1.09, ha="left", fontsize=12)
+    cases = list(PRIMARY)
+    fig, axes = plt.subplots(2, 2, figsize=(12, 7.4), sharey=True)
+    for row, track in enumerate(("laya_routed", "jev_114")):
+        for col, (variant, lang) in enumerate(LANGS):
+            ax = axes[row, col]
+            series = []
+            for ctx, color, label in (("common_fit", _tint(COLOR[track]), "compact evidence"),
+                                      ("natural_long", COLOR[track], "long evidence")):
+                rows = [dict(experiment_id=c, variant=variant, model_track=track, context_level=ctx) for c in cases]
+                series.append(_series(track, _col(s, rows, "macro_f1"), label=label, color=color))
+            _grouped_bars(ax, [c for c in cases], series)
+            ax.set_ylim(0, 1.1)
+            ax.set_ylabel("macro-F1")
+            ax.set_title(f"{NAME[track]} · {lang}", loc="left", fontsize=11)
+            _style(ax, "y")
+    key = [matplotlib.patches.Patch(color=_tint(MUTED), label="compact evidence (common_fit)"),
+           matplotlib.patches.Patch(color=MUTED, label="long evidence (natural_long)")]
+    fig.legend(handles=key, loc="upper center", ncol=2, bbox_to_anchor=(0.5, 1.02))
+    fig.suptitle("10 · P7 context length (light bar = compact, dark bar = long; colour = model)",
+                 x=0.01, y=1.08, ha="left", fontsize=12)
     fig.tight_layout()
     fig.savefig(OUT / "10_context_p7.png", dpi=150, bbox_inches="tight")
     plt.close(fig)
@@ -367,43 +404,42 @@ def fig_sufficiency(a: pd.DataFrame) -> str:
     a = a.assign(correct=a.effective_accuracy * a.n)
     agg = a.groupby(["model_track", "variant", "evidence_sufficiency"], as_index=False)[["correct", "n"]].sum()
     agg["acc"] = agg.correct / agg.n
-    levels = ["insufficient", "ambiguous", "sufficient"]
-    fig, axes = plt.subplots(1, 2, figsize=(10, 3.2), sharey=True)
+    levels = ["sufficient", "ambiguous", "insufficient"]
+    fig, axes = plt.subplots(1, 2, figsize=(11, 4), sharey=True)
     for ax, (variant, lang) in zip(axes, LANGS):
-        ax.set_yticks(range(len(levels)), [f"{lv} evidence" for lv in levels])
-        for i, lv in enumerate(levels):
-            ax.axhline(i, color=GRID, lw=1, zorder=0)
-            for track in ("rules_only", "laya_routed", "jev_114"):
-                v = agg[(agg.model_track == track) & (agg.variant == variant) & (agg.evidence_sufficiency == lv)]
-                if not v.empty:
-                    _dot(ax, v.iloc[0].acc, i, track, label=i == 0)
-        ax.set_xlim(0, 1.03)
-        ax.set_xlabel("accuracy, primary choice question (all cases pooled)")
+        series = []
+        for track in ("rules_only", "laya_routed", "jev_114"):
+            rows = [dict(model_track=track, variant=variant, evidence_sufficiency=lv) for lv in levels]
+            series.append(_series(track, _col(agg, rows, "acc")))
+        _grouped_bars(ax, [f"{lv}\nevidence" for lv in levels], series)
+        ax.set_ylim(0, 1.1)
+        ax.set_ylabel("accuracy (all cases pooled)")
         ax.set_title(lang, loc="left", fontsize=11)
-        _style(ax)
-    return _finish(fig, "11 · P9 accuracy by evidence sufficiency", "11_sufficiency_p9.png")
+        _style(ax, "y")
+    return _finish(fig, "11 · P9 accuracy on the primary question by evidence sufficiency", "11_sufficiency_p9.png")
 
 
 def fig_high_risk(h: pd.DataFrame) -> str:
     labels = {"E01": "E01 severe incident rated not blocking", "E03": "E03 breaking change called safe",
               "E04": "E04 critical impact missed", "E05": "E05 identifier called non-personal",
               "E06": "E06 unsafe/wrong SQL accepted"}
-    cases = list(labels)[::-1]
-    fig, axes = plt.subplots(1, 2, figsize=(10.5, 3.8), sharey=True)
+    cases = list(labels)
+    fig, axes = plt.subplots(1, 2, figsize=(12, 4.6), sharey=True)
     for ax, (variant, lang) in zip(axes, LANGS):
-        ax.set_yticks(range(len(cases)), [labels[c] for c in cases])
-        for i, case in enumerate(cases):
-            ax.axhline(i, color=GRID, lw=1, zorder=0)
-            for track, off in (("rules_only", 0.22), ("laya_routed", 0), ("jev_114", -0.22)):
-                r = h[(h.experiment_id == case) & (h.model_track == track) & (h.variant == variant)]
-                if r.empty or not r.iloc[0].n_positive:
+        series = []
+        for track in ("rules_only", "laya_routed", "jev_114"):
+            vals, lo, hi = [], [], []
+            for c in cases:
+                r = _pick(h, experiment_id=c, model_track=track, variant=variant)
+                if r is None or not r.n_positive:
+                    vals.append(np.nan), lo.append(np.nan), hi.append(np.nan)
                     continue
-                r = r.iloc[0]
-                lo, hi = wilson_interval(int(r.misses), int(r.n_positive))
-                _interval(ax, lo * 100, hi * 100, i + off, track)
-                _dot(ax, r.misses / r.n_positive * 100, i + off, track, label=i == 0, size=45)
-        ax.set_xlim(-3, 102)
-        ax.set_xlabel("% of high-risk positives missed (Wilson 95% CI)")
+                a, b = wilson_interval(int(r.misses), int(r.n_positive))
+                vals.append(r.misses / r.n_positive * 100), lo.append(a * 100), hi.append(b * 100)
+            series.append(_series(track, vals, lo, hi))
+        _grouped_bars(ax, [labels[c] for c in cases], series, horizontal=True, fmt="{:.0f}%")
+        ax.set_xlim(0, 118)
+        ax.set_xlabel("% of high-risk positives missed (whiskers = Wilson 95% CI)")
         ax.set_title(lang, loc="left", fontsize=11)
         _style(ax)
     return _finish(fig, "12 · Safety-relevant misses (lower is better)", "12_high_risk.png")

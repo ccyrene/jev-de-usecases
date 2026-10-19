@@ -1,7 +1,7 @@
 # Final report — de-laya-jev-th-en-2026
 
 **Status:** LOCKED EVALUATION  
-**Generated:** 2026-10-19T17:01:23+07:00  
+**Generated:** 2026-10-19T17:08:06+07:00  
 **Analysis:** `results/analysis/test` from runs `test_primary_laya`, `rules_test`, `test_p4_laya`, `test_p5_laya`, `test_p7_long_laya`, `test_primary_jev`, `test_p4_jev`, `test_p5_jev`, `test_p7_long_jev`
 
 ## Key findings (test split, frozen e0X-v1 prompts)
@@ -14,7 +14,7 @@ deployment, zero API spend and lower single-stream latency on a GPU; it is not c
 decision quality zero-shot. Neither model replaces the deterministic DB-backed rules, which read the
 same verified facts that define the gold labels.
 
-![Primary decision quality by use case](figures/macro_f1_by_case.png)
+![Primary decision quality by use case](figures/01_quality_primary.png)
 
 ### RQ1 — quality (primary choice question, macro-F1, attempted denominator)
 
@@ -68,7 +68,7 @@ almost every incident). Per-question results for all score/noul questions are in
   3.8 → 13.8 → 28.5 req/s at concurrency 1/4/8. The unauthenticated round trip to the API host alone
   is ~205 ms, so most of Jev's latency is network.
 
-![Deployment latency](figures/latency_vs_concurrency.png)
+![Deployment latency](figures/14_latency.png)
 - DB evidence retrieval is a separate phase: p50 4–42 ms by engine (dataset card).
 - Cost: Jev billed 2.42 M input tokens for the 2,402 primary test requests = **USD 0.10**
   (USD 0.042 per 1,000 scenario decisions; Thai requests use ~2× the tokens of English). The whole
